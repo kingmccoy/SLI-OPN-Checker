@@ -681,7 +681,7 @@ Public Class FrmMain
         If Not BackgroundWorker1.IsBusy Then
             ReferenceToolStripMenuItem.Enabled = False
             TboxPath.Enabled = False
-            BtnBrowse.Enabled = False
+            BtnBrowse.Enabled = Falsel
             BtnCheck.Enabled = False
             LblPercent.Visible = True
             BackgroundWorker1.RunWorkerAsync()
