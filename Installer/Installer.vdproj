@@ -45,6 +45,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3AF9C9DE98D64356896161C5A8413A71"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_55880B580A233625F684908B873CB5C9"
         "OwnerKey" = "8:_E85F51F2A7084CB49BC134A3BEC32049"
         "MsmSig" = "8:_UNDEFINED"
@@ -329,6 +335,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3AF9C9DE98D64356896161C5A8413A71"
+            {
+            "SourcePath" = "8:..\\sli_icon.ico"
+            "TargetName" = "8:sli_icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_A7D20727C66C45C9B7F58490ED853F5B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_55880B580A233625F684908B873CB5C9"
@@ -656,7 +682,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SLI OPN Checker"
         "ProductCode" = "8:{835B8E32-E63D-4316-A7E2-99404A46D478}"
-        "PackageCode" = "8:{26574CBE-6A3B-45E2-B084-F8B3618AE87A}"
+        "PackageCode" = "8:{E6247CFB-ED40-4C9A-9935-94AEADFD8F06}"
         "UpgradeCode" = "8:{467ADCD7-0B70-4354-A9EC-F7EC42D9593F}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -787,7 +813,7 @@
             "Target" = "8:_E85F51F2A7084CB49BC134A3BEC32049"
             "Folder" = "8:_377F13A5B3664C47880EFFF655EB34A0"
             "WorkingFolder" = "8:_A7D20727C66C45C9B7F58490ED853F5B"
-            "Icon" = "8:"
+            "Icon" = "8:_3AF9C9DE98D64356896161C5A8413A71"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B0D643FD6F1B437BA035D49D48EEDEAC"
@@ -801,7 +827,7 @@
             "Target" = "8:_E85F51F2A7084CB49BC134A3BEC32049"
             "Folder" = "8:_7A1ED51C408C40D39FE53DDB7081B4E1"
             "WorkingFolder" = "8:_A7D20727C66C45C9B7F58490ED853F5B"
-            "Icon" = "8:"
+            "Icon" = "8:_3AF9C9DE98D64356896161C5A8413A71"
             "Feature" = "8:"
             }
         }
