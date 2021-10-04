@@ -682,7 +682,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SLI OPN Checker"
         "ProductCode" = "8:{835B8E32-E63D-4316-A7E2-99404A46D478}"
-        "PackageCode" = "8:{E6247CFB-ED40-4C9A-9935-94AEADFD8F06}"
+        "PackageCode" = "8:{6D0825D9-045C-4209-8C0D-211A1DCAC1F7}"
         "UpgradeCode" = "8:{467ADCD7-0B70-4354-A9EC-F7EC42D9593F}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
