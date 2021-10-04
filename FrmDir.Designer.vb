@@ -83,7 +83,6 @@ Partial Class FrmDir
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Directory"
-        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
