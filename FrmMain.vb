@@ -796,7 +796,7 @@ Public Class FrmMain
                 Using zipToOpen As New FileStream(defSavingPath & "\" & origPath.Name & ".zip", FileMode.Open)
 
                     Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-                        Dim readmeEntry As ZipArchiveEntry = archive.CreateEntry(origPath.Name & "\" & fi.Name)
+                        Dim readmeEntry As ZipArchiveEntry = archive.CreateEntryFromFile(fi.FullName, origPath.Name & "\" & fi.Name)
                         count += 1
                         dev = count / sum
 
@@ -863,7 +863,7 @@ Public Class FrmMain
                     Using zipToOpen As New FileStream(defSavingPath & "\" & origPath.Name & ".zip", FileMode.Open)
 
                         Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-                            Dim readmeEntry As ZipArchiveEntry = archive.CreateEntry(origPath.Name & "\" & fi.Name)
+                            Dim readmeEntry As ZipArchiveEntry = archive.CreateEntryFromFile(fi.FullName, origPath.Name & "\" & fi.Name)
                             count += 1
                             dev = count / sum
 
