@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "c109ec47-b6fb-466e-a094-ba0d58b5b873": {
+      "ProjectGuid": "c109ec47-b6fb-466e-a094-ba0d58b5b873",
+      "DisplayName": "SLI OPN Checker",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
