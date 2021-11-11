@@ -622,7 +622,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_4B0D33596A08457C902BA267A2DACFE8"
             {
-            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -682,7 +682,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SLI OPN Checker"
         "ProductCode" = "8:{FC97E4C4-C600-450C-8529-E9D42F8D0725}"
-        "PackageCode" = "8:{1B9CF5F6-05FE-4A86-8070-7C9C016D000A}"
+        "PackageCode" = "8:{4E51154E-EDCF-4844-B96D-FC6FE8706A7A}"
         "UpgradeCode" = "8:{ADBC7F9E-D628-4589-8988-80370C54FEBA}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -703,7 +703,7 @@
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:2"
+        "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
