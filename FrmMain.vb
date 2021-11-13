@@ -883,10 +883,10 @@ Public Class FrmMain
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
-        LblPercent.Text = "Saving " & e.ProgressPercentage & "% complete"
         ProgressBar1.Visible = True
         ProgressBar1.Maximum = 100
         ProgressBar1.Value = e.ProgressPercentage
+        LblPercent.Text = "Saving " & e.ProgressPercentage & "% complete"
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
