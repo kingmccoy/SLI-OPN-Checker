@@ -8,6 +8,7 @@ Public Class FrmMain
     ReadOnly conn As New SQLiteConnection
     Public ReadOnly strng As New List(Of String)
     Public defSavingPath As String = ToString()
+    Public DefDir As String = ToString()
     Dim dirTrue, defFin, refFin, correct As Boolean
     Public zip As ZipArchive
 
@@ -741,6 +742,9 @@ Public Class FrmMain
                     If reader.HasRows Then
                         defSavingPath = reader("path").ToString
                         dirTrue = True
+                    Else
+                        DefDir = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked"
+                        dirTrue = False
                     End If
                 End Using
             End Using
@@ -823,12 +827,13 @@ Public Class FrmMain
             refFin = True
         Else
             If dirTrue = False Then
-                If Not Directory.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked") Then
-                    Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked")
+                If Not Directory.Exists(DefDir) Then
+                    Directory.CreateDirectory(DefDir)
                 End If
 
-                If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name & ".zip") Then
+                If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
                     MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
+                    TboxPath.Enabled = True
                     BackgroundWorker1.CancelAsync()
                 End If
 
@@ -837,12 +842,12 @@ Public Class FrmMain
                 Dim dev As Double
 
                 startPath = TboxPath.Text
-                zipPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name & ".zip"
+                zipPath = DefDir & "\" & origPath.Name & ".zip"
 
                 'origPath.CreateSubdirectory(origPath.Name)
 
-                Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name)
-                Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name & "\" & origPath.Name)
+                Directory.CreateDirectory(DefDir & "\" & origPath.Name)
+                Directory.CreateDirectory(DefDir & "\" & origPath.Name & "\" & origPath.Name)
 
                 sum = origPath.GetFiles.Count
                 count = 0
@@ -861,7 +866,7 @@ Public Class FrmMain
 
                 For Each f In origPath.GetFiles
                     Dim fi As New FileInfo(f.FullName)
-                    Using zipToOpen As New FileStream(defSavingPath & "\" & origPath.Name & ".zip", FileMode.Open)
+                    Using zipToOpen As New FileStream(DefDir & "\" & origPath.Name & ".zip", FileMode.Open)
 
                         Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
                             Dim readmeEntry As ZipArchiveEntry = archive.CreateEntryFromFile(fi.FullName, origPath.Name & "\" & fi.Name)
@@ -875,7 +880,7 @@ Public Class FrmMain
                 Next
 
                 'ZipFile.CreateFromDirectory(startPath, zipPath)
-                Directory.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name, True)
+                Directory.Delete(DefDir & "\" & origPath.Name, True)
 
                 defFin = True
             End If
@@ -883,10 +888,17 @@ Public Class FrmMain
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+<<<<<<< HEAD
         ProgressBar1.Visible = True
         ProgressBar1.Maximum = 100
         ProgressBar1.Value = e.ProgressPercentage
         LblPercent.Text = "Saving " & e.ProgressPercentage & "% complete"
+=======
+        'LblPercent.Text = "Saving " & e.ProgressPercentage & "% complete"
+        ProgressBar1.Value = e.ProgressPercentage
+        ProgressBar1.Visible = True
+        'ProgressBar1.Maximum = 100
+>>>>>>> f0611d8d643a317d51da17b7cdf289dd553df533
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
