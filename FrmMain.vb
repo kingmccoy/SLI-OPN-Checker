@@ -9,7 +9,7 @@ Public Class FrmMain
     Public ReadOnly strng As New List(Of String)
     Public defSavingPath As String = ToString()
     Public DefDir As String = ToString()
-    Dim dirTrue, defFin, refFin, correct As Boolean
+    Dim dirTrue, defFin, refFin, correct, stp As Boolean
     Public zip As ZipArchive
 
     Private Sub MaterialToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MaterialToolStripMenuItem.Click
@@ -762,6 +762,7 @@ Public Class FrmMain
                 'If BackgroundWorker1.IsBusy Then
                 MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
                 BackgroundWorker1.CancelAsync()
+                stp = True
                 'End If
             End If
 
@@ -833,7 +834,6 @@ Public Class FrmMain
 
                 If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
                     MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
-                    TboxPath.Enabled = True
                     BackgroundWorker1.CancelAsync()
                 End If
 
@@ -888,11 +888,10 @@ Public Class FrmMain
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
-        ProgressBar1.Maximum = 100
-
-        ProgressBar1.Visible = True
-        ProgressBar1.Value = e.ProgressPercentage
         LblPercent.Text = "Saving " & e.ProgressPercentage & "% complete"
+        ProgressBar1.Value = e.ProgressPercentage
+        ProgressBar1.Visible = True
+        ProgressBar1.Maximum = 100
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
@@ -927,5 +926,7 @@ Public Class FrmMain
             LblPercent.Visible = False
             LblPercent.Text = Nothing
         End If
+
+
     End Sub
 End Class
