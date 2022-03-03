@@ -59,7 +59,7 @@ Public Class FrmList
             End Try
 
             dgvList.DataSource = dt.Tables("DataTableOPN")
-            End Iff
+        End If
     End Sub
 
     Private Sub TBoxSearch_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxSearch.KeyPress

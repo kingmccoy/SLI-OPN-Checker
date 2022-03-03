@@ -743,7 +743,7 @@ Public Class FrmMain
                         defSavingPath = reader("path").ToString
                         dirTrue = True
                     Else
-                        DefDir = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked"
+                        DefDir = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "f_checked"
                         dirTrue = False
                     End If
                 End Using
