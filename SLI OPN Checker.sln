@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SLI OPN Checker", "SLI OPN Checker.vbproj", "{C109EC47-B6FB-466E-A094-BA0D58B5B873}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{757DF844-71C4-4A78-A24D-DD27BD36E4C4}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{D0A2955C-43CA-4F0F-9798-F2E97E5C2DDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{C109EC47-B6FB-466E-A094-BA0D58B5B873}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C109EC47-B6FB-466E-A094-BA0D58B5B873}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C109EC47-B6FB-466E-A094-BA0D58B5B873}.Release|Any CPU.Build.0 = Release|Any CPU
-		{757DF844-71C4-4A78-A24D-DD27BD36E4C4}.Debug|Any CPU.ActiveCfg = Debug
-		{757DF844-71C4-4A78-A24D-DD27BD36E4C4}.Release|Any CPU.ActiveCfg = Release
+		{D0A2955C-43CA-4F0F-9798-F2E97E5C2DDF}.Debug|Any CPU.ActiveCfg = Debug
+		{D0A2955C-43CA-4F0F-9798-F2E97E5C2DDF}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
