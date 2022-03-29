@@ -74,3 +74,29 @@ D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.CopyC
 D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI OPN Checker.exe
 D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI OPN Checker.xml
 D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI OPN Checker.pdb
+D:\macky_program\SLI OPN Checker\bin\Debug\SLI OPN Checker.exe.config
+D:\macky_program\SLI OPN Checker\bin\Debug\SLI OPN Checker.exe
+D:\macky_program\SLI OPN Checker\bin\Debug\SLI OPN Checker.pdb
+D:\macky_program\SLI OPN Checker\bin\Debug\SLI OPN Checker.xml
+D:\macky_program\SLI OPN Checker\bin\Debug\EntityFramework.dll
+D:\macky_program\SLI OPN Checker\bin\Debug\EntityFramework.SqlServer.dll
+D:\macky_program\SLI OPN Checker\bin\Debug\System.Data.SQLite.dll
+D:\macky_program\SLI OPN Checker\bin\Debug\System.Data.SQLite.EF6.dll
+D:\macky_program\SLI OPN Checker\bin\Debug\System.Data.SQLite.Linq.dll
+D:\macky_program\SLI OPN Checker\bin\Debug\EntityFramework.xml
+D:\macky_program\SLI OPN Checker\bin\Debug\EntityFramework.SqlServer.xml
+D:\macky_program\SLI OPN Checker\bin\Debug\System.Data.SQLite.xml
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.AssemblyReference.cache
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.SuggestedBindingRedirects.cache
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmAddOPN.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmList.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmMain.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmDir.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmUnkList.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.Resources.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.GenerateResource.cache
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.CoreCompileInputs.cache
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.CopyComplete
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.exe
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.xml
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.pdb
