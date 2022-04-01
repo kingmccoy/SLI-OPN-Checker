@@ -12,11 +12,7 @@ Public Class FrmMain
     Dim dirTrue, defFin, refFin, correct, stp As Boolean
     Public zip As ZipArchive
 
-    Private Sub MaterialToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MaterialToolStripMenuItem.Click
-        FrmAddOPN.ShowDialog()
-    End Sub
-
-    Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListToolStripMenuItem.Click
+    Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OPNListToolStripMenuItem.Click
         FrmList.ShowDialog()
     End Sub
 

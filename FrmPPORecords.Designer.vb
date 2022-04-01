@@ -203,6 +203,7 @@ Partial Class FrmPPORecords
         Me.Controls.Add(Me.TboxNOPN)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmPPORecords"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "PPO Records"
         Me.ResumeLayout(False)
         Me.PerformLayout()

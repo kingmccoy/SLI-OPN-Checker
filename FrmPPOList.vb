@@ -26,5 +26,23 @@ Public Class FrmPPOList
         End Try
 
         DGVPPOList.DataSource = dt.Tables("DataTablePPOList")
+        DGVPPOList.ClearSelection()
+    End Sub
+
+    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
+        FrmPPORecords.ShowDialog()
+    End Sub
+
+    Private Sub BtnSearch_Click(sender As Object, e As EventArgs) Handles BtnSearch.Click
+        conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+        Dim q = ""
+
+        Try
+            conn.Open()
+
+            conn.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class
