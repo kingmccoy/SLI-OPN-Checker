@@ -142,6 +142,18 @@
     <Compile Include="FrmDir.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FrmPPOList.Designer.vb">
+      <DependentUpon>FrmPPOList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPPOList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPPORecords.Designer.vb">
+      <DependentUpon>FrmPPORecords.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPPORecords.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmUnkList.Designer.vb">
       <DependentUpon>FrmUnkList.vb</DependentUpon>
     </Compile>
@@ -172,6 +184,11 @@
     <Compile Include="OPN.vb">
       <DependentUpon>OPN.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PPOList.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PPOList.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FrmAddOPN.resx">
@@ -185,6 +202,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmDir.resx">
       <DependentUpon>FrmDir.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPPOList.resx">
+      <DependentUpon>FrmPPOList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPPORecords.resx">
+      <DependentUpon>FrmPPORecords.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmUnkList.resx">
       <DependentUpon>FrmUnkList.vb</DependentUpon>
@@ -219,6 +242,17 @@
       <DependentUpon>OPN.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="PPOList.xsc">
+      <DependentUpon>PPOList.xsd</DependentUpon>
+    </None>
+    <None Include="PPOList.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PPOList.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="PPOList.xss">
+      <DependentUpon>PPOList.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

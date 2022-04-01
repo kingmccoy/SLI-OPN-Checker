@@ -722,6 +722,10 @@ Public Class FrmMain
 
     End Sub
 
+    Private Sub PPOListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PPOListToolStripMenuItem.Click
+        FrmPPOList.ShowDialog()
+    End Sub
+
     Private Sub ReferenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReferenceToolStripMenuItem.Click
         FrmDir.ShowDialog()
     End Sub

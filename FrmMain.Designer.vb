@@ -69,6 +69,7 @@ Partial Class FrmMain
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.LblPercent = New System.Windows.Forms.Label()
+        Me.PPOListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -85,7 +86,7 @@ Partial Class FrmMain
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem, Me.ListToolStripMenuItem, Me.ReferenceToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem, Me.ListToolStripMenuItem, Me.ReferenceToolStripMenuItem, Me.PPOListToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "&File"
@@ -94,7 +95,7 @@ Partial Class FrmMain
         '
         Me.AddToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MaterialToolStripMenuItem})
         Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
-        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AddToolStripMenuItem.Text = "&Add"
         '
         'MaterialToolStripMenuItem
@@ -106,13 +107,13 @@ Partial Class FrmMain
         'ListToolStripMenuItem
         '
         Me.ListToolStripMenuItem.Name = "ListToolStripMenuItem"
-        Me.ListToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.ListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ListToolStripMenuItem.Text = "&List"
         '
         'ReferenceToolStripMenuItem
         '
         Me.ReferenceToolStripMenuItem.Name = "ReferenceToolStripMenuItem"
-        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ReferenceToolStripMenuItem.Text = "&Reference"
         '
         'TboxPath
@@ -508,6 +509,12 @@ Partial Class FrmMain
         Me.LblPercent.Text = "100%"
         Me.LblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'PPOListToolStripMenuItem
+        '
+        Me.PPOListToolStripMenuItem.Name = "PPOListToolStripMenuItem"
+        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PPOListToolStripMenuItem.Text = "PPO List"
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -610,4 +617,5 @@ Partial Class FrmMain
     Friend WithEvents ReferenceToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents LblPercent As Label
+    Friend WithEvents PPOListToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -20,12 +20,12 @@ Option Explicit On
  Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
  Global.System.ComponentModel.ToolboxItem(true),  _
  Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema"),  _
- Global.System.Xml.Serialization.XmlRootAttribute("OPN"),  _
+ Global.System.Xml.Serialization.XmlRootAttribute("PPOList"),  _
  Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")>  _
-Partial Public Class OPN
+Partial Public Class PPOList
     Inherits Global.System.Data.DataSet
     
-    Private tableDataTableOPN As DataTableOPNDataTable
+    Private tableDataTablePPOList As DataTablePPOListDataTable
     
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
@@ -56,8 +56,8 @@ Partial Public Class OPN
         If (Me.DetermineSchemaSerializationMode(info, context) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
-            If (Not (ds.Tables("DataTableOPN")) Is Nothing) Then
-                MyBase.Tables.Add(New DataTableOPNDataTable(ds.Tables("DataTableOPN")))
+            If (Not (ds.Tables("DataTablePPOList")) Is Nothing) Then
+                MyBase.Tables.Add(New DataTablePPOListDataTable(ds.Tables("DataTablePPOList")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -80,9 +80,9 @@ Partial Public Class OPN
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
      Global.System.ComponentModel.Browsable(false),  _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-    Public ReadOnly Property DataTableOPN() As DataTableOPNDataTable
+    Public ReadOnly Property DataTablePPOList() As DataTablePPOListDataTable
         Get
-            Return Me.tableDataTableOPN
+            Return Me.tableDataTablePPOList
         End Get
     End Property
     
@@ -128,7 +128,7 @@ Partial Public Class OPN
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Overrides Function Clone() As Global.System.Data.DataSet
-        Dim cln As OPN = CType(MyBase.Clone,OPN)
+        Dim cln As PPOList = CType(MyBase.Clone,PPOList)
         cln.InitVars
         cln.SchemaSerializationMode = Me.SchemaSerializationMode
         Return cln
@@ -153,8 +153,8 @@ Partial Public Class OPN
             Me.Reset
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXml(reader)
-            If (Not (ds.Tables("DataTableOPN")) Is Nothing) Then
-                MyBase.Tables.Add(New DataTableOPNDataTable(ds.Tables("DataTableOPN")))
+            If (Not (ds.Tables("DataTablePPOList")) Is Nothing) Then
+                MyBase.Tables.Add(New DataTablePPOListDataTable(ds.Tables("DataTablePPOList")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -188,10 +188,10 @@ Partial Public Class OPN
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Friend Overloads Sub InitVars(ByVal initTable As Boolean)
-        Me.tableDataTableOPN = CType(MyBase.Tables("DataTableOPN"),DataTableOPNDataTable)
+        Me.tableDataTablePPOList = CType(MyBase.Tables("DataTablePPOList"),DataTablePPOListDataTable)
         If (initTable = true) Then
-            If (Not (Me.tableDataTableOPN) Is Nothing) Then
-                Me.tableDataTableOPN.InitVars
+            If (Not (Me.tableDataTablePPOList) Is Nothing) Then
+                Me.tableDataTablePPOList.InitVars
             End If
         End If
     End Sub
@@ -199,18 +199,18 @@ Partial Public Class OPN
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Sub InitClass()
-        Me.DataSetName = "OPN"
+        Me.DataSetName = "PPOList"
         Me.Prefix = ""
-        Me.Namespace = "http://tempuri.org/OPN.xsd"
+        Me.Namespace = "http://tempuri.org/PPOList.xsd"
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
-        Me.tableDataTableOPN = New DataTableOPNDataTable()
-        MyBase.Tables.Add(Me.tableDataTableOPN)
+        Me.tableDataTablePPOList = New DataTablePPOListDataTable()
+        MyBase.Tables.Add(Me.tableDataTablePPOList)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-    Private Function ShouldSerializeDataTableOPN() As Boolean
+    Private Function ShouldSerializeDataTablePPOList() As Boolean
         Return false
     End Function
     
@@ -225,7 +225,7 @@ Partial Public Class OPN
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Shared Function GetTypedDataSetSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-        Dim ds As OPN = New OPN()
+        Dim ds As PPOList = New PPOList()
         Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
         Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
         Dim any As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
@@ -273,27 +273,39 @@ Partial Public Class OPN
     End Function
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-    Public Delegate Sub DataTableOPNRowChangeEventHandler(ByVal sender As Object, ByVal e As DataTableOPNRowChangeEvent)
+    Public Delegate Sub DataTablePPOListRowChangeEventHandler(ByVal sender As Object, ByVal e As DataTablePPOListRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
-    Partial Public Class DataTableOPNDataTable
-        Inherits Global.System.Data.TypedTableBase(Of DataTableOPNRow)
+    Partial Public Class DataTablePPOListDataTable
+        Inherits Global.System.Data.TypedTableBase(Of DataTablePPOListRow)
         
         Private columnid As Global.System.Data.DataColumn
         
-        Private columnmaterial_no As Global.System.Data.DataColumn
+        Private columnnew_ordering_part_number As Global.System.Data.DataColumn
         
-        Private columnordering_part_no As Global.System.Data.DataColumn
+        Private columnfirmware As Global.System.Data.DataColumn
+        
+        Private columnmaterial As Global.System.Data.DataColumn
+        
+        Private columnlot_number As Global.System.Data.DataColumn
+        
+        Private columnfull_trace_code As Global.System.Data.DataColumn
+        
+        Private columnppo_qty As Global.System.Data.DataColumn
+        
+        Private columnsap_gr_qty As Global.System.Data.DataColumn
+        
+        Private columngr_date As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.TableName = "DataTableOPN"
+            Me.TableName = "DataTablePPOList"
             Me.BeginInit
             Me.InitClass
             Me.EndInit
@@ -334,17 +346,65 @@ Partial Public Class OPN
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property material_noColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property new_ordering_part_numberColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnmaterial_no
+                Return Me.columnnew_ordering_part_number
             End Get
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property ordering_part_noColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property firmwareColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnordering_part_no
+                Return Me.columnfirmware
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property materialColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnmaterial
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property lot_numberColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnlot_number
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property full_trace_codeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnfull_trace_code
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property ppo_qtyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnppo_qty
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property sap_gr_qtyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnsap_gr_qty
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property gr_dateColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columngr_date
             End Get
         End Property
         
@@ -359,44 +419,50 @@ Partial Public Class OPN
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Default ReadOnly Property Item(ByVal index As Integer) As DataTableOPNRow
+        Public Default ReadOnly Property Item(ByVal index As Integer) As DataTablePPOListRow
             Get
-                Return CType(Me.Rows(index),DataTableOPNRow)
+                Return CType(Me.Rows(index),DataTablePPOListRow)
             End Get
         End Property
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Event DataTableOPNRowChanging As DataTableOPNRowChangeEventHandler
+        Public Event DataTablePPOListRowChanging As DataTablePPOListRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Event DataTableOPNRowChanged As DataTableOPNRowChangeEventHandler
+        Public Event DataTablePPOListRowChanged As DataTablePPOListRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Event DataTableOPNRowDeleting As DataTableOPNRowChangeEventHandler
+        Public Event DataTablePPOListRowDeleting As DataTablePPOListRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Event DataTableOPNRowDeleted As DataTableOPNRowChangeEventHandler
+        Public Event DataTablePPOListRowDeleted As DataTablePPOListRowChangeEventHandler
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Sub AddDataTableOPNRow(ByVal row As DataTableOPNRow)
+        Public Overloads Sub AddDataTablePPOListRow(ByVal row As DataTablePPOListRow)
             Me.Rows.Add(row)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddDataTableOPNRow(ByVal id As Integer, ByVal material_no As String, ByVal ordering_part_no As String) As DataTableOPNRow
-            Dim rowDataTableOPNRow As DataTableOPNRow = CType(Me.NewRow,DataTableOPNRow)
-            Dim columnValuesArray() As Object = New Object() {id, material_no, ordering_part_no}
-            rowDataTableOPNRow.ItemArray = columnValuesArray
-            Me.Rows.Add(rowDataTableOPNRow)
-            Return rowDataTableOPNRow
+        Public Overloads Function AddDataTablePPOListRow(ByVal id As String, ByVal new_ordering_part_number As String, ByVal firmware As String, ByVal material As String, ByVal lot_number As String, ByVal full_trace_code As String, ByVal ppo_qty As String, ByVal sap_gr_qty As String, ByVal gr_date As String) As DataTablePPOListRow
+            Dim rowDataTablePPOListRow As DataTablePPOListRow = CType(Me.NewRow,DataTablePPOListRow)
+            Dim columnValuesArray() As Object = New Object() {id, new_ordering_part_number, firmware, material, lot_number, full_trace_code, ppo_qty, sap_gr_qty, gr_date}
+            rowDataTablePPOListRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowDataTablePPOListRow)
+            Return rowDataTablePPOListRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function FindByid(ByVal id As String) As DataTablePPOListRow
+            Return CType(Me.Rows.Find(New Object() {id}),DataTablePPOListRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As DataTableOPNDataTable = CType(MyBase.Clone,DataTableOPNDataTable)
+            Dim cln As DataTablePPOListDataTable = CType(MyBase.Clone,DataTablePPOListDataTable)
             cln.InitVars
             Return cln
         End Function
@@ -404,52 +470,73 @@ Partial Public Class OPN
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New DataTableOPNDataTable()
+            Return New DataTablePPOListDataTable()
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnid = MyBase.Columns("id")
-            Me.columnmaterial_no = MyBase.Columns("material_no")
-            Me.columnordering_part_no = MyBase.Columns("ordering_part_no")
+            Me.columnnew_ordering_part_number = MyBase.Columns("new_ordering_part_number")
+            Me.columnfirmware = MyBase.Columns("firmware")
+            Me.columnmaterial = MyBase.Columns("material")
+            Me.columnlot_number = MyBase.Columns("lot_number")
+            Me.columnfull_trace_code = MyBase.Columns("full_trace_code")
+            Me.columnppo_qty = MyBase.Columns("ppo_qty")
+            Me.columnsap_gr_qty = MyBase.Columns("sap_gr_qty")
+            Me.columngr_date = MyBase.Columns("gr_date")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
-            Me.columnid = New Global.System.Data.DataColumn("id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnid = New Global.System.Data.DataColumn("id", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnid)
-            Me.columnmaterial_no = New Global.System.Data.DataColumn("material_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnmaterial_no)
-            Me.columnordering_part_no = New Global.System.Data.DataColumn("ordering_part_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnordering_part_no)
+            Me.columnnew_ordering_part_number = New Global.System.Data.DataColumn("new_ordering_part_number", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnnew_ordering_part_number)
+            Me.columnfirmware = New Global.System.Data.DataColumn("firmware", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnfirmware)
+            Me.columnmaterial = New Global.System.Data.DataColumn("material", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnmaterial)
+            Me.columnlot_number = New Global.System.Data.DataColumn("lot_number", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnlot_number)
+            Me.columnfull_trace_code = New Global.System.Data.DataColumn("full_trace_code", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnfull_trace_code)
+            Me.columnppo_qty = New Global.System.Data.DataColumn("ppo_qty", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnppo_qty)
+            Me.columnsap_gr_qty = New Global.System.Data.DataColumn("sap_gr_qty", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnsap_gr_qty)
+            Me.columngr_date = New Global.System.Data.DataColumn("gr_date", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columngr_date)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnid}, true))
+            Me.columnid.AllowDBNull = false
+            Me.columnid.Unique = true
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function NewDataTableOPNRow() As DataTableOPNRow
-            Return CType(Me.NewRow,DataTableOPNRow)
+        Public Function NewDataTablePPOListRow() As DataTablePPOListRow
+            Return CType(Me.NewRow,DataTablePPOListRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New DataTableOPNRow(builder)
+            Return New DataTablePPOListRow(builder)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(DataTableOPNRow)
+            Return GetType(DataTablePPOListRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
-            If (Not (Me.DataTableOPNRowChangedEvent) Is Nothing) Then
-                RaiseEvent DataTableOPNRowChanged(Me, New DataTableOPNRowChangeEvent(CType(e.Row,DataTableOPNRow), e.Action))
+            If (Not (Me.DataTablePPOListRowChangedEvent) Is Nothing) Then
+                RaiseEvent DataTablePPOListRowChanged(Me, New DataTablePPOListRowChangeEvent(CType(e.Row,DataTablePPOListRow), e.Action))
             End If
         End Sub
         
@@ -457,8 +544,8 @@ Partial Public Class OPN
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
-            If (Not (Me.DataTableOPNRowChangingEvent) Is Nothing) Then
-                RaiseEvent DataTableOPNRowChanging(Me, New DataTableOPNRowChangeEvent(CType(e.Row,DataTableOPNRow), e.Action))
+            If (Not (Me.DataTablePPOListRowChangingEvent) Is Nothing) Then
+                RaiseEvent DataTablePPOListRowChanging(Me, New DataTablePPOListRowChangeEvent(CType(e.Row,DataTablePPOListRow), e.Action))
             End If
         End Sub
         
@@ -466,8 +553,8 @@ Partial Public Class OPN
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
-            If (Not (Me.DataTableOPNRowDeletedEvent) Is Nothing) Then
-                RaiseEvent DataTableOPNRowDeleted(Me, New DataTableOPNRowChangeEvent(CType(e.Row,DataTableOPNRow), e.Action))
+            If (Not (Me.DataTablePPOListRowDeletedEvent) Is Nothing) Then
+                RaiseEvent DataTablePPOListRowDeleted(Me, New DataTablePPOListRowChangeEvent(CType(e.Row,DataTablePPOListRow), e.Action))
             End If
         End Sub
         
@@ -475,14 +562,14 @@ Partial Public Class OPN
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
-            If (Not (Me.DataTableOPNRowDeletingEvent) Is Nothing) Then
-                RaiseEvent DataTableOPNRowDeleting(Me, New DataTableOPNRowChangeEvent(CType(e.Row,DataTableOPNRow), e.Action))
+            If (Not (Me.DataTablePPOListRowDeletingEvent) Is Nothing) Then
+                RaiseEvent DataTablePPOListRowDeleting(Me, New DataTablePPOListRowChangeEvent(CType(e.Row,DataTablePPOListRow), e.Action))
             End If
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub RemoveDataTableOPNRow(ByVal row As DataTableOPNRow)
+        Public Sub RemoveDataTablePPOListRow(ByVal row As DataTablePPOListRow)
             Me.Rows.Remove(row)
         End Sub
         
@@ -491,7 +578,7 @@ Partial Public Class OPN
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As OPN = New OPN()
+            Dim ds As PPOList = New PPOList()
             Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
             any1.Namespace = "http://www.w3.org/2001/XMLSchema"
             any1.MinOccurs = New Decimal(0)
@@ -509,7 +596,7 @@ Partial Public Class OPN
             type.Attributes.Add(attribute1)
             Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
             attribute2.Name = "tableTypeName"
-            attribute2.FixedValue = "DataTableOPNDataTable"
+            attribute2.FixedValue = "DataTablePPOListDataTable"
             type.Attributes.Add(attribute2)
             type.Particle = sequence
             Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
@@ -556,97 +643,244 @@ Partial Public Class OPN
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
-    Partial Public Class DataTableOPNRow
+    Partial Public Class DataTablePPOListRow
         Inherits Global.System.Data.DataRow
         
-        Private tableDataTableOPN As DataTableOPNDataTable
+        Private tableDataTablePPOList As DataTablePPOListDataTable
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableDataTableOPN = CType(Me.Table,DataTableOPNDataTable)
+            Me.tableDataTablePPOList = CType(Me.Table,DataTablePPOListDataTable)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property id() As Integer
+        Public Property id() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableDataTableOPN.idColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'id' in table 'DataTableOPN' is DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableDataTablePPOList.idColumn),String)
             End Get
             Set
-                Me(Me.tableDataTableOPN.idColumn) = value
+                Me(Me.tableDataTablePPOList.idColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property material_no() As String
+        Public Property new_ordering_part_number() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableDataTableOPN.material_noColumn),String)
+                    Return CType(Me(Me.tableDataTablePPOList.new_ordering_part_numberColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'material_no' in table 'DataTableOPN' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'new_ordering_part_number' in table 'DataTablePPOList' is DB"& _ 
+                            "Null.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableDataTableOPN.material_noColumn) = value
+                Me(Me.tableDataTablePPOList.new_ordering_part_numberColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property ordering_part_no() As String
+        Public Property firmware() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableDataTableOPN.ordering_part_noColumn),String)
+                    Return CType(Me(Me.tableDataTablePPOList.firmwareColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'ordering_part_no' in table 'DataTableOPN' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'firmware' in table 'DataTablePPOList' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableDataTableOPN.ordering_part_noColumn) = value
+                Me(Me.tableDataTablePPOList.firmwareColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function IsidNull() As Boolean
-            Return Me.IsNull(Me.tableDataTableOPN.idColumn)
+        Public Property material() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTablePPOList.materialColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'material' in table 'DataTablePPOList' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTablePPOList.materialColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property lot_number() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTablePPOList.lot_numberColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'lot_number' in table 'DataTablePPOList' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTablePPOList.lot_numberColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property full_trace_code() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTablePPOList.full_trace_codeColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'full_trace_code' in table 'DataTablePPOList' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTablePPOList.full_trace_codeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property ppo_qty() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTablePPOList.ppo_qtyColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ppo_qty' in table 'DataTablePPOList' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTablePPOList.ppo_qtyColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property sap_gr_qty() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTablePPOList.sap_gr_qtyColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'sap_gr_qty' in table 'DataTablePPOList' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTablePPOList.sap_gr_qtyColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property gr_date() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTablePPOList.gr_dateColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'gr_date' in table 'DataTablePPOList' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTablePPOList.gr_dateColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Isnew_ordering_part_numberNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.new_ordering_part_numberColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub SetidNull()
-            Me(Me.tableDataTableOPN.idColumn) = Global.System.Convert.DBNull
+        Public Sub Setnew_ordering_part_numberNull()
+            Me(Me.tableDataTablePPOList.new_ordering_part_numberColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function Ismaterial_noNull() As Boolean
-            Return Me.IsNull(Me.tableDataTableOPN.material_noColumn)
+        Public Function IsfirmwareNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.firmwareColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub Setmaterial_noNull()
-            Me(Me.tableDataTableOPN.material_noColumn) = Global.System.Convert.DBNull
+        Public Sub SetfirmwareNull()
+            Me(Me.tableDataTablePPOList.firmwareColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function Isordering_part_noNull() As Boolean
-            Return Me.IsNull(Me.tableDataTableOPN.ordering_part_noColumn)
+        Public Function IsmaterialNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.materialColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub Setordering_part_noNull()
-            Me(Me.tableDataTableOPN.ordering_part_noColumn) = Global.System.Convert.DBNull
+        Public Sub SetmaterialNull()
+            Me(Me.tableDataTablePPOList.materialColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Islot_numberNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.lot_numberColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setlot_numberNull()
+            Me(Me.tableDataTablePPOList.lot_numberColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Isfull_trace_codeNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.full_trace_codeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setfull_trace_codeNull()
+            Me(Me.tableDataTablePPOList.full_trace_codeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Isppo_qtyNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.ppo_qtyColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setppo_qtyNull()
+            Me(Me.tableDataTablePPOList.ppo_qtyColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Issap_gr_qtyNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.sap_gr_qtyColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setsap_gr_qtyNull()
+            Me(Me.tableDataTablePPOList.sap_gr_qtyColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function Isgr_dateNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.gr_dateColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub Setgr_dateNull()
+            Me(Me.tableDataTablePPOList.gr_dateColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -654,16 +888,16 @@ Partial Public Class OPN
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-    Public Class DataTableOPNRowChangeEvent
+    Public Class DataTablePPOListRowChangeEvent
         Inherits Global.System.EventArgs
         
-        Private eventRow As DataTableOPNRow
+        Private eventRow As DataTablePPOListRow
         
         Private eventAction As Global.System.Data.DataRowAction
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub New(ByVal row As DataTableOPNRow, ByVal action As Global.System.Data.DataRowAction)
+        Public Sub New(ByVal row As DataTablePPOListRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
@@ -671,7 +905,7 @@ Partial Public Class OPN
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property Row() As DataTableOPNRow
+        Public ReadOnly Property Row() As DataTablePPOListRow
             Get
                 Return Me.eventRow
             End Get

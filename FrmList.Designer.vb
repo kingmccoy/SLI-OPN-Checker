@@ -33,6 +33,8 @@ Partial Class FrmList
         Me.OPN = New SLI_OPN_Checker.OPN()
         Me.BtnSearch = New System.Windows.Forms.Button()
         Me.TBoxSearch = New System.Windows.Forms.TextBox()
+        Me.BtnAdd = New System.Windows.Forms.Button()
+        Me.BtnRemove = New System.Windows.Forms.Button()
         CType(Me.dgvList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataTableOPNBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.OPN, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -57,7 +59,7 @@ Partial Class FrmList
         Me.dgvList.ReadOnly = True
         Me.dgvList.RowHeadersVisible = False
         Me.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvList.Size = New System.Drawing.Size(365, 317)
+        Me.dgvList.Size = New System.Drawing.Size(488, 472)
         Me.dgvList.TabIndex = 0
         '
         'IdDataGridViewTextBoxColumn
@@ -112,11 +114,31 @@ Partial Class FrmList
         Me.TBoxSearch.Size = New System.Drawing.Size(185, 23)
         Me.TBoxSearch.TabIndex = 3
         '
+        'BtnAdd
+        '
+        Me.BtnAdd.Location = New System.Drawing.Point(296, 10)
+        Me.BtnAdd.Name = "BtnAdd"
+        Me.BtnAdd.Size = New System.Drawing.Size(87, 27)
+        Me.BtnAdd.TabIndex = 4
+        Me.BtnAdd.Text = "Add"
+        Me.BtnAdd.UseVisualStyleBackColor = True
+        '
+        'BtnRemove
+        '
+        Me.BtnRemove.Location = New System.Drawing.Point(389, 10)
+        Me.BtnRemove.Name = "BtnRemove"
+        Me.BtnRemove.Size = New System.Drawing.Size(87, 27)
+        Me.BtnRemove.TabIndex = 4
+        Me.BtnRemove.Text = "Remove"
+        Me.BtnRemove.UseVisualStyleBackColor = True
+        '
         'FrmList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(365, 360)
+        Me.ClientSize = New System.Drawing.Size(488, 515)
+        Me.Controls.Add(Me.BtnRemove)
+        Me.Controls.Add(Me.BtnAdd)
         Me.Controls.Add(Me.TBoxSearch)
         Me.Controls.Add(Me.BtnSearch)
         Me.Controls.Add(Me.dgvList)
@@ -143,4 +165,6 @@ Partial Class FrmList
     Friend WithEvents IdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents MaterialnoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents OrderingpartnoDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents BtnAdd As Button
+    Friend WithEvents BtnRemove As Button
 End Class
