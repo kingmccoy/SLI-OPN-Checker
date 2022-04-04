@@ -5,9 +5,17 @@ Public Class FrmPPOList
 
     Private Sub FrmPPOList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_PPO_List()
+
+        DGVPPOList.ClearSelection()
+
+        With DGVPPOList.ColumnHeadersDefaultCellStyle
+            .Font = New Font("Segoe UI Semibold", 9, FontStyle.Bold)
+            '.BackColor = Color.Black
+            '.ForeColor = Color.White
+        End With
     End Sub
 
-    Private Sub Load_PPO_List()
+    Public Sub Load_PPO_List()
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
         Dim q = "select * from ppo_records"
         'Dim dt As New DataTable

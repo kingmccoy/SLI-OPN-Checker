@@ -22,6 +22,7 @@ Partial Class FrmPPORecords
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPPORecords))
         Me.TboxNOPN = New System.Windows.Forms.TextBox()
         Me.LblNOPN = New System.Windows.Forms.Label()
@@ -35,160 +36,139 @@ Partial Class FrmPPORecords
         Me.LblFTC = New System.Windows.Forms.Label()
         Me.TboxPPOQty = New System.Windows.Forms.TextBox()
         Me.LblPPOQty = New System.Windows.Forms.Label()
-        Me.TboxGRQty = New System.Windows.Forms.TextBox()
-        Me.LblGRQty = New System.Windows.Forms.Label()
-        Me.TboxGRDate = New System.Windows.Forms.TextBox()
-        Me.LblGRDate = New System.Windows.Forms.Label()
         Me.BtnAdd = New System.Windows.Forms.Button()
+        Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TboxNOPN
         '
-        Me.TboxNOPN.Location = New System.Drawing.Point(172, 34)
+        Me.TboxNOPN.Location = New System.Drawing.Point(202, 41)
+        Me.TboxNOPN.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TboxNOPN.Name = "TboxNOPN"
-        Me.TboxNOPN.Size = New System.Drawing.Size(153, 20)
-        Me.TboxNOPN.TabIndex = 0
+        Me.TboxNOPN.Size = New System.Drawing.Size(178, 23)
+        Me.TboxNOPN.TabIndex = 1
         '
         'LblNOPN
         '
         Me.LblNOPN.AutoSize = True
-        Me.LblNOPN.Location = New System.Drawing.Point(12, 38)
+        Me.LblNOPN.Location = New System.Drawing.Point(15, 45)
+        Me.LblNOPN.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblNOPN.Name = "LblNOPN"
-        Me.LblNOPN.Size = New System.Drawing.Size(134, 13)
+        Me.LblNOPN.Size = New System.Drawing.Size(152, 15)
         Me.LblNOPN.TabIndex = 1
         Me.LblNOPN.Text = "New Ordering Part Number"
         '
         'TboxFw
         '
-        Me.TboxFw.Location = New System.Drawing.Point(172, 60)
+        Me.TboxFw.Location = New System.Drawing.Point(202, 71)
+        Me.TboxFw.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TboxFw.Name = "TboxFw"
-        Me.TboxFw.Size = New System.Drawing.Size(153, 20)
-        Me.TboxFw.TabIndex = 0
+        Me.TboxFw.Size = New System.Drawing.Size(178, 23)
+        Me.TboxFw.TabIndex = 2
         '
         'LblFw
         '
         Me.LblFw.AutoSize = True
-        Me.LblFw.Location = New System.Drawing.Point(12, 64)
+        Me.LblFw.Location = New System.Drawing.Point(15, 75)
+        Me.LblFw.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblFw.Name = "LblFw"
-        Me.LblFw.Size = New System.Drawing.Size(49, 13)
-        Me.LblFw.TabIndex = 1
+        Me.LblFw.Size = New System.Drawing.Size(56, 15)
+        Me.LblFw.TabIndex = 2
         Me.LblFw.Text = "Firmware"
         '
         'TboxMat
         '
-        Me.TboxMat.Location = New System.Drawing.Point(172, 86)
+        Me.TboxMat.Location = New System.Drawing.Point(202, 12)
+        Me.TboxMat.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TboxMat.Name = "TboxMat"
-        Me.TboxMat.Size = New System.Drawing.Size(153, 20)
+        Me.TboxMat.Size = New System.Drawing.Size(178, 23)
         Me.TboxMat.TabIndex = 0
         '
         'LblMat
         '
         Me.LblMat.AutoSize = True
-        Me.LblMat.Location = New System.Drawing.Point(12, 90)
+        Me.LblMat.Location = New System.Drawing.Point(15, 16)
+        Me.LblMat.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblMat.Name = "LblMat"
-        Me.LblMat.Size = New System.Drawing.Size(44, 13)
-        Me.LblMat.TabIndex = 1
+        Me.LblMat.Size = New System.Drawing.Size(50, 15)
+        Me.LblMat.TabIndex = 0
         Me.LblMat.Text = "Material"
         '
         'TboxLotNum
         '
-        Me.TboxLotNum.Location = New System.Drawing.Point(172, 112)
+        Me.TboxLotNum.Location = New System.Drawing.Point(202, 100)
+        Me.TboxLotNum.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TboxLotNum.Name = "TboxLotNum"
-        Me.TboxLotNum.Size = New System.Drawing.Size(153, 20)
-        Me.TboxLotNum.TabIndex = 0
+        Me.TboxLotNum.Size = New System.Drawing.Size(178, 23)
+        Me.TboxLotNum.TabIndex = 3
         '
         'LblLotNum
         '
         Me.LblLotNum.AutoSize = True
-        Me.LblLotNum.Location = New System.Drawing.Point(12, 116)
+        Me.LblLotNum.Location = New System.Drawing.Point(15, 104)
+        Me.LblLotNum.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblLotNum.Name = "LblLotNum"
-        Me.LblLotNum.Size = New System.Drawing.Size(62, 13)
-        Me.LblLotNum.TabIndex = 1
+        Me.LblLotNum.Size = New System.Drawing.Size(71, 15)
+        Me.LblLotNum.TabIndex = 3
         Me.LblLotNum.Text = "Lot Number"
         '
         'TboxFTC
         '
-        Me.TboxFTC.Location = New System.Drawing.Point(172, 138)
+        Me.TboxFTC.Location = New System.Drawing.Point(202, 130)
+        Me.TboxFTC.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TboxFTC.Name = "TboxFTC"
-        Me.TboxFTC.Size = New System.Drawing.Size(153, 20)
-        Me.TboxFTC.TabIndex = 0
+        Me.TboxFTC.Size = New System.Drawing.Size(178, 23)
+        Me.TboxFTC.TabIndex = 4
         '
         'LblFTC
         '
         Me.LblFTC.AutoSize = True
-        Me.LblFTC.Location = New System.Drawing.Point(12, 141)
+        Me.LblFTC.Location = New System.Drawing.Point(15, 133)
+        Me.LblFTC.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblFTC.Name = "LblFTC"
-        Me.LblFTC.Size = New System.Drawing.Size(82, 13)
-        Me.LblFTC.TabIndex = 1
+        Me.LblFTC.Size = New System.Drawing.Size(87, 15)
+        Me.LblFTC.TabIndex = 4
         Me.LblFTC.Text = "Full Trace Code"
         '
         'TboxPPOQty
         '
-        Me.TboxPPOQty.Location = New System.Drawing.Point(172, 164)
+        Me.TboxPPOQty.Location = New System.Drawing.Point(202, 160)
+        Me.TboxPPOQty.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TboxPPOQty.Name = "TboxPPOQty"
-        Me.TboxPPOQty.Size = New System.Drawing.Size(153, 20)
-        Me.TboxPPOQty.TabIndex = 0
+        Me.TboxPPOQty.Size = New System.Drawing.Size(178, 23)
+        Me.TboxPPOQty.TabIndex = 5
         '
         'LblPPOQty
         '
         Me.LblPPOQty.AutoSize = True
-        Me.LblPPOQty.Location = New System.Drawing.Point(12, 168)
+        Me.LblPPOQty.Location = New System.Drawing.Point(15, 164)
+        Me.LblPPOQty.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblPPOQty.Name = "LblPPOQty"
-        Me.LblPPOQty.Size = New System.Drawing.Size(48, 13)
-        Me.LblPPOQty.TabIndex = 1
+        Me.LblPPOQty.Size = New System.Drawing.Size(52, 15)
+        Me.LblPPOQty.TabIndex = 5
         Me.LblPPOQty.Text = "PPO Qty"
-        '
-        'TboxGRQty
-        '
-        Me.TboxGRQty.Location = New System.Drawing.Point(172, 190)
-        Me.TboxGRQty.Name = "TboxGRQty"
-        Me.TboxGRQty.Size = New System.Drawing.Size(153, 20)
-        Me.TboxGRQty.TabIndex = 0
-        '
-        'LblGRQty
-        '
-        Me.LblGRQty.AutoSize = True
-        Me.LblGRQty.Location = New System.Drawing.Point(12, 194)
-        Me.LblGRQty.Name = "LblGRQty"
-        Me.LblGRQty.Size = New System.Drawing.Size(66, 13)
-        Me.LblGRQty.TabIndex = 1
-        Me.LblGRQty.Text = "SAP GR Qty"
-        '
-        'TboxGRDate
-        '
-        Me.TboxGRDate.Location = New System.Drawing.Point(172, 216)
-        Me.TboxGRDate.Name = "TboxGRDate"
-        Me.TboxGRDate.Size = New System.Drawing.Size(153, 20)
-        Me.TboxGRDate.TabIndex = 0
-        '
-        'LblGRDate
-        '
-        Me.LblGRDate.AutoSize = True
-        Me.LblGRDate.Location = New System.Drawing.Point(12, 219)
-        Me.LblGRDate.Name = "LblGRDate"
-        Me.LblGRDate.Size = New System.Drawing.Size(49, 13)
-        Me.LblGRDate.TabIndex = 1
-        Me.LblGRDate.Text = "GR Date"
         '
         'BtnAdd
         '
-        Me.BtnAdd.Location = New System.Drawing.Point(250, 266)
+        Me.BtnAdd.Location = New System.Drawing.Point(202, 191)
+        Me.BtnAdd.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.BtnAdd.Name = "BtnAdd"
-        Me.BtnAdd.Size = New System.Drawing.Size(75, 23)
-        Me.BtnAdd.TabIndex = 2
+        Me.BtnAdd.Size = New System.Drawing.Size(94, 33)
+        Me.BtnAdd.TabIndex = 8
         Me.BtnAdd.Text = "Add"
         Me.BtnAdd.UseVisualStyleBackColor = True
         '
+        'ErrorProvider1
+        '
+        Me.ErrorProvider1.ContainerControl = Me
+        '
         'FrmPPORecords
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(401, 236)
         Me.Controls.Add(Me.BtnAdd)
-        Me.Controls.Add(Me.LblGRDate)
-        Me.Controls.Add(Me.TboxGRDate)
-        Me.Controls.Add(Me.LblGRQty)
-        Me.Controls.Add(Me.TboxGRQty)
         Me.Controls.Add(Me.LblPPOQty)
         Me.Controls.Add(Me.TboxPPOQty)
         Me.Controls.Add(Me.LblFTC)
@@ -201,10 +181,17 @@ Partial Class FrmPPORecords
         Me.Controls.Add(Me.TboxFw)
         Me.Controls.Add(Me.LblNOPN)
         Me.Controls.Add(Me.TboxNOPN)
+        Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "FrmPPORecords"
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "PPO Records"
+        CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -222,9 +209,6 @@ Partial Class FrmPPORecords
     Friend WithEvents LblFTC As Label
     Friend WithEvents TboxPPOQty As TextBox
     Friend WithEvents LblPPOQty As Label
-    Friend WithEvents TboxGRQty As TextBox
-    Friend WithEvents LblGRQty As Label
-    Friend WithEvents TboxGRDate As TextBox
-    Friend WithEvents LblGRDate As Label
     Friend WithEvents BtnAdd As Button
+    Friend WithEvents ErrorProvider1 As ErrorProvider
 End Class

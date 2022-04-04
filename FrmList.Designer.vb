@@ -55,6 +55,7 @@ Partial Class FrmList
         Me.dgvList.DataSource = Me.DataTableOPNBindingSource
         Me.dgvList.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.dgvList.Location = New System.Drawing.Point(0, 43)
+        Me.dgvList.MultiSelect = False
         Me.dgvList.Name = "dgvList"
         Me.dgvList.ReadOnly = True
         Me.dgvList.RowHeadersVisible = False

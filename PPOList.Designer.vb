@@ -285,21 +285,17 @@ Partial Public Class PPOList
         
         Private columnid As Global.System.Data.DataColumn
         
+        Private columnmaterial As Global.System.Data.DataColumn
+        
         Private columnnew_ordering_part_number As Global.System.Data.DataColumn
         
         Private columnfirmware As Global.System.Data.DataColumn
-        
-        Private columnmaterial As Global.System.Data.DataColumn
         
         Private columnlot_number As Global.System.Data.DataColumn
         
         Private columnfull_trace_code As Global.System.Data.DataColumn
         
         Private columnppo_qty As Global.System.Data.DataColumn
-        
-        Private columnsap_gr_qty As Global.System.Data.DataColumn
-        
-        Private columngr_date As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
@@ -346,6 +342,14 @@ Partial Public Class PPOList
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property materialColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnmaterial
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property new_ordering_part_numberColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnnew_ordering_part_number
@@ -357,14 +361,6 @@ Partial Public Class PPOList
         Public ReadOnly Property firmwareColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnfirmware
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property materialColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnmaterial
             End Get
         End Property
         
@@ -389,22 +385,6 @@ Partial Public Class PPOList
         Public ReadOnly Property ppo_qtyColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnppo_qty
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property sap_gr_qtyColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnsap_gr_qty
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property gr_dateColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columngr_date
             End Get
         End Property
         
@@ -445,9 +425,9 @@ Partial Public Class PPOList
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddDataTablePPOListRow(ByVal id As String, ByVal new_ordering_part_number As String, ByVal firmware As String, ByVal material As String, ByVal lot_number As String, ByVal full_trace_code As String, ByVal ppo_qty As String, ByVal sap_gr_qty As String, ByVal gr_date As String) As DataTablePPOListRow
+        Public Overloads Function AddDataTablePPOListRow(ByVal id As String, ByVal material As String, ByVal new_ordering_part_number As String, ByVal firmware As String, ByVal lot_number As String, ByVal full_trace_code As String, ByVal ppo_qty As String) As DataTablePPOListRow
             Dim rowDataTablePPOListRow As DataTablePPOListRow = CType(Me.NewRow,DataTablePPOListRow)
-            Dim columnValuesArray() As Object = New Object() {id, new_ordering_part_number, firmware, material, lot_number, full_trace_code, ppo_qty, sap_gr_qty, gr_date}
+            Dim columnValuesArray() As Object = New Object() {id, material, new_ordering_part_number, firmware, lot_number, full_trace_code, ppo_qty}
             rowDataTablePPOListRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowDataTablePPOListRow)
             Return rowDataTablePPOListRow
@@ -477,14 +457,12 @@ Partial Public Class PPOList
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnid = MyBase.Columns("id")
+            Me.columnmaterial = MyBase.Columns("material")
             Me.columnnew_ordering_part_number = MyBase.Columns("new_ordering_part_number")
             Me.columnfirmware = MyBase.Columns("firmware")
-            Me.columnmaterial = MyBase.Columns("material")
             Me.columnlot_number = MyBase.Columns("lot_number")
             Me.columnfull_trace_code = MyBase.Columns("full_trace_code")
             Me.columnppo_qty = MyBase.Columns("ppo_qty")
-            Me.columnsap_gr_qty = MyBase.Columns("sap_gr_qty")
-            Me.columngr_date = MyBase.Columns("gr_date")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -492,22 +470,18 @@ Partial Public Class PPOList
         Private Sub InitClass()
             Me.columnid = New Global.System.Data.DataColumn("id", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnid)
+            Me.columnmaterial = New Global.System.Data.DataColumn("material", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnmaterial)
             Me.columnnew_ordering_part_number = New Global.System.Data.DataColumn("new_ordering_part_number", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnnew_ordering_part_number)
             Me.columnfirmware = New Global.System.Data.DataColumn("firmware", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnfirmware)
-            Me.columnmaterial = New Global.System.Data.DataColumn("material", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnmaterial)
             Me.columnlot_number = New Global.System.Data.DataColumn("lot_number", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnlot_number)
             Me.columnfull_trace_code = New Global.System.Data.DataColumn("full_trace_code", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnfull_trace_code)
             Me.columnppo_qty = New Global.System.Data.DataColumn("ppo_qty", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnppo_qty)
-            Me.columnsap_gr_qty = New Global.System.Data.DataColumn("sap_gr_qty", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnsap_gr_qty)
-            Me.columngr_date = New Global.System.Data.DataColumn("gr_date", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columngr_date)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnid}, true))
             Me.columnid.AllowDBNull = false
             Me.columnid.Unique = true
@@ -668,6 +642,21 @@ Partial Public Class PPOList
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property material() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTablePPOList.materialColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'material' in table 'DataTablePPOList' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTablePPOList.materialColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property new_ordering_part_number() As String
             Get
                 Try 
@@ -694,21 +683,6 @@ Partial Public Class PPOList
             End Get
             Set
                 Me(Me.tableDataTablePPOList.firmwareColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property material() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableDataTablePPOList.materialColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'material' in table 'DataTablePPOList' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableDataTablePPOList.materialColumn) = value
             End Set
         End Property
         
@@ -759,33 +733,15 @@ Partial Public Class PPOList
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property sap_gr_qty() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableDataTablePPOList.sap_gr_qtyColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'sap_gr_qty' in table 'DataTablePPOList' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableDataTablePPOList.sap_gr_qtyColumn) = value
-            End Set
-        End Property
+        Public Function IsmaterialNull() As Boolean
+            Return Me.IsNull(Me.tableDataTablePPOList.materialColumn)
+        End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property gr_date() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableDataTablePPOList.gr_dateColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'gr_date' in table 'DataTablePPOList' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableDataTablePPOList.gr_dateColumn) = value
-            End Set
-        End Property
+        Public Sub SetmaterialNull()
+            Me(Me.tableDataTablePPOList.materialColumn) = Global.System.Convert.DBNull
+        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
@@ -809,18 +765,6 @@ Partial Public Class PPOList
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub SetfirmwareNull()
             Me(Me.tableDataTablePPOList.firmwareColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function IsmaterialNull() As Boolean
-            Return Me.IsNull(Me.tableDataTablePPOList.materialColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub SetmaterialNull()
-            Me(Me.tableDataTablePPOList.materialColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -857,30 +801,6 @@ Partial Public Class PPOList
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub Setppo_qtyNull()
             Me(Me.tableDataTablePPOList.ppo_qtyColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function Issap_gr_qtyNull() As Boolean
-            Return Me.IsNull(Me.tableDataTablePPOList.sap_gr_qtyColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub Setsap_gr_qtyNull()
-            Me(Me.tableDataTablePPOList.sap_gr_qtyColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function Isgr_dateNull() As Boolean
-            Return Me.IsNull(Me.tableDataTablePPOList.gr_dateColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub Setgr_dateNull()
-            Me(Me.tableDataTablePPOList.gr_dateColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
