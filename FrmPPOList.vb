@@ -43,7 +43,9 @@ Public Class FrmPPOList
 
     Private Sub BtnSearch_Click(sender As Object, e As EventArgs) Handles BtnSearch.Click
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-        Dim q = ""
+        Dim q = "select * from ppo_records where id like '%\" & TboxSearch.Text.Replace("'", "''") & "%' escape '\' or
+                    material_no like '%\" & TboxSearch.Text.Replace("'", "''") & "%' escape '\' or
+                    ordering_part_no like '%\" & TboxSearch.Text.Replace("'", "''") & "%' escape '\'"
 
         Try
             conn.Open()
