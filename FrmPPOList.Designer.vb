@@ -25,12 +25,6 @@ Partial Class FrmPPOList
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPPOList))
         Me.DGVPPOList = New System.Windows.Forms.DataGridView()
-        Me.TboxSearch = New System.Windows.Forms.TextBox()
-        Me.BtnSearch = New System.Windows.Forms.Button()
-        Me.BtnAdd = New System.Windows.Forms.Button()
-        Me.BtnRemove = New System.Windows.Forms.Button()
-        Me.DataTablePPOListBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.PPOList = New SLI_OPN_Checker.PPOList()
         Me.IdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NeworderingpartnumberDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -38,6 +32,12 @@ Partial Class FrmPPOList
         Me.LotnumberDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FulltracecodeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PpoqtyDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataTablePPOListBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.PPOList = New SLI_OPN_Checker.PPOList()
+        Me.TboxSearch = New System.Windows.Forms.TextBox()
+        Me.BtnSearch = New System.Windows.Forms.Button()
+        Me.BtnAdd = New System.Windows.Forms.Button()
+        Me.BtnRemove = New System.Windows.Forms.Button()
         CType(Me.DGVPPOList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataTablePPOListBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPOList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,54 +65,6 @@ Partial Class FrmPPOList
         Me.DGVPPOList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DGVPPOList.Size = New System.Drawing.Size(813, 466)
         Me.DGVPPOList.TabIndex = 0
-        '
-        'TboxSearch
-        '
-        Me.TboxSearch.Location = New System.Drawing.Point(14, 18)
-        Me.TboxSearch.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.TboxSearch.Name = "TboxSearch"
-        Me.TboxSearch.Size = New System.Drawing.Size(249, 23)
-        Me.TboxSearch.TabIndex = 1
-        '
-        'BtnSearch
-        '
-        Me.BtnSearch.Location = New System.Drawing.Point(271, 13)
-        Me.BtnSearch.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.BtnSearch.Name = "BtnSearch"
-        Me.BtnSearch.Size = New System.Drawing.Size(88, 33)
-        Me.BtnSearch.TabIndex = 2
-        Me.BtnSearch.Text = "Search"
-        Me.BtnSearch.UseVisualStyleBackColor = True
-        '
-        'BtnAdd
-        '
-        Me.BtnAdd.Location = New System.Drawing.Point(622, 13)
-        Me.BtnAdd.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.BtnAdd.Name = "BtnAdd"
-        Me.BtnAdd.Size = New System.Drawing.Size(88, 33)
-        Me.BtnAdd.TabIndex = 2
-        Me.BtnAdd.Text = "Add"
-        Me.BtnAdd.UseVisualStyleBackColor = True
-        '
-        'BtnRemove
-        '
-        Me.BtnRemove.Location = New System.Drawing.Point(716, 13)
-        Me.BtnRemove.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.BtnRemove.Name = "BtnRemove"
-        Me.BtnRemove.Size = New System.Drawing.Size(88, 33)
-        Me.BtnRemove.TabIndex = 2
-        Me.BtnRemove.Text = "Remove"
-        Me.BtnRemove.UseVisualStyleBackColor = True
-        '
-        'DataTablePPOListBindingSource
-        '
-        Me.DataTablePPOListBindingSource.DataMember = "DataTablePPOList"
-        Me.DataTablePPOListBindingSource.DataSource = Me.PPOList
-        '
-        'PPOList
-        '
-        Me.PPOList.DataSetName = "PPOList"
-        Me.PPOList.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'IdDataGridViewTextBoxColumn
         '
@@ -169,6 +121,54 @@ Partial Class FrmPPOList
         Me.PpoqtyDataGridViewTextBoxColumn.HeaderText = "PPO Qty"
         Me.PpoqtyDataGridViewTextBoxColumn.Name = "PpoqtyDataGridViewTextBoxColumn"
         Me.PpoqtyDataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'DataTablePPOListBindingSource
+        '
+        Me.DataTablePPOListBindingSource.DataMember = "DataTablePPOList"
+        Me.DataTablePPOListBindingSource.DataSource = Me.PPOList
+        '
+        'PPOList
+        '
+        Me.PPOList.DataSetName = "PPOList"
+        Me.PPOList.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'TboxSearch
+        '
+        Me.TboxSearch.Location = New System.Drawing.Point(14, 18)
+        Me.TboxSearch.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.TboxSearch.Name = "TboxSearch"
+        Me.TboxSearch.Size = New System.Drawing.Size(249, 23)
+        Me.TboxSearch.TabIndex = 1
+        '
+        'BtnSearch
+        '
+        Me.BtnSearch.Location = New System.Drawing.Point(271, 13)
+        Me.BtnSearch.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.BtnSearch.Name = "BtnSearch"
+        Me.BtnSearch.Size = New System.Drawing.Size(88, 33)
+        Me.BtnSearch.TabIndex = 2
+        Me.BtnSearch.Text = "Search"
+        Me.BtnSearch.UseVisualStyleBackColor = True
+        '
+        'BtnAdd
+        '
+        Me.BtnAdd.Location = New System.Drawing.Point(622, 13)
+        Me.BtnAdd.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.BtnAdd.Name = "BtnAdd"
+        Me.BtnAdd.Size = New System.Drawing.Size(88, 33)
+        Me.BtnAdd.TabIndex = 2
+        Me.BtnAdd.Text = "Add"
+        Me.BtnAdd.UseVisualStyleBackColor = True
+        '
+        'BtnRemove
+        '
+        Me.BtnRemove.Location = New System.Drawing.Point(716, 13)
+        Me.BtnRemove.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.BtnRemove.Name = "BtnRemove"
+        Me.BtnRemove.Size = New System.Drawing.Size(88, 33)
+        Me.BtnRemove.TabIndex = 2
+        Me.BtnRemove.Text = "Remove"
+        Me.BtnRemove.UseVisualStyleBackColor = True
         '
         'FrmPPOList
         '

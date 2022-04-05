@@ -84,7 +84,7 @@ Public Class FrmAddOPN
         Me.Close()
 
         FrmList.Load_OPN()
-        FrmList.dgvList.ClearSelection()
+        FrmList.DGVList.ClearSelection()
 
         'Try
         '    Dim q = "insert into material (material_no) values ('" & TboxMaterial.Text & "')"

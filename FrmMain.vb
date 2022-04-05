@@ -85,6 +85,43 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnCheck_Click(sender As Object, e As EventArgs) Handles BtnCheck.Click
+        'start - Checking OPN if exist on the PPO records
+        Dim lot_number As Match
+
+        lot_number = Regex.Match(TboxFolderName.Text, "71[0-9]{5}\.[1-9]{1,2}")
+
+        conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+        Dim query = "select * from ppo_records where lot_number='" & lot_number.Value & "'"
+        Dim lotexist As Boolean
+        Dim matnum As String = ToString()
+
+        Try
+            conn.Open()
+            Using cmd As New SQLiteCommand(query, conn)
+                Using reader As SQLiteDataReader = cmd.ExecuteReader
+                    reader.Read()
+                    If reader.HasRows Then
+                        If reader("lot_number").ToString = lot_number.Value Then
+                            lotexist = True
+                        Else
+                            lotexist = False
+                        End If
+                    End If
+                End Using
+            End Using
+            conn.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        If lotexist = False Then
+            MessageBox.Show("PPO do not exist. Please create new PPO entry.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+        'end
+
+        ' original
+
         If TboxPath.Text = Nothing Then
             MessageBox.Show("Please browse the directory to proceed!", "No Direcotry", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
@@ -104,22 +141,26 @@ Public Class FrmMain
             Return
         End If
 
-        Dim cm = "^(IONICS)_"
-        Dim material = "_([A-Z0-9]{14,15})"
-        Dim lot = "_([0-9]{7}\.[0-9]{1,2})_"
-        Dim stationid = "_((CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_"
+        'start - Checking the correct format
+        Dim cm = "^(IONICS)"
+        Dim material = "(R9113[A-Z0-9]{9})"
+        Dim lot = "(71[0-9]{5}\.[1-9]{1,2})"
+        Dim stationid = "((UART|CALIB|FT)-[0-9]{2}-F[0-9]{2})"
         Dim fcode = "_([fp])"
-        Dim tstamp = "_([0-9]{14}$)"
+        Dim tstamp = "([0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$)"
+        'end
 
         Dim cmc, materialc, lotc, stationidc, fcodec, tstampc As Match
         'Dim cmr, materialr, lotr, stationidr, fcoder, tstampr As Regex
 
+        'start - Checking error format
         cmc = Regex.Match(TboxFolderName.Text, "^[a-zA-Z]+")
         materialc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z0-9]+")
-        lotc = Regex.Match(TboxFolderName.Text, "_[0-9\.0-9]+")
+        lotc = Regex.Match(TboxFolderName.Text, "_71[0-9]{5}\.[1-9]{1,2}")
         stationidc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]+")
         fcodec = Regex.Match(TboxFolderName.Text, "_[a-zA-Z]_")
         tstampc = Regex.Match(TboxFolderName.Text, "[0-9]+$")
+        'end
 
         'cmr = New Regex("^[IONICS]+")
         'materialr = New Regex("_[A-Z0-9]*")
@@ -135,6 +176,7 @@ Public Class FrmMain
 
         Dim r As String = Regex.IsMatch(TboxFolderName.Text, material)
 
+        'start - Checking Company Manufacturer
         'cmc = cmr.Match(TboxFolderName.Text)
         If Regex.IsMatch(TboxFolderName.Text, cm) Then
             LblCMResult.Visible = True
@@ -161,7 +203,9 @@ Public Class FrmMain
                 End If
             End If
         End If
+        'end
 
+        'start - Checking Material
         If Regex.IsMatch(TboxFolderName.Text, material) Then
             conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
 
@@ -188,8 +232,8 @@ Public Class FrmMain
 
             For Each dt In MatList
                 Dim reg As Match
-                reg = Regex.Match(TboxFolderName.Text, "_[A-Z0-9]{14,15}")
-                If dt = reg.Value.Substring(1) Then
+                reg = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}")
+                If dt = reg.Value Then
                     y = True
                 Else
                     n = True
@@ -198,13 +242,42 @@ Public Class FrmMain
 
             'materialc = materialr.Match(TboxFolderName.Text, 1)
 
+            'start - Checking material if match on PPO Records
             If y = True Then
-                LblMaterialResult.Visible = True
-                LblMaterialResult.ForeColor = Color.Green
-                LblMaterialResult.Text = "OK"
-                LblMaterialFeedback.Visible = False
-                LblMaterialFeedback.Text = Nothing
-                ErrorProvider1.SetError(LblMaterialFeedback, "")
+                conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfmissing=True;"
+                Dim q = "select * from ppo_records where lot_number='" & Regex.Match(TboxFolderName.Text, "71[0-9]{5}.[1-9]{1,2}").Value & "'"
+                Dim material_num As String = ToString()
+
+                Try
+                    conn.Open()
+                    Using cmd As New SQLiteCommand(q, conn)
+                        Using reader As SQLiteDataReader = cmd.ExecuteReader
+                            reader.Read()
+                            If reader.HasRows Then
+                                material_num = reader("material").ToString
+                            End If
+                        End Using
+                    End Using
+                    conn.Close()
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+
+                If material_num <> Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value Then
+                    LblMaterialResult.Visible = True
+                    LblMaterialResult.ForeColor = Color.Red
+                    LblMaterialResult.Text = "Do not match"
+                    LblMaterialFeedback.Visible = True
+                    LblMaterialFeedback.Text = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value
+                    ErrorProvider1.SetError(LblMaterialFeedback, "Do not match with the PPO records." & vbCrLf & "It must be " & material_num)
+                Else
+                    LblMaterialResult.Visible = True
+                    LblMaterialResult.ForeColor = Color.Green
+                    LblMaterialResult.Text = "OK"
+                    LblMaterialFeedback.Visible = False
+                    LblMaterialFeedback.Text = Nothing
+                    ErrorProvider1.SetError(LblMaterialFeedback, "")
+                End If
             Else
                 If n = True Then
                     LblMaterialResult.Visible = True
@@ -222,8 +295,10 @@ Public Class FrmMain
                     End If
                 End If
             End If
+            'end
         End If
 
+        'start - Checking lot number
         If Regex.IsMatch(TboxFolderName.Text, lot) Then
             LblLotNoResult.Visible = True
             LblLotNoResult.ForeColor = Color.Green
@@ -258,7 +333,9 @@ Public Class FrmMain
                 ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
             End If
         End If
+        'end
 
+        'start - Checking station ID
         If Regex.IsMatch(TboxFolderName.Text, stationid) Then
             LblStationIDResult.Visible = True
             LblStationIDResult.ForeColor = Color.Green
@@ -282,7 +359,7 @@ Public Class FrmMain
                     If Not Regex.IsMatch(LblStationIDFeedback.Text, "\-[0-9]{2}\-") Or Regex.IsMatch(LblStationIDFeedback.Text, "(CALIB|FT|UART)\-[0-9]{3,}") Then
                         ErrorProvider1.SetError(LblStationIDFeedback, "station ID is invalid")
                     Else
-                        If Not Regex.IsMatch(LblStationIDFeedback.Text, "\-[FR][0-9]{2}$") Then
+                        If Not Regex.IsMatch(LblStationIDFeedback.Text, "\-[F][0-9]{2}$") Then
                             ErrorProvider1.SetError(LblStationIDFeedback, "socket is invalid")
                             'Else
                             '    If Not Regex.IsMatch(LblStationIDFeedback.Text, "^(CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2}$") Then
@@ -292,8 +369,8 @@ Public Class FrmMain
                     End If
                 End If
             End If
-
         End If
+        'end
 
         Dim cal, ft, uart, flowcal, flowftuart As Match
 
@@ -303,11 +380,18 @@ Public Class FrmMain
         'flowcal = Regex.Match(TboxFolderName.Text, "^(IONICS)_([A-Z0-9]{14,15})_([0-9]{7}\.[0-9]{1,2})_((CALIB)\-[0-9]{2}\-[FR][0-9]{2})_[f]_([0-9]{14})$")
         'flowftuart = Regex.Match(TboxFolderName.Text, "^(IONICS)_([A-Z0-9]{14,15})_([0-9]{7}\.[0-9]{1,2})_((FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_([p])_([0-9]{14}$)")
 
-        cal = Regex.Match(TboxFolderName.Text, "^(IONICS)_([A-Z0-9]{14,15})_([0-9]{7}\.[0-9]{1,2})_((CALIB)\-[0-9]{2}\-[FR][0-9]{2})_([f])_([0-9]{14}$)")
-        ft = Regex.Match(TboxFolderName.Text, "^(IONICS)_([A-Z0-9]{14,15})_([0-9]{7}\.[0-9]{1,2})_((FT)\-[0-9]{2}\-[FR][0-9]{2})_([p])_([0-9]{14}$)")
-        uart = Regex.Match(TboxFolderName.Text, "^(IONICS)_([A-Z0-9]{14,15})_([0-9]{7}\.[0-9]{1,2})_((UART)\-[0-9]{2}\-[FR][0-9]{2})_([p])_([0-9]{14}$)")
+        'cal = Regex.Match(TboxFolderName.Text, "^(IONICS)_([A-Z0-9]{14,15})_([0-9]{7}\.[0-9]{1,2})_((CALIB)\-[0-9]{2}\-[FR][0-9]{2})_([f])_([0-9]{14}$)")
+        'ft = Regex.Match(TboxFolderName.Text, "^(IONICS)_([A-Z0-9]{14,15})_([0-9]{7}\.[0-9]{1,2})_((FT)\-[0-9]{2}\-[FR][0-9]{2})_([p])_([0-9]{14}$)")
+        'uart = Regex.Match(TboxFolderName.Text, "^(IONICS)_([A-Z0-9]{14,15})_([0-9]{7}\.[0-9]{1,2})_((UART)\-[0-9]{2}\-[FR][0-9]{2})_([p])_([0-9]{14}$)")
+        'flowcal = Regex.Match(TboxFolderName.Text, "_((CALIB)\-[0-9]{2}\-[FR][0-9]{2})_[f]_")
+        'flowftuart = Regex.Match(TboxFolderName.Text, "_((FT|UART)\-[0-9]{2}\-[F][0-9]{2})_([p])_")
+
+        cal = Regex.Match(TboxFolderName.Text, "CALIB")
+        ft = Regex.Match(TboxFolderName.Text, "FT")
+        uart = Regex.Match(TboxFolderName.Text, "UART")
         flowcal = Regex.Match(TboxFolderName.Text, "_((CALIB)\-[0-9]{2}\-[FR][0-9]{2})_[f]_")
-        flowftuart = Regex.Match(TboxFolderName.Text, "_((FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_([p])_")
+        flowftuart = Regex.Match(TboxFolderName.Text, "_((FT|UART)\-[0-9]{2}\-[F][0-9]{2})_([p])_")
+
         Dim station As String = ToString()
 
         If Regex.IsMatch(TboxFolderName.Text, fcode) Then
@@ -343,7 +427,7 @@ Public Class FrmMain
                     ErrorProvider1.SetError(LblFlowCodeFeedback, "")
                     correct = True
                 Else
-                    If TboxFolderName.Text = uart.Value Then
+                    If Regex.IsMatch(TboxFolderName.Text, uart.Value) Then
                         LblStationValue.Text = "UART"
                         LblFlowCodeResult.Visible = True
                         LblFlowCodeResult.ForeColor = Color.Green
@@ -463,6 +547,7 @@ Public Class FrmMain
             End If
         End If
 
+        'start - Checking time stamp
         If Regex.IsMatch(TboxFolderName.Text, tstamp) Then
             LblTimeStampResult.Visible = True
             LblTimeStampResult.ForeColor = Color.Green
@@ -485,6 +570,7 @@ Public Class FrmMain
                 End If
             End If
         End If
+        'end
 
         'If fcodec.Value.Substring(1, fcodec.Value.Length - 2) = "f" Then
         '    LblStationValue.Text = "Calibration"
@@ -506,6 +592,7 @@ Public Class FrmMain
 
         strng.Clear()
 
+        'start - Checking counter
         If LblCMResult.Text = "OK" And LblMaterialResult.Text = "OK" And LblLotNoResult.Text = "OK" And LblStationIDResult.Text = "OK" And LblLotNoResult.Text = "OK" And LblStationIDResult.Text = "OK" And LblFlowCodeResult.Text = "OK" And LblTimeStampResult.Text = "OK" Then
             For Each f In str
                 If LblStationValue.Text = "Calibration" Then
@@ -609,6 +696,7 @@ Public Class FrmMain
                 End If
             End If
         End If
+        'end 
     End Sub
 
     Private Sub TboxPath_DragEnter(sender As Object, e As DragEventArgs) Handles TboxPath.DragEnter
@@ -676,18 +764,18 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
-        If Not BackgroundWorker1.IsBusy Then
-            ReferenceToolStripMenuItem.Enabled = False
-            TboxPath.Enabled = False
-            BtnBrowse.Enabled = False
-            BtnCheck.Enabled = False
-            LblPercent.Visible = True
-            BackgroundWorker1.RunWorkerAsync()
-        Else
-            If BackgroundWorker1.IsBusy Then
-                MsgBox("Saving OPN is already running", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Saving")
-            End If
-        End If
+        'If Not BackgroundWorker1.IsBusy Then
+        '    ReferenceToolStripMenuItem.Enabled = False
+        '    TboxPath.Enabled = False
+        '    BtnBrowse.Enabled = False
+        '    BtnCheck.Enabled = False
+        '    LblPercent.Visible = True
+        '    BackgroundWorker1.RunWorkerAsync()
+        'Else
+        '    If BackgroundWorker1.IsBusy Then
+        '        MsgBox("Saving OPN is already running", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Saving")
+        '    End If
+        'End If
 
         'Dim dirInfo As New DirectoryInfo("C:\Users\inven\Desktop\Screened Result\2021\2112F005A3\IONICS_R9113NG0NP9X00_7103982.2_CALIB-03-F08_f_20201218061744")
         ''ZipFile.CreateFromDirectory("C:\Users\inven\Desktop\Screened Result\2021\2112F005A3\IONICS_R9113NG0NP9X00_7103982.2_CALIB-03-F08_f_20201218061744\IONICS_R9113NG0NP9X00_7103982.2_CALIB-03-F08_f_20201218061744", "C:\Users\inven\Documents\opn_checked\IONICS_R9113NG0NP9X00_7103982.2_CALIB-03-F08_f_20201218061744.zip")
@@ -715,7 +803,6 @@ Public Class FrmMain
         '        End Using
         '    End Using
         'Next
-
     End Sub
 
     Private Sub PPOListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PPOListToolStripMenuItem.Click

@@ -395,6 +395,12 @@ Partial Public Class OPN
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function FindByid(ByVal id As Integer) As DataTableOPNRow
+            Return CType(Me.Rows.Find(New Object() {id}),DataTableOPNRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
             Dim cln As DataTableOPNDataTable = CType(MyBase.Clone,DataTableOPNDataTable)
             cln.InitVars
@@ -424,6 +430,9 @@ Partial Public Class OPN
             MyBase.Columns.Add(Me.columnmaterial_no)
             Me.columnordering_part_no = New Global.System.Data.DataColumn("ordering_part_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnordering_part_no)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnid}, true))
+            Me.columnid.AllowDBNull = false
+            Me.columnid.Unique = true
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -572,11 +581,7 @@ Partial Public Class OPN
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property id() As Integer
             Get
-                Try 
-                    Return CType(Me(Me.tableDataTableOPN.idColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'id' in table 'DataTableOPN' is DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableDataTableOPN.idColumn),Integer)
             End Get
             Set
                 Me(Me.tableDataTableOPN.idColumn) = value
@@ -612,18 +617,6 @@ Partial Public Class OPN
                 Me(Me.tableDataTableOPN.ordering_part_noColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function IsidNull() As Boolean
-            Return Me.IsNull(Me.tableDataTableOPN.idColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub SetidNull()
-            Me(Me.tableDataTableOPN.idColumn) = Global.System.Convert.DBNull
-        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
