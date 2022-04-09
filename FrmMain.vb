@@ -85,6 +85,17 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnCheck_Click(sender As Object, e As EventArgs) Handles BtnCheck.Click
+        'start - Checking OPN format
+        Dim rg As String = "^(ionics|IONICS)_((r9113|R9113)[a-zA-Z0-9]{9})_71[0-9]{5}\.[1-9]{1,2}_(uart|UART|CALIB|calib|ft|FT|)-[0-9]{2}-F[0-9]{2}_([fp]|[FP])_[0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$"
+        'Dim rg As String = "^([a-zA-Z]+)_([a-zA-Z0-9]+)_([0-9\.0-9]+)_([a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]*)_([a-zA-Z])_([a-zA-Z0-9]+)$"
+        '"[IONICS]+_([A-Z0-9]+)_([0-9\.0-9]+)_((CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_(.*)_([0-9]+)"
+
+        If Not Regex.IsMatch(TboxFolderName.Text, rg) Then
+            MessageBox.Show("Filename invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+        'end
+
         'start - Checking OPN if exist on the PPO records
         Dim lot_number As Match
 
@@ -116,6 +127,7 @@ Public Class FrmMain
 
         If lotexist = False Then
             MessageBox.Show("PPO do not exist. Please create new PPO entry.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            FrmPPORecords.ShowDialog()
             Return
         End If
         'end
@@ -133,29 +145,21 @@ Public Class FrmMain
             Return
         End If
 
-        Dim rg As String = "^([a-zA-Z]+)_([a-zA-Z0-9]+)_([0-9\.0-9]+)_([a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]*)_([a-zA-Z])_([a-zA-Z0-9]+)$"
-        '"[IONICS]+_([A-Z0-9]+)_([0-9\.0-9]+)_((CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_(.*)_([0-9]+)"
-
-        If Not Regex.IsMatch(TboxFolderName.Text, rg) Then
-            MessageBox.Show("Filename invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-
         'start - Checking the correct format
         Dim cm = "^(IONICS)"
         Dim material = "(R9113[A-Z0-9]{9})"
         Dim lot = "(71[0-9]{5}\.[1-9]{1,2})"
         Dim stationid = "((UART|CALIB|FT)-[0-9]{2}-F[0-9]{2})"
-        Dim fcode = "_([fp])"
+        Dim fcode = "([fp])"
         Dim tstamp = "([0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$)"
         'end
 
         Dim cmc, materialc, lotc, stationidc, fcodec, tstampc As Match
         'Dim cmr, materialr, lotr, stationidr, fcoder, tstampr As Regex
 
-        'start - Checking error format
+        'start - Error feedback check
         cmc = Regex.Match(TboxFolderName.Text, "^[a-zA-Z]+")
-        materialc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z0-9]+")
+        materialc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z0-9]{14}_")
         lotc = Regex.Match(TboxFolderName.Text, "_71[0-9]{5}\.[1-9]{1,2}")
         stationidc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]+")
         fcodec = Regex.Match(TboxFolderName.Text, "_[a-zA-Z]_")
@@ -192,13 +196,10 @@ Public Class FrmMain
             LblCMFeedback.Visible = True
             LblCMFeedback.Text = cmc.Value
 
-            Dim chk As Match
-            chk = Regex.Match(LblCMFeedback.Text, "^(IONICS)")
-
             If Regex.IsMatch(LblCMFeedback.Text, "[a-z]+") Then
                 ErrorProvider1.SetError(LblCMFeedback, "must be uppercase")
             Else
-                If Not Regex.IsMatch(LblCMFeedback.Text, "^(IONICS)") Then
+                If Regex.IsMatch(LblCMFeedback.Text, "^(IONICS)") = False Then
                     ErrorProvider1.SetError(LblCMFeedback, "must be IONICS")
                 End If
             End If
@@ -206,8 +207,8 @@ Public Class FrmMain
         'end
 
         'start - Checking Material
-        If Regex.IsMatch(TboxFolderName.Text, material) Then
-            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+        'If Regex.IsMatch(TboxFolderName.Text, material) Then
+        conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
 
             Try
                 Dim q = "select material_no from material"
@@ -239,8 +240,6 @@ Public Class FrmMain
                     n = True
                 End If
             Next
-
-            'materialc = materialr.Match(TboxFolderName.Text, 1)
 
             'start - Checking material if match on PPO Records
             If y = True Then
@@ -284,19 +283,19 @@ Public Class FrmMain
                     LblMaterialResult.ForeColor = Color.Red
                     LblMaterialResult.Text = "Do not match"
                     LblMaterialFeedback.Visible = True
-                    LblMaterialFeedback.Text = materialc.Value.Substring(1)
+                LblMaterialFeedback.Text = materialc.Value.Substring(1, 14)
 
-                    If Regex.IsMatch(LblMaterialFeedback.Text, "[a-z]") Then
+                If Regex.IsMatch(LblMaterialFeedback.Text, "[a-z]") Then
                         ErrorProvider1.SetError(LblMaterialFeedback, "must be uppercase")
                     Else
                         If Regex.IsMatch(LblMaterialFeedback.Text, "[A-Z0-9]+") Then
-                            ErrorProvider1.SetError(LblMaterialFeedback, "no match in the database")
-                        End If
+                        ErrorProvider1.SetError(LblMaterialFeedback, "do not match in the database")
+                    End If
                     End If
                 End If
             End If
-            'end
-        End If
+        'end
+        'End If
 
         'start - Checking lot number
         If Regex.IsMatch(TboxFolderName.Text, lot) Then
@@ -312,26 +311,7 @@ Public Class FrmMain
             LblLotNoResult.Text = "Do not match"
             LblLotNoFeedback.Visible = True
             LblLotNoFeedback.Text = lotc.Value.Substring(1)
-
-            'If Regex.IsMatch(LblLotNoFeedback.Text, "^[0-9]{7,}\.[0-9]{3,}") Then
-            '    ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
-            'Else
-            '    If Regex.IsMatch(LblLotNoFeedback.Text, "^[0-9]{1,6}\.[0-9]{1,2}") Then
-            '        ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
-            '    Else
-            '        If Regex.IsMatch(LblLotNoFeedback.Text, "^[0-9]{7}\.[0-9]{3,}") Then
-            '            ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
-            '        Else
-            '            If Regex.IsMatch(LblLotNoFeedback.Text, "^[0-9]{7,}\.[0-9]{1,2}") Then
-            '                ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
-            '            End If
-            '        End If
-            '    End If
-            'End If
-
-            If Not Regex.IsMatch(LblLotNoFeedback.Text, "^[0-9]{7}\.[0-9]{1,2}$") Then
-                ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
-            End If
+            ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
         End If
         'end
 
@@ -392,19 +372,26 @@ Public Class FrmMain
         flowcal = Regex.Match(TboxFolderName.Text, "_((CALIB)\-[0-9]{2}\-[FR][0-9]{2})_[f]_")
         flowftuart = Regex.Match(TboxFolderName.Text, "_((FT|UART)\-[0-9]{2}\-[F][0-9]{2})_([p])_")
 
+        'start - Checking station ID
         Dim station As String = ToString()
 
         If Regex.IsMatch(TboxFolderName.Text, fcode) Then
             If Regex.IsMatch(TboxPath.Text, "(CALIB)") Then
                 station = "CALIB"
             Else
-                If Regex.IsMatch(TboxPath.Text, "(FT)") Then
-                    station = "FT"
-                Else
-                    If Regex.IsMatch(TboxPath.Text, "(UART)") Then
-                        station = "UART"
-                    End If
-                End If
+
+            End If
+
+            If Regex.IsMatch(TboxPath.Text, "(FT)") Then
+                station = "FT"
+            Else
+
+            End If
+
+            If Regex.IsMatch(TboxPath.Text, "(UART)") Then
+                station = "UART"
+            Else
+
             End If
 
             If TboxFolderName.Text = cal.Value Then

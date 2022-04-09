@@ -128,3 +128,5 @@ D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.CopyComplete
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.exe
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.xml
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.pdb
+D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmPPOList.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmPPORecords.resources
