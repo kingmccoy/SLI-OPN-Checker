@@ -42,12 +42,12 @@ Partial Class FrmMain
         Me.LblStationID = New System.Windows.Forms.Label()
         Me.LblFlowCode = New System.Windows.Forms.Label()
         Me.LblTimeStamp = New System.Windows.Forms.Label()
-        Me.LblCMResult = New System.Windows.Forms.Label()
-        Me.LblMaterialResult = New System.Windows.Forms.Label()
-        Me.LblLotNoResult = New System.Windows.Forms.Label()
-        Me.LblStationIDResult = New System.Windows.Forms.Label()
-        Me.LblFlowCodeResult = New System.Windows.Forms.Label()
-        Me.LblTimeStampResult = New System.Windows.Forms.Label()
+        Me.LblCMResultInitial = New System.Windows.Forms.Label()
+        Me.LblMaterialResultInitial = New System.Windows.Forms.Label()
+        Me.LblLotNoResultInitial = New System.Windows.Forms.Label()
+        Me.LblStationIDResultInitial = New System.Windows.Forms.Label()
+        Me.LblFlowCodeResultInitial = New System.Windows.Forms.Label()
+        Me.LblTimeStampResultInitial = New System.Windows.Forms.Label()
         Me.LblCMFeedback = New System.Windows.Forms.Label()
         Me.LblMaterialFeedback = New System.Windows.Forms.Label()
         Me.LblLotNoFeedback = New System.Windows.Forms.Label()
@@ -68,8 +68,16 @@ Partial Class FrmMain
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.LblPercent = New System.Windows.Forms.Label()
+        Me.GroupBoxFormatCheck = New System.Windows.Forms.GroupBox()
+        Me.GroupBoxFormat = New System.Windows.Forms.GroupBox()
+        Me.GroupBoxOPNCheck = New System.Windows.Forms.GroupBox()
+        Me.LblLotNoResultFinal = New System.Windows.Forms.Label()
+        Me.LblMaterialResultFinal = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBoxFormatCheck.SuspendLayout()
+        Me.GroupBoxFormat.SuspendLayout()
+        Me.GroupBoxOPNCheck.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -78,7 +86,7 @@ Partial Class FrmMain
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(603, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(724, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -114,13 +122,13 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TboxPath.Location = New System.Drawing.Point(57, 34)
         Me.TboxPath.Name = "TboxPath"
-        Me.TboxPath.Size = New System.Drawing.Size(436, 23)
+        Me.TboxPath.Size = New System.Drawing.Size(557, 23)
         Me.TboxPath.TabIndex = 1
         '
         'BtnBrowse
         '
         Me.BtnBrowse.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnBrowse.Location = New System.Drawing.Point(499, 33)
+        Me.BtnBrowse.Location = New System.Drawing.Point(620, 33)
         Me.BtnBrowse.Name = "BtnBrowse"
         Me.BtnBrowse.Size = New System.Drawing.Size(92, 27)
         Me.BtnBrowse.TabIndex = 2
@@ -130,7 +138,7 @@ Partial Class FrmMain
         'BtnCheck
         '
         Me.BtnCheck.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnCheck.Location = New System.Drawing.Point(499, 61)
+        Me.BtnCheck.Location = New System.Drawing.Point(620, 61)
         Me.BtnCheck.Name = "BtnCheck"
         Me.BtnCheck.Size = New System.Drawing.Size(92, 27)
         Me.BtnCheck.TabIndex = 3
@@ -143,7 +151,7 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TboxFolderName.Location = New System.Drawing.Point(57, 63)
         Me.TboxFolderName.Name = "TboxFolderName"
-        Me.TboxFolderName.Size = New System.Drawing.Size(436, 23)
+        Me.TboxFolderName.Size = New System.Drawing.Size(557, 23)
         Me.TboxFolderName.TabIndex = 3
         '
         'LblFolderName
@@ -167,7 +175,8 @@ Partial Class FrmMain
         'LblCM
         '
         Me.LblCM.AutoSize = True
-        Me.LblCM.Location = New System.Drawing.Point(12, 103)
+        Me.LblCM.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblCM.Location = New System.Drawing.Point(6, 19)
         Me.LblCM.Name = "LblCM"
         Me.LblCM.Size = New System.Drawing.Size(134, 15)
         Me.LblCM.TabIndex = 4
@@ -176,7 +185,8 @@ Partial Class FrmMain
         'LblMaterial
         '
         Me.LblMaterial.AutoSize = True
-        Me.LblMaterial.Location = New System.Drawing.Point(12, 123)
+        Me.LblMaterial.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblMaterial.Location = New System.Drawing.Point(6, 39)
         Me.LblMaterial.Name = "LblMaterial"
         Me.LblMaterial.Size = New System.Drawing.Size(50, 15)
         Me.LblMaterial.TabIndex = 5
@@ -185,7 +195,8 @@ Partial Class FrmMain
         'LblLotNo
         '
         Me.LblLotNo.AutoSize = True
-        Me.LblLotNo.Location = New System.Drawing.Point(12, 143)
+        Me.LblLotNo.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblLotNo.Location = New System.Drawing.Point(6, 59)
         Me.LblLotNo.Name = "LblLotNo"
         Me.LblLotNo.Size = New System.Drawing.Size(71, 15)
         Me.LblLotNo.TabIndex = 6
@@ -194,7 +205,8 @@ Partial Class FrmMain
         'LblStationID
         '
         Me.LblStationID.AutoSize = True
-        Me.LblStationID.Location = New System.Drawing.Point(12, 163)
+        Me.LblStationID.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStationID.Location = New System.Drawing.Point(6, 79)
         Me.LblStationID.Name = "LblStationID"
         Me.LblStationID.Size = New System.Drawing.Size(58, 15)
         Me.LblStationID.TabIndex = 7
@@ -203,7 +215,8 @@ Partial Class FrmMain
         'LblFlowCode
         '
         Me.LblFlowCode.AutoSize = True
-        Me.LblFlowCode.Location = New System.Drawing.Point(12, 183)
+        Me.LblFlowCode.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFlowCode.Location = New System.Drawing.Point(6, 99)
         Me.LblFlowCode.Name = "LblFlowCode"
         Me.LblFlowCode.Size = New System.Drawing.Size(63, 15)
         Me.LblFlowCode.TabIndex = 8
@@ -212,79 +225,79 @@ Partial Class FrmMain
         'LblTimeStamp
         '
         Me.LblTimeStamp.AutoSize = True
-        Me.LblTimeStamp.Location = New System.Drawing.Point(12, 203)
+        Me.LblTimeStamp.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTimeStamp.Location = New System.Drawing.Point(6, 119)
         Me.LblTimeStamp.Name = "LblTimeStamp"
         Me.LblTimeStamp.Size = New System.Drawing.Size(70, 15)
         Me.LblTimeStamp.TabIndex = 9
         Me.LblTimeStamp.Text = "Time Stamp"
         '
-        'LblCMResult
+        'LblCMResultInitial
         '
-        Me.LblCMResult.AutoSize = True
-        Me.LblCMResult.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblCMResult.Location = New System.Drawing.Point(155, 103)
-        Me.LblCMResult.Name = "LblCMResult"
-        Me.LblCMResult.Size = New System.Drawing.Size(24, 15)
-        Me.LblCMResult.TabIndex = 4
-        Me.LblCMResult.Text = "OK"
+        Me.LblCMResultInitial.AutoSize = True
+        Me.LblCMResultInitial.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblCMResultInitial.Location = New System.Drawing.Point(36, 18)
+        Me.LblCMResultInitial.Name = "LblCMResultInitial"
+        Me.LblCMResultInitial.Size = New System.Drawing.Size(24, 15)
+        Me.LblCMResultInitial.TabIndex = 4
+        Me.LblCMResultInitial.Text = "OK"
         '
-        'LblMaterialResult
+        'LblMaterialResultInitial
         '
-        Me.LblMaterialResult.AutoSize = True
-        Me.LblMaterialResult.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblMaterialResult.Location = New System.Drawing.Point(155, 123)
-        Me.LblMaterialResult.Name = "LblMaterialResult"
-        Me.LblMaterialResult.Size = New System.Drawing.Size(24, 15)
-        Me.LblMaterialResult.TabIndex = 5
-        Me.LblMaterialResult.Text = "OK"
+        Me.LblMaterialResultInitial.AutoSize = True
+        Me.LblMaterialResultInitial.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblMaterialResultInitial.Location = New System.Drawing.Point(36, 38)
+        Me.LblMaterialResultInitial.Name = "LblMaterialResultInitial"
+        Me.LblMaterialResultInitial.Size = New System.Drawing.Size(24, 15)
+        Me.LblMaterialResultInitial.TabIndex = 5
+        Me.LblMaterialResultInitial.Text = "OK"
         '
-        'LblLotNoResult
+        'LblLotNoResultInitial
         '
-        Me.LblLotNoResult.AutoSize = True
-        Me.LblLotNoResult.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblLotNoResult.Location = New System.Drawing.Point(155, 143)
-        Me.LblLotNoResult.Name = "LblLotNoResult"
-        Me.LblLotNoResult.Size = New System.Drawing.Size(24, 15)
-        Me.LblLotNoResult.TabIndex = 6
-        Me.LblLotNoResult.Text = "OK"
+        Me.LblLotNoResultInitial.AutoSize = True
+        Me.LblLotNoResultInitial.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblLotNoResultInitial.Location = New System.Drawing.Point(36, 58)
+        Me.LblLotNoResultInitial.Name = "LblLotNoResultInitial"
+        Me.LblLotNoResultInitial.Size = New System.Drawing.Size(24, 15)
+        Me.LblLotNoResultInitial.TabIndex = 6
+        Me.LblLotNoResultInitial.Text = "OK"
         '
-        'LblStationIDResult
+        'LblStationIDResultInitial
         '
-        Me.LblStationIDResult.AutoSize = True
-        Me.LblStationIDResult.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblStationIDResult.Location = New System.Drawing.Point(155, 163)
-        Me.LblStationIDResult.Name = "LblStationIDResult"
-        Me.LblStationIDResult.Size = New System.Drawing.Size(24, 15)
-        Me.LblStationIDResult.TabIndex = 7
-        Me.LblStationIDResult.Text = "OK"
+        Me.LblStationIDResultInitial.AutoSize = True
+        Me.LblStationIDResultInitial.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStationIDResultInitial.Location = New System.Drawing.Point(36, 78)
+        Me.LblStationIDResultInitial.Name = "LblStationIDResultInitial"
+        Me.LblStationIDResultInitial.Size = New System.Drawing.Size(24, 15)
+        Me.LblStationIDResultInitial.TabIndex = 7
+        Me.LblStationIDResultInitial.Text = "OK"
         '
-        'LblFlowCodeResult
+        'LblFlowCodeResultInitial
         '
-        Me.LblFlowCodeResult.AutoSize = True
-        Me.LblFlowCodeResult.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblFlowCodeResult.Location = New System.Drawing.Point(155, 183)
-        Me.LblFlowCodeResult.Name = "LblFlowCodeResult"
-        Me.LblFlowCodeResult.Size = New System.Drawing.Size(24, 15)
-        Me.LblFlowCodeResult.TabIndex = 8
-        Me.LblFlowCodeResult.Text = "OK"
+        Me.LblFlowCodeResultInitial.AutoSize = True
+        Me.LblFlowCodeResultInitial.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFlowCodeResultInitial.Location = New System.Drawing.Point(36, 98)
+        Me.LblFlowCodeResultInitial.Name = "LblFlowCodeResultInitial"
+        Me.LblFlowCodeResultInitial.Size = New System.Drawing.Size(24, 15)
+        Me.LblFlowCodeResultInitial.TabIndex = 8
+        Me.LblFlowCodeResultInitial.Text = "OK"
         '
-        'LblTimeStampResult
+        'LblTimeStampResultInitial
         '
-        Me.LblTimeStampResult.AutoSize = True
-        Me.LblTimeStampResult.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblTimeStampResult.Location = New System.Drawing.Point(155, 203)
-        Me.LblTimeStampResult.Name = "LblTimeStampResult"
-        Me.LblTimeStampResult.Size = New System.Drawing.Size(24, 15)
-        Me.LblTimeStampResult.TabIndex = 9
-        Me.LblTimeStampResult.Text = "OK"
+        Me.LblTimeStampResultInitial.AutoSize = True
+        Me.LblTimeStampResultInitial.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTimeStampResultInitial.Location = New System.Drawing.Point(36, 118)
+        Me.LblTimeStampResultInitial.Name = "LblTimeStampResultInitial"
+        Me.LblTimeStampResultInitial.Size = New System.Drawing.Size(24, 15)
+        Me.LblTimeStampResultInitial.TabIndex = 9
+        Me.LblTimeStampResultInitial.Text = "OK"
         '
         'LblCMFeedback
         '
-        Me.LblCMFeedback.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.LblCMFeedback.AutoSize = True
         Me.LblCMFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblCMFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblCMFeedback.Location = New System.Drawing.Point(256, 103)
+        Me.LblCMFeedback.Location = New System.Drawing.Point(388, 121)
         Me.LblCMFeedback.Name = "LblCMFeedback"
         Me.LblCMFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblCMFeedback.TabIndex = 4
@@ -292,11 +305,10 @@ Partial Class FrmMain
         '
         'LblMaterialFeedback
         '
-        Me.LblMaterialFeedback.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.LblMaterialFeedback.AutoSize = True
         Me.LblMaterialFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblMaterialFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblMaterialFeedback.Location = New System.Drawing.Point(256, 123)
+        Me.LblMaterialFeedback.Location = New System.Drawing.Point(388, 141)
         Me.LblMaterialFeedback.Name = "LblMaterialFeedback"
         Me.LblMaterialFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblMaterialFeedback.TabIndex = 5
@@ -304,11 +316,10 @@ Partial Class FrmMain
         '
         'LblLotNoFeedback
         '
-        Me.LblLotNoFeedback.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.LblLotNoFeedback.AutoSize = True
         Me.LblLotNoFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblLotNoFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblLotNoFeedback.Location = New System.Drawing.Point(256, 143)
+        Me.LblLotNoFeedback.Location = New System.Drawing.Point(388, 161)
         Me.LblLotNoFeedback.Name = "LblLotNoFeedback"
         Me.LblLotNoFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblLotNoFeedback.TabIndex = 6
@@ -316,11 +327,10 @@ Partial Class FrmMain
         '
         'LblStationIDFeedback
         '
-        Me.LblStationIDFeedback.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.LblStationIDFeedback.AutoSize = True
         Me.LblStationIDFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblStationIDFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblStationIDFeedback.Location = New System.Drawing.Point(256, 163)
+        Me.LblStationIDFeedback.Location = New System.Drawing.Point(388, 181)
         Me.LblStationIDFeedback.Name = "LblStationIDFeedback"
         Me.LblStationIDFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblStationIDFeedback.TabIndex = 7
@@ -328,11 +338,10 @@ Partial Class FrmMain
         '
         'LblFlowCodeFeedback
         '
-        Me.LblFlowCodeFeedback.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.LblFlowCodeFeedback.AutoSize = True
         Me.LblFlowCodeFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblFlowCodeFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblFlowCodeFeedback.Location = New System.Drawing.Point(256, 183)
+        Me.LblFlowCodeFeedback.Location = New System.Drawing.Point(388, 201)
         Me.LblFlowCodeFeedback.Name = "LblFlowCodeFeedback"
         Me.LblFlowCodeFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblFlowCodeFeedback.TabIndex = 8
@@ -340,11 +349,10 @@ Partial Class FrmMain
         '
         'LblTimeStampFeedback
         '
-        Me.LblTimeStampFeedback.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.LblTimeStampFeedback.AutoSize = True
         Me.LblTimeStampFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTimeStampFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblTimeStampFeedback.Location = New System.Drawing.Point(256, 203)
+        Me.LblTimeStampFeedback.Location = New System.Drawing.Point(388, 221)
         Me.LblTimeStampFeedback.Name = "LblTimeStampFeedback"
         Me.LblTimeStampFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblTimeStampFeedback.TabIndex = 9
@@ -356,7 +364,7 @@ Partial Class FrmMain
         Me.LblPass.AutoSize = True
         Me.LblPass.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblPass.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblPass.Location = New System.Drawing.Point(398, 123)
+        Me.LblPass.Location = New System.Drawing.Point(519, 141)
         Me.LblPass.Name = "LblPass"
         Me.LblPass.Size = New System.Drawing.Size(30, 15)
         Me.LblPass.TabIndex = 11
@@ -368,7 +376,7 @@ Partial Class FrmMain
         Me.LblFailed.AutoSize = True
         Me.LblFailed.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblFailed.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblFailed.Location = New System.Drawing.Point(398, 143)
+        Me.LblFailed.Location = New System.Drawing.Point(519, 161)
         Me.LblFailed.Name = "LblFailed"
         Me.LblFailed.Size = New System.Drawing.Size(38, 15)
         Me.LblFailed.TabIndex = 12
@@ -380,7 +388,7 @@ Partial Class FrmMain
         Me.LblStation.AutoSize = True
         Me.LblStation.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblStation.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblStation.Location = New System.Drawing.Point(398, 103)
+        Me.LblStation.Location = New System.Drawing.Point(519, 121)
         Me.LblStation.Name = "LblStation"
         Me.LblStation.Size = New System.Drawing.Size(44, 15)
         Me.LblStation.TabIndex = 10
@@ -392,7 +400,7 @@ Partial Class FrmMain
         Me.LblTotal.AutoSize = True
         Me.LblTotal.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTotal.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblTotal.Location = New System.Drawing.Point(398, 163)
+        Me.LblTotal.Location = New System.Drawing.Point(519, 181)
         Me.LblTotal.Name = "LblTotal"
         Me.LblTotal.Size = New System.Drawing.Size(32, 15)
         Me.LblTotal.TabIndex = 13
@@ -404,7 +412,7 @@ Partial Class FrmMain
         Me.LblStationValue.AutoSize = True
         Me.LblStationValue.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblStationValue.ForeColor = System.Drawing.Color.DarkSlateBlue
-        Me.LblStationValue.Location = New System.Drawing.Point(448, 103)
+        Me.LblStationValue.Location = New System.Drawing.Point(569, 121)
         Me.LblStationValue.Name = "LblStationValue"
         Me.LblStationValue.Size = New System.Drawing.Size(65, 15)
         Me.LblStationValue.TabIndex = 10
@@ -416,7 +424,7 @@ Partial Class FrmMain
         Me.LblPassCount.AutoSize = True
         Me.LblPassCount.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblPassCount.ForeColor = System.Drawing.Color.DarkSlateBlue
-        Me.LblPassCount.Location = New System.Drawing.Point(448, 123)
+        Me.LblPassCount.Location = New System.Drawing.Point(569, 141)
         Me.LblPassCount.Name = "LblPassCount"
         Me.LblPassCount.Size = New System.Drawing.Size(46, 15)
         Me.LblPassCount.TabIndex = 11
@@ -428,7 +436,7 @@ Partial Class FrmMain
         Me.LblFailedCount.AutoSize = True
         Me.LblFailedCount.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblFailedCount.ForeColor = System.Drawing.Color.DarkSlateBlue
-        Me.LblFailedCount.Location = New System.Drawing.Point(448, 143)
+        Me.LblFailedCount.Location = New System.Drawing.Point(569, 161)
         Me.LblFailedCount.Name = "LblFailedCount"
         Me.LblFailedCount.Size = New System.Drawing.Size(46, 15)
         Me.LblFailedCount.TabIndex = 12
@@ -440,7 +448,7 @@ Partial Class FrmMain
         Me.LblTotalCount.AutoSize = True
         Me.LblTotalCount.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTotalCount.ForeColor = System.Drawing.Color.DarkSlateBlue
-        Me.LblTotalCount.Location = New System.Drawing.Point(448, 163)
+        Me.LblTotalCount.Location = New System.Drawing.Point(569, 181)
         Me.LblTotalCount.Name = "LblTotalCount"
         Me.LblTotalCount.Size = New System.Drawing.Size(46, 15)
         Me.LblTotalCount.TabIndex = 13
@@ -449,7 +457,7 @@ Partial Class FrmMain
         'BtnSave
         '
         Me.BtnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnSave.Location = New System.Drawing.Point(507, 186)
+        Me.BtnSave.Location = New System.Drawing.Point(628, 204)
         Me.BtnSave.Name = "BtnSave"
         Me.BtnSave.Size = New System.Drawing.Size(84, 35)
         Me.BtnSave.TabIndex = 15
@@ -460,9 +468,9 @@ Partial Class FrmMain
         '
         Me.ProgressBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 226)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 250)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(579, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(700, 23)
         Me.ProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.ProgressBar1.TabIndex = 16
         '
@@ -472,7 +480,7 @@ Partial Class FrmMain
         Me.LblTotalFeedback.AutoSize = True
         Me.LblTotalFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTotalFeedback.ForeColor = System.Drawing.Color.Red
-        Me.LblTotalFeedback.Location = New System.Drawing.Point(500, 163)
+        Me.LblTotalFeedback.Location = New System.Drawing.Point(621, 181)
         Me.LblTotalFeedback.Name = "LblTotalFeedback"
         Me.LblTotalFeedback.Size = New System.Drawing.Size(72, 15)
         Me.LblTotalFeedback.TabIndex = 14
@@ -493,18 +501,85 @@ Partial Class FrmMain
         Me.LblPercent.BackColor = System.Drawing.Color.Transparent
         Me.LblPercent.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblPercent.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblPercent.Location = New System.Drawing.Point(0, 252)
+        Me.LblPercent.Location = New System.Drawing.Point(0, 276)
         Me.LblPercent.Name = "LblPercent"
-        Me.LblPercent.Size = New System.Drawing.Size(603, 18)
+        Me.LblPercent.Size = New System.Drawing.Size(724, 18)
         Me.LblPercent.TabIndex = 17
         Me.LblPercent.Text = "100%"
         Me.LblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'GroupBoxFormatCheck
+        '
+        Me.GroupBoxFormatCheck.Controls.Add(Me.LblTimeStampResultInitial)
+        Me.GroupBoxFormatCheck.Controls.Add(Me.LblFlowCodeResultInitial)
+        Me.GroupBoxFormatCheck.Controls.Add(Me.LblStationIDResultInitial)
+        Me.GroupBoxFormatCheck.Controls.Add(Me.LblLotNoResultInitial)
+        Me.GroupBoxFormatCheck.Controls.Add(Me.LblMaterialResultInitial)
+        Me.GroupBoxFormatCheck.Controls.Add(Me.LblCMResultInitial)
+        Me.GroupBoxFormatCheck.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBoxFormatCheck.Location = New System.Drawing.Point(184, 103)
+        Me.GroupBoxFormatCheck.Name = "GroupBoxFormatCheck"
+        Me.GroupBoxFormatCheck.Size = New System.Drawing.Size(96, 141)
+        Me.GroupBoxFormatCheck.TabIndex = 18
+        Me.GroupBoxFormatCheck.TabStop = False
+        Me.GroupBoxFormatCheck.Text = "Format Check"
+        '
+        'GroupBoxFormat
+        '
+        Me.GroupBoxFormat.Controls.Add(Me.LblCM)
+        Me.GroupBoxFormat.Controls.Add(Me.LblMaterial)
+        Me.GroupBoxFormat.Controls.Add(Me.LblLotNo)
+        Me.GroupBoxFormat.Controls.Add(Me.LblStationID)
+        Me.GroupBoxFormat.Controls.Add(Me.LblFlowCode)
+        Me.GroupBoxFormat.Controls.Add(Me.LblTimeStamp)
+        Me.GroupBoxFormat.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBoxFormat.Location = New System.Drawing.Point(12, 103)
+        Me.GroupBoxFormat.Name = "GroupBoxFormat"
+        Me.GroupBoxFormat.Size = New System.Drawing.Size(166, 141)
+        Me.GroupBoxFormat.TabIndex = 19
+        Me.GroupBoxFormat.TabStop = False
+        Me.GroupBoxFormat.Text = "Format"
+        '
+        'GroupBoxOPNCheck
+        '
+        Me.GroupBoxOPNCheck.Controls.Add(Me.LblLotNoResultFinal)
+        Me.GroupBoxOPNCheck.Controls.Add(Me.LblMaterialResultFinal)
+        Me.GroupBoxOPNCheck.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBoxOPNCheck.Location = New System.Drawing.Point(286, 103)
+        Me.GroupBoxOPNCheck.Name = "GroupBoxOPNCheck"
+        Me.GroupBoxOPNCheck.Size = New System.Drawing.Size(96, 141)
+        Me.GroupBoxOPNCheck.TabIndex = 18
+        Me.GroupBoxOPNCheck.TabStop = False
+        Me.GroupBoxOPNCheck.Text = "OPN Check"
+        '
+        'LblLotNoResultFinal
+        '
+        Me.LblLotNoResultFinal.AutoSize = True
+        Me.LblLotNoResultFinal.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblLotNoResultFinal.Location = New System.Drawing.Point(36, 58)
+        Me.LblLotNoResultFinal.Name = "LblLotNoResultFinal"
+        Me.LblLotNoResultFinal.Size = New System.Drawing.Size(24, 15)
+        Me.LblLotNoResultFinal.TabIndex = 6
+        Me.LblLotNoResultFinal.Text = "OK"
+        '
+        'LblMaterialResultFinal
+        '
+        Me.LblMaterialResultFinal.AutoSize = True
+        Me.LblMaterialResultFinal.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblMaterialResultFinal.Location = New System.Drawing.Point(36, 38)
+        Me.LblMaterialResultFinal.Name = "LblMaterialResultFinal"
+        Me.LblMaterialResultFinal.Size = New System.Drawing.Size(24, 15)
+        Me.LblMaterialResultFinal.TabIndex = 5
+        Me.LblMaterialResultFinal.Text = "OK"
         '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(603, 274)
+        Me.ClientSize = New System.Drawing.Size(724, 305)
+        Me.Controls.Add(Me.GroupBoxFormat)
+        Me.Controls.Add(Me.GroupBoxOPNCheck)
+        Me.Controls.Add(Me.GroupBoxFormatCheck)
         Me.Controls.Add(Me.LblPercent)
         Me.Controls.Add(Me.LblTotalFeedback)
         Me.Controls.Add(Me.ProgressBar1)
@@ -523,18 +598,6 @@ Partial Class FrmMain
         Me.Controls.Add(Me.LblLotNoFeedback)
         Me.Controls.Add(Me.LblMaterialFeedback)
         Me.Controls.Add(Me.LblCMFeedback)
-        Me.Controls.Add(Me.LblTimeStampResult)
-        Me.Controls.Add(Me.LblFlowCodeResult)
-        Me.Controls.Add(Me.LblStationIDResult)
-        Me.Controls.Add(Me.LblLotNoResult)
-        Me.Controls.Add(Me.LblMaterialResult)
-        Me.Controls.Add(Me.LblCMResult)
-        Me.Controls.Add(Me.LblTimeStamp)
-        Me.Controls.Add(Me.LblFlowCode)
-        Me.Controls.Add(Me.LblStationID)
-        Me.Controls.Add(Me.LblLotNo)
-        Me.Controls.Add(Me.LblMaterial)
-        Me.Controls.Add(Me.LblCM)
         Me.Controls.Add(Me.LblPath)
         Me.Controls.Add(Me.LblFolderName)
         Me.Controls.Add(Me.TboxFolderName)
@@ -554,6 +617,12 @@ Partial Class FrmMain
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBoxFormatCheck.ResumeLayout(False)
+        Me.GroupBoxFormatCheck.PerformLayout()
+        Me.GroupBoxFormat.ResumeLayout(False)
+        Me.GroupBoxFormat.PerformLayout()
+        Me.GroupBoxOPNCheck.ResumeLayout(False)
+        Me.GroupBoxOPNCheck.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -575,12 +644,12 @@ Partial Class FrmMain
     Friend WithEvents LblStationID As Label
     Friend WithEvents LblFlowCode As Label
     Friend WithEvents LblTimeStamp As Label
-    Friend WithEvents LblCMResult As Label
-    Friend WithEvents LblMaterialResult As Label
-    Friend WithEvents LblLotNoResult As Label
-    Friend WithEvents LblStationIDResult As Label
-    Friend WithEvents LblFlowCodeResult As Label
-    Friend WithEvents LblTimeStampResult As Label
+    Friend WithEvents LblCMResultInitial As Label
+    Friend WithEvents LblMaterialResultInitial As Label
+    Friend WithEvents LblLotNoResultInitial As Label
+    Friend WithEvents LblStationIDResultInitial As Label
+    Friend WithEvents LblFlowCodeResultInitial As Label
+    Friend WithEvents LblTimeStampResultInitial As Label
     Friend WithEvents LblCMFeedback As Label
     Friend WithEvents LblMaterialFeedback As Label
     Friend WithEvents LblLotNoFeedback As Label
@@ -603,4 +672,9 @@ Partial Class FrmMain
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents LblPercent As Label
     Friend WithEvents PPOListToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GroupBoxFormatCheck As GroupBox
+    Friend WithEvents GroupBoxFormat As GroupBox
+    Friend WithEvents GroupBoxOPNCheck As GroupBox
+    Friend WithEvents LblLotNoResultFinal As Label
+    Friend WithEvents LblMaterialResultFinal As Label
 End Class

@@ -22,3 +22,29 @@ D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CoreCompil
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CopyComplete
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.exe
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.pdb
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\SLI OPN Checker.exe.config
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\SLI OPN Checker.exe
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\SLI OPN Checker.pdb
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\EntityFramework.dll
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\EntityFramework.SqlServer.dll
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\System.Data.SQLite.dll
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\System.Data.SQLite.EF6.dll
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\System.Data.SQLite.Linq.dll
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\EntityFramework.xml
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\EntityFramework.SqlServer.xml
+D:\Documents\Visual Basic\SLI OPN Checker\bin\x64\Debug\System.Data.SQLite.xml
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.AssemblyReference.cache
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.SuggestedBindingRedirects.cache
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmAddOPN.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmList.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmMain.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmDir.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmPPOList.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmPPORecords.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmUnkList.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.Resources.resources
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.GenerateResource.cache
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CoreCompileInputs.cache
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CopyComplete
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.exe
+D:\Documents\Visual Basic\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.pdb

@@ -26,15 +26,15 @@ Partial Class FrmList
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmList))
         Me.DGVList = New System.Windows.Forms.DataGridView()
-        Me.BtnSearch = New System.Windows.Forms.Button()
-        Me.TBoxSearch = New System.Windows.Forms.TextBox()
-        Me.BtnAdd = New System.Windows.Forms.Button()
-        Me.BtnRemove = New System.Windows.Forms.Button()
         Me.IdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialnoDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.OrderingpartnoDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataTableOPNBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.OPN = New SLI_OPN_Checker.OPN()
+        Me.BtnSearch = New System.Windows.Forms.Button()
+        Me.TBoxSearch = New System.Windows.Forms.TextBox()
+        Me.BtnAdd = New System.Windows.Forms.Button()
+        Me.BtnRemove = New System.Windows.Forms.Button()
         CType(Me.DGVList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataTableOPNBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.OPN, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,40 +65,6 @@ Partial Class FrmList
         Me.DGVList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DGVList.Size = New System.Drawing.Size(488, 472)
         Me.DGVList.TabIndex = 0
-        '
-        'BtnSearch
-        '
-        Me.BtnSearch.Location = New System.Drawing.Point(203, 10)
-        Me.BtnSearch.Name = "BtnSearch"
-        Me.BtnSearch.Size = New System.Drawing.Size(87, 27)
-        Me.BtnSearch.TabIndex = 2
-        Me.BtnSearch.Text = "Search"
-        Me.BtnSearch.UseVisualStyleBackColor = True
-        '
-        'TBoxSearch
-        '
-        Me.TBoxSearch.Location = New System.Drawing.Point(12, 12)
-        Me.TBoxSearch.Name = "TBoxSearch"
-        Me.TBoxSearch.Size = New System.Drawing.Size(185, 23)
-        Me.TBoxSearch.TabIndex = 3
-        '
-        'BtnAdd
-        '
-        Me.BtnAdd.Location = New System.Drawing.Point(296, 10)
-        Me.BtnAdd.Name = "BtnAdd"
-        Me.BtnAdd.Size = New System.Drawing.Size(87, 27)
-        Me.BtnAdd.TabIndex = 4
-        Me.BtnAdd.Text = "Add"
-        Me.BtnAdd.UseVisualStyleBackColor = True
-        '
-        'BtnRemove
-        '
-        Me.BtnRemove.Location = New System.Drawing.Point(389, 10)
-        Me.BtnRemove.Name = "BtnRemove"
-        Me.BtnRemove.Size = New System.Drawing.Size(87, 27)
-        Me.BtnRemove.TabIndex = 4
-        Me.BtnRemove.Text = "Remove"
-        Me.BtnRemove.UseVisualStyleBackColor = True
         '
         'IdDataGridViewTextBoxColumn
         '
@@ -136,6 +102,40 @@ Partial Class FrmList
         Me.OPN.DataSetName = "OPN"
         Me.OPN.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
+        'BtnSearch
+        '
+        Me.BtnSearch.Location = New System.Drawing.Point(203, 10)
+        Me.BtnSearch.Name = "BtnSearch"
+        Me.BtnSearch.Size = New System.Drawing.Size(87, 27)
+        Me.BtnSearch.TabIndex = 2
+        Me.BtnSearch.Text = "Search"
+        Me.BtnSearch.UseVisualStyleBackColor = True
+        '
+        'TBoxSearch
+        '
+        Me.TBoxSearch.Location = New System.Drawing.Point(12, 12)
+        Me.TBoxSearch.Name = "TBoxSearch"
+        Me.TBoxSearch.Size = New System.Drawing.Size(185, 23)
+        Me.TBoxSearch.TabIndex = 3
+        '
+        'BtnAdd
+        '
+        Me.BtnAdd.Location = New System.Drawing.Point(296, 10)
+        Me.BtnAdd.Name = "BtnAdd"
+        Me.BtnAdd.Size = New System.Drawing.Size(87, 27)
+        Me.BtnAdd.TabIndex = 4
+        Me.BtnAdd.Text = "Add"
+        Me.BtnAdd.UseVisualStyleBackColor = True
+        '
+        'BtnRemove
+        '
+        Me.BtnRemove.Location = New System.Drawing.Point(389, 10)
+        Me.BtnRemove.Name = "BtnRemove"
+        Me.BtnRemove.Size = New System.Drawing.Size(87, 27)
+        Me.BtnRemove.TabIndex = 4
+        Me.BtnRemove.Text = "Remove"
+        Me.BtnRemove.UseVisualStyleBackColor = True
+        '
         'FrmList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -149,6 +149,8 @@ Partial Class FrmList
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(381, 399)
         Me.Name = "FrmList"
         Me.ShowInTaskbar = False

@@ -26,19 +26,22 @@ Public Class FrmMain
     End Sub
 
     Sub Clear()
-        LblCMResult.Visible = False
-        LblMaterialResult.Visible = False
-        LblLotNoResult.Visible = False
-        LblStationIDResult.Visible = False
-        LblFlowCodeResult.Visible = False
-        LblTimeStampResult.Visible = False
+        LblCMResultInitial.Visible = False
+        LblMaterialResultInitial.Visible = False
+        LblLotNoResultInitial.Visible = False
+        LblStationIDResultInitial.Visible = False
+        LblFlowCodeResultInitial.Visible = False
+        LblTimeStampResultInitial.Visible = False
 
-        LblCMResult.Text = Nothing
-        LblMaterialResult.Text = Nothing
-        LblLotNoResult.Text = Nothing
-        LblStationIDResult.Text = Nothing
-        LblFlowCodeResult.Text = Nothing
-        LblTimeStampResult.Text = Nothing
+        LblCMResultInitial.Text = Nothing
+        LblMaterialResultInitial.Text = Nothing
+        LblLotNoResultInitial.Text = Nothing
+        LblStationIDResultInitial.Text = Nothing
+        LblFlowCodeResultInitial.Text = Nothing
+        LblTimeStampResultInitial.Text = Nothing
+
+        LblMaterialResultFinal.Text = Nothing
+        LblLotNoResultFinal.Text = Nothing
 
         LblCMFeedback.Visible = False
         LblMaterialFeedback.Visible = False
@@ -86,7 +89,7 @@ Public Class FrmMain
 
     Private Sub BtnCheck_Click(sender As Object, e As EventArgs) Handles BtnCheck.Click
         'start - Checking OPN format
-        Dim rg As String = "^(ionics|IONICS)_((r9113|R9113)[a-zA-Z0-9]{9})_71[0-9]{5}\.[1-9]{1,2}_(uart|UART|CALIB|calib|ft|FT|)-[0-9]{2}-F[0-9]{2}_([fp]|[FP])_[0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$"
+        Dim rg As String = "^(ionics|IONICS)_((r9113|R9113)[a-zA-Z0-9]{9})_71[0-9]{5}\.[1-9]{1,2}_([uartUART]{4}|[calibCALIB]{5}|[ftFT]{2}|)-[0-9]{2}-F[0-9]{2}_([a-zA-Z]|[FP])_[0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$"
         'Dim rg As String = "^([a-zA-Z]+)_([a-zA-Z0-9]+)_([0-9\.0-9]+)_([a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]*)_([a-zA-Z])_([a-zA-Z0-9]+)$"
         '"[IONICS]+_([A-Z0-9]+)_([0-9\.0-9]+)_((CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_(.*)_([0-9]+)"
 
@@ -161,7 +164,7 @@ Public Class FrmMain
         cmc = Regex.Match(TboxFolderName.Text, "^[a-zA-Z]+")
         materialc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z0-9]{14}_")
         lotc = Regex.Match(TboxFolderName.Text, "_71[0-9]{5}\.[1-9]{1,2}")
-        stationidc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]+")
+        stationidc = Regex.Match(TboxFolderName.Text, "_([uartUART]{4}|[calibCALIB]{5}|[ftFT]{2}|)-[0-9]{2}-[fF][0-9]{2}") '"_[a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]+")
         fcodec = Regex.Match(TboxFolderName.Text, "_[a-zA-Z]_")
         tstampc = Regex.Match(TboxFolderName.Text, "[0-9]+$")
         'end
@@ -183,16 +186,16 @@ Public Class FrmMain
         'start - Checking Company Manufacturer
         'cmc = cmr.Match(TboxFolderName.Text)
         If Regex.IsMatch(TboxFolderName.Text, cm) Then
-            LblCMResult.Visible = True
-            LblCMResult.ForeColor = Color.Green
-            LblCMResult.Text = "OK"
+            LblCMResultInitial.Visible = True
+            LblCMResultInitial.ForeColor = Color.Green
+            LblCMResultInitial.Text = "✔"
             LblCMFeedback.Visible = False
             LblCMFeedback.Text = Nothing
             ErrorProvider1.SetError(LblCMFeedback, "")
         Else
-            LblCMResult.Visible = True
-            LblCMResult.ForeColor = Color.Red
-            LblCMResult.Text = "Do not match"
+            LblCMResultInitial.Visible = True
+            LblCMResultInitial.ForeColor = Color.Red
+            LblCMResultInitial.Text = "✘"
             LblCMFeedback.Visible = True
             LblCMFeedback.Text = cmc.Value
 
@@ -210,105 +213,100 @@ Public Class FrmMain
         'If Regex.IsMatch(TboxFolderName.Text, material) Then
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
 
-            Try
-                Dim q = "select material_no from material"
+        Try
+            Dim q = "select material_no from material"
 
+            conn.Open()
+            Using cmd As New SQLiteCommand(q, conn)
+                Dim adapter As New SQLiteDataAdapter(cmd)
+                adapter.Fill(table)
+            End Using
+            conn.Close()
+
+        Catch ex As Exception
+            MessageBox.Show(ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        For Each row As DataRow In table.Rows
+            MatList.Add(row.Item("material_no"))
+        Next
+
+        Dim y As Boolean
+
+        For Each dt In MatList
+            Dim reg As Match
+            reg = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}")
+            If dt = reg.Value Then
+                y = True
+            End If
+        Next
+
+        'start - Checking material if match on PPO Records
+        If y = True Then
+            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfmissing=True;"
+            Dim q = "select * from ppo_records where lot_number='" & Regex.Match(TboxFolderName.Text, "71[0-9]{5}.[1-9]{1,2}").Value & "'"
+            Dim material_num As String = ToString()
+
+            Try
                 conn.Open()
                 Using cmd As New SQLiteCommand(q, conn)
-                    Dim adapter As New SQLiteDataAdapter(cmd)
-                    adapter.Fill(table)
+                    Using reader As SQLiteDataReader = cmd.ExecuteReader
+                        reader.Read()
+                        If reader.HasRows Then
+                            material_num = reader("material").ToString
+                        End If
+                    End Using
                 End Using
                 conn.Close()
-
             Catch ex As Exception
-                MessageBox.Show(ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
 
-            For Each row As DataRow In table.Rows
-                MatList.Add(row.Item("material_no"))
-            Next
-
-            Dim y As Boolean
-            Dim n As Boolean
-
-            For Each dt In MatList
-                Dim reg As Match
-                reg = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}")
-                If dt = reg.Value Then
-                    y = True
-                Else
-                    n = True
-                End If
-            Next
-
-            'start - Checking material if match on PPO Records
-            If y = True Then
-                conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfmissing=True;"
-                Dim q = "select * from ppo_records where lot_number='" & Regex.Match(TboxFolderName.Text, "71[0-9]{5}.[1-9]{1,2}").Value & "'"
-                Dim material_num As String = ToString()
-
-                Try
-                    conn.Open()
-                    Using cmd As New SQLiteCommand(q, conn)
-                        Using reader As SQLiteDataReader = cmd.ExecuteReader
-                            reader.Read()
-                            If reader.HasRows Then
-                                material_num = reader("material").ToString
-                            End If
-                        End Using
-                    End Using
-                    conn.Close()
-                Catch ex As Exception
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-
-                If material_num <> Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value Then
-                    LblMaterialResult.Visible = True
-                    LblMaterialResult.ForeColor = Color.Red
-                    LblMaterialResult.Text = "Do not match"
-                    LblMaterialFeedback.Visible = True
-                    LblMaterialFeedback.Text = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value
-                    ErrorProvider1.SetError(LblMaterialFeedback, "Do not match with the PPO records." & vbCrLf & "It must be " & material_num)
-                Else
-                    LblMaterialResult.Visible = True
-                    LblMaterialResult.ForeColor = Color.Green
-                    LblMaterialResult.Text = "OK"
-                    LblMaterialFeedback.Visible = False
-                    LblMaterialFeedback.Text = Nothing
-                    ErrorProvider1.SetError(LblMaterialFeedback, "")
-                End If
+            If material_num <> Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value Then
+                LblMaterialResultInitial.Visible = True
+                LblMaterialResultInitial.ForeColor = Color.Red
+                LblMaterialResultInitial.Text = "✘"
+                LblMaterialFeedback.Visible = True
+                LblMaterialFeedback.Text = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value
+                ErrorProvider1.SetError(LblMaterialFeedback, "Do not match with the PPO records." & vbCrLf & "It must be " & material_num)
             Else
-                If n = True Then
-                    LblMaterialResult.Visible = True
-                    LblMaterialResult.ForeColor = Color.Red
-                    LblMaterialResult.Text = "Do not match"
-                    LblMaterialFeedback.Visible = True
-                LblMaterialFeedback.Text = materialc.Value.Substring(1, 14)
+                LblMaterialResultInitial.Visible = True
+                LblMaterialResultInitial.ForeColor = Color.Green
+                LblMaterialResultInitial.Text = "✔"
+                LblMaterialFeedback.Visible = False
+                LblMaterialFeedback.Text = Nothing
+                ErrorProvider1.SetError(LblMaterialFeedback, "")
+            End If
+        Else
+            LblMaterialResultInitial.Visible = True
+            LblMaterialResultInitial.ForeColor = Color.Red
+            LblMaterialResultInitial.Text = "✘"
+            LblMaterialFeedback.Visible = True
+            LblMaterialFeedback.Text = materialc.Value.Substring(1, 14)
 
-                If Regex.IsMatch(LblMaterialFeedback.Text, "[a-z]") Then
-                        ErrorProvider1.SetError(LblMaterialFeedback, "must be uppercase")
-                    Else
-                        If Regex.IsMatch(LblMaterialFeedback.Text, "[A-Z0-9]+") Then
-                        ErrorProvider1.SetError(LblMaterialFeedback, "do not match in the database")
-                    End If
-                    End If
+            If Regex.IsMatch(LblMaterialFeedback.Text, "[a-z]") Then
+                ErrorProvider1.SetError(LblMaterialFeedback, "must be uppercase")
+            Else
+                If Regex.IsMatch(LblMaterialFeedback.Text, "[A-Z0-9]+") Then
+                    ErrorProvider1.SetError(LblMaterialFeedback, "do not match in the database")
                 End If
             End If
+        End If
         'end
         'End If
 
         'start - Checking lot number
         If Regex.IsMatch(TboxFolderName.Text, lot) Then
-            LblLotNoResult.Visible = True
-            LblLotNoResult.ForeColor = Color.Green
-            LblLotNoResult.Text = "OK"
+            LblLotNoResultInitial.Visible = True
+            LblLotNoResultInitial.ForeColor = Color.Green
+            LblLotNoResultInitial.Text = "✔"
             LblLotNoFeedback.Visible = False
             LblLotNoFeedback.Text = Nothing
             ErrorProvider1.SetError(LblLotNoFeedback, "")
         Else
-            LblLotNoResult.Visible = True
-            LblLotNoResult.ForeColor = Color.Red
-            LblLotNoResult.Text = "Do not match"
+            LblLotNoResultInitial.Visible = True
+            LblLotNoResultInitial.ForeColor = Color.Red
+            LblLotNoResultInitial.Text = "Do not match"
             LblLotNoFeedback.Visible = True
             LblLotNoFeedback.Text = lotc.Value.Substring(1)
             ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
@@ -317,34 +315,30 @@ Public Class FrmMain
 
         'start - Checking station ID
         If Regex.IsMatch(TboxFolderName.Text, stationid) Then
-            LblStationIDResult.Visible = True
-            LblStationIDResult.ForeColor = Color.Green
-            LblStationIDResult.Text = "OK"
+            LblStationIDResultInitial.Visible = True
+            LblStationIDResultInitial.ForeColor = Color.Green
+            LblStationIDResultInitial.Text = "✔"
             LblStationIDFeedback.Visible = False
             LblStationIDFeedback.Text = Nothing
             ErrorProvider1.SetError(LblStationIDFeedback, "")
         Else
-            LblStationIDResult.Visible = True
-            LblStationIDResult.ForeColor = Color.Red
-            LblStationIDResult.Text = "Do not match"
+            LblStationIDResultInitial.Visible = True
+            LblStationIDResultInitial.ForeColor = Color.Red
+            LblStationIDResultInitial.Text = "✘"
             LblStationIDFeedback.Visible = True
             LblStationIDFeedback.Text = stationidc.Value.Substring(1)
 
             If Regex.IsMatch(LblStationIDFeedback.Text, "[a-z]+\-[0-9]+\-[a-z][0-9]+") Or Regex.IsMatch(LblStationIDFeedback.Text, "[A-Z]+\-[0-9]+\-[a-z][0-9]+") Or Regex.IsMatch(LblStationIDFeedback.Text, "[a-z]+\-[0-9]+\-[A-Z][0-9]+") Then
                 ErrorProvider1.SetError(LblStationIDFeedback, "must be uppercase")
             Else
-                If Not Regex.IsMatch(LblStationIDFeedback.Text, "^(CALIB|FT|UART)\-") Then
+                If Not Regex.IsMatch(LblStationIDFeedback.Text, "^(CALIB|FT|UART)") Then
                     ErrorProvider1.SetError(LblStationIDFeedback, "station is invalid")
                 Else
-                    If Not Regex.IsMatch(LblStationIDFeedback.Text, "\-[0-9]{2}\-") Or Regex.IsMatch(LblStationIDFeedback.Text, "(CALIB|FT|UART)\-[0-9]{3,}") Then
+                    If Not Regex.IsMatch(LblStationIDFeedback.Text, "-[0-9]{2}-") Or Regex.IsMatch(LblStationIDFeedback.Text, "(CALIB|FT|UART)\-[0-9]{3,}") Then
                         ErrorProvider1.SetError(LblStationIDFeedback, "station ID is invalid")
                     Else
-                        If Not Regex.IsMatch(LblStationIDFeedback.Text, "\-[F][0-9]{2}$") Then
+                        If Not Regex.IsMatch(LblStationIDFeedback.Text, "-[F][0-9]{2}$") Then
                             ErrorProvider1.SetError(LblStationIDFeedback, "socket is invalid")
-                            'Else
-                            '    If Not Regex.IsMatch(LblStationIDFeedback.Text, "^(CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2}$") Then
-                            '        ErrorProvider1.SetError(LblStationIDFeedback, "format is invalid")
-                            '    End If
                         End If
                     End If
                 End If
@@ -366,186 +360,253 @@ Public Class FrmMain
         'flowcal = Regex.Match(TboxFolderName.Text, "_((CALIB)\-[0-9]{2}\-[FR][0-9]{2})_[f]_")
         'flowftuart = Regex.Match(TboxFolderName.Text, "_((FT|UART)\-[0-9]{2}\-[F][0-9]{2})_([p])_")
 
+        'start - Checking flow code
         cal = Regex.Match(TboxFolderName.Text, "CALIB")
         ft = Regex.Match(TboxFolderName.Text, "FT")
         uart = Regex.Match(TboxFolderName.Text, "UART")
-        flowcal = Regex.Match(TboxFolderName.Text, "_((CALIB)\-[0-9]{2}\-[FR][0-9]{2})_[f]_")
-        flowftuart = Regex.Match(TboxFolderName.Text, "_((FT|UART)\-[0-9]{2}\-[F][0-9]{2})_([p])_")
+        flowcal = Regex.Match(TboxFolderName.Text, "_((CALIB)-[0-9]{2}-[F][0-9]{2})_[f]_")
+        flowftuart = Regex.Match(TboxFolderName.Text, "_(([ftFT]{2}|[uartUART]{4})-[0-9]{2}-[F][0-9]{2})_([p])_")
 
-        'start - Checking station ID
         Dim station As String = ToString()
+        Dim correct As Boolean
 
         If Regex.IsMatch(TboxFolderName.Text, fcode) Then
-            If Regex.IsMatch(TboxPath.Text, "(CALIB)") Then
-                station = "CALIB"
-            Else
-
-            End If
-
-            If Regex.IsMatch(TboxPath.Text, "(FT)") Then
-                station = "FT"
-            Else
-
-            End If
-
-            If Regex.IsMatch(TboxPath.Text, "(UART)") Then
-                station = "UART"
-            Else
-
-            End If
-
-            If TboxFolderName.Text = cal.Value Then
-                LblStationValue.Text = "Calibration"
-                LblFlowCodeResult.Visible = True
-                LblFlowCodeResult.ForeColor = Color.Green
-                LblFlowCodeResult.Text = "OK"
-                LblFlowCodeFeedback.Visible = False
-                LblFlowCodeFeedback.Text = Nothing
-                ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+            If Regex.IsMatch(TboxPath.Text, "([calibCALIB]{5})") Then
                 correct = True
-            Else
-                If TboxFolderName.Text = ft.Value Then
-                    LblStationValue.Text = "FT"
-                    LblFlowCodeResult.Visible = True
-                    LblFlowCodeResult.ForeColor = Color.Green
-                    LblFlowCodeResult.Text = "OK"
-                    LblFlowCodeFeedback.Visible = False
-                    LblFlowCodeFeedback.Text = Nothing
-                    ErrorProvider1.SetError(LblFlowCodeFeedback, "")
-                    correct = True
-                Else
-                    If Regex.IsMatch(TboxFolderName.Text, uart.Value) Then
-                        LblStationValue.Text = "UART"
-                        LblFlowCodeResult.Visible = True
-                        LblFlowCodeResult.ForeColor = Color.Green
-                        LblFlowCodeResult.Text = "OK"
-                        LblFlowCodeFeedback.Visible = False
-                        LblFlowCodeFeedback.Text = Nothing
-                        ErrorProvider1.SetError(LblFlowCodeFeedback, "")
-                        correct = True
-                    Else
-                        correct = False
-                    End If
-                End If
+                station = "CALIB"
             End If
 
-            If station = "CALIB" Then
-                If correct = False Then
-                    If flowcal.Value <> Nothing Then
-                        LblFlowCodeResult.Visible = True
-                        LblFlowCodeResult.ForeColor = Color.Green
-                        LblFlowCodeResult.Text = "OK"
+            If Regex.IsMatch(TboxPath.Text, "([ftFT]{2})") Then
+                correct = True
+                station = "FT"
+            End If
+
+            If Regex.IsMatch(TboxPath.Text, "([uartUART]{4})") Then
+                correct = True
+                station = "UART"
+            End If
+
+            If Regex.IsMatch(TboxFolderName.Text, "[fp]") Then
+                If station = "CALIB" Then
+                    If correct = True Then
+                        LblStationValue.Text = "Calibration"
+                        LblFlowCodeResultInitial.Visible = True
+                        LblFlowCodeResultInitial.ForeColor = Color.Green
+                        LblFlowCodeResultInitial.Text = "✔"
                         LblFlowCodeFeedback.Visible = False
                         LblFlowCodeFeedback.Text = Nothing
                         ErrorProvider1.SetError(LblFlowCodeFeedback, "")
                     Else
-                        LblFlowCodeResult.Visible = True
-                        LblFlowCodeResult.ForeColor = Color.Red
-                        LblFlowCodeResult.Text = "Do not match"
+                        LblFlowCodeResultInitial.Visible = True
+                        LblFlowCodeResultInitial.ForeColor = Color.Red
+                        LblFlowCodeResultInitial.Text = "✘"
                         LblFlowCodeFeedback.Visible = True
                         LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
-
                         ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'f' for calibration station")
                     End If
                 End If
 
-                If flowcal.Value <> flowcal.ToString Then
-                    'MsgBox(TboxFolderName.Text & " " & flowcal.Value)
-                    LblFlowCodeResult.Visible = True
-                    LblFlowCodeResult.ForeColor = Color.Red
-                    LblFlowCodeResult.Text = "Do not match"
-                    LblFlowCodeFeedback.Visible = True
-                    LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
-
-                    ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'f' for calibration station")
-                End If
-            End If
-
-            If station = "FT" Then
-                If correct = False Then
-                    If flowftuart.Value <> Nothing Then
-                        LblFlowCodeResult.Visible = True
-                        LblFlowCodeResult.ForeColor = Color.Green
-                        LblFlowCodeResult.Text = "OK"
+                If station = "FT" Then
+                    If correct = True Then
+                        LblStationValue.Text = "FT"
+                        LblFlowCodeResultInitial.Visible = True
+                        LblFlowCodeResultInitial.ForeColor = Color.Green
+                        LblFlowCodeResultInitial.Text = "✔"
                         LblFlowCodeFeedback.Visible = False
                         LblFlowCodeFeedback.Text = Nothing
                         ErrorProvider1.SetError(LblFlowCodeFeedback, "")
                     Else
-                        LblFlowCodeResult.Visible = True
-                        LblFlowCodeResult.ForeColor = Color.Red
-                        LblFlowCodeResult.Text = "Do not match"
+                        LblFlowCodeResultInitial.Visible = True
+                        LblFlowCodeResultInitial.ForeColor = Color.Red
+                        LblFlowCodeResultInitial.Text = "✘"
                         LblFlowCodeFeedback.Visible = True
                         LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
-
                         ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for final test station")
                     End If
                 End If
 
-                If flowftuart.Value <> flowftuart.ToString Then
-                    LblFlowCodeResult.Visible = True
-                    LblFlowCodeResult.ForeColor = Color.Red
-                    LblFlowCodeResult.Text = "Do not match"
-                    LblFlowCodeFeedback.Visible = True
-                    LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
-
-                    ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for final test station")
-                End If
-            End If
-
-            If station = "UART" Then
-                If correct = False Then
-                    If flowftuart.Value <> Nothing Then
-                        LblFlowCodeResult.Visible = True
-                        LblFlowCodeResult.ForeColor = Color.Green
-                        LblFlowCodeResult.Text = "OK"
-                        LblFlowCodeFeedback.Visible = False
-                        LblFlowCodeFeedback.Text = Nothing
-                        ErrorProvider1.SetError(LblFlowCodeFeedback, "")
-                    Else
-                        LblFlowCodeResult.Visible = True
-                        LblFlowCodeResult.ForeColor = Color.Red
-                        LblFlowCodeResult.Text = "Do not match"
-                        LblFlowCodeFeedback.Visible = True
-                        LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
-
-                        ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for uart station")
+                If station = "UART" Then
+                    If correct = True Then
+                        If Regex.IsMatch(TboxFolderName.Text, "_p_") Then
+                            LblStationValue.Text = "UART"
+                            LblFlowCodeResultInitial.Visible = True
+                            LblFlowCodeResultInitial.ForeColor = Color.Green
+                            LblFlowCodeResultInitial.Text = "✔"
+                            LblFlowCodeFeedback.Visible = False
+                            LblFlowCodeFeedback.Text = Nothing
+                            ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+                        Else
+                            LblFlowCodeResultInitial.Visible = True
+                            LblFlowCodeResultInitial.ForeColor = Color.Red
+                            LblFlowCodeResultInitial.Text = "✘"
+                            LblFlowCodeFeedback.Visible = True
+                            LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+                            ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for uart station")
+                        End If
                     End If
                 End If
-
-                If flowftuart.Value <> flowftuart.ToString Then
-                    LblFlowCodeResult.Visible = True
-                    LblFlowCodeResult.ForeColor = Color.Red
-                    LblFlowCodeResult.Text = "Do not match"
-                    LblFlowCodeFeedback.Visible = True
-                    LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
-
-                    ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for uart station")
-                End If
             End If
-        Else
-            LblFlowCodeResult.Visible = True
-            LblFlowCodeResult.ForeColor = Color.Red
-            LblFlowCodeResult.Text = "Do not match"
-            LblFlowCodeFeedback.Visible = True
-            LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
 
-            If Not Regex.IsMatch(LblFlowCodeFeedback.Text, "[fp]") Then
+            '    If TboxFolderName.Text = cal.Value Then
+            '        LblStationValue.Text = "Calibration"
+            '        LblFlowCodeResultInitial.Visible = True
+            '        LblFlowCodeResultInitial.ForeColor = Color.Green
+            '        LblFlowCodeResultInitial.Text = "✔"
+            '        LblFlowCodeFeedback.Visible = False
+            '        LblFlowCodeFeedback.Text = Nothing
+            '        ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+            '        correct = True
+            '    Else
+            '        If TboxFolderName.Text = ft.Value Then
+            '            LblStationValue.Text = "FT"
+            '            LblFlowCodeResultInitial.Visible = True
+            '            LblFlowCodeResultInitial.ForeColor = Color.Green
+            '            LblFlowCodeResultInitial.Text = "✔"
+            '            LblFlowCodeFeedback.Visible = False
+            '            LblFlowCodeFeedback.Text = Nothing
+            '            ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+            '            correct = True
+            '        Else
+            '            If Regex.IsMatch(TboxFolderName.Text, uart.Value) Then
+            '                LblStationValue.Text = "UART"
+            '                LblFlowCodeResultInitial.Visible = True
+            '                LblFlowCodeResultInitial.ForeColor = Color.Green
+            '                LblFlowCodeResultInitial.Text = "✔"
+            '                LblFlowCodeFeedback.Visible = False
+            '                LblFlowCodeFeedback.Text = Nothing
+            '                ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+            '                correct = True
+            '            Else
+            '                correct = False
+            '            End If
+            '        End If
+            '    End If
+
+            '    If station = "CALIB" Then
+            '        If correct = False Then
+            '            If flowcal.Value <> Nothing Then
+            '                LblFlowCodeResultInitial.Visible = True
+            '                LblFlowCodeResultInitial.ForeColor = Color.Green
+            '                LblFlowCodeResultInitial.Text = "✔"
+            '                LblFlowCodeFeedback.Visible = False
+            '                LblFlowCodeFeedback.Text = Nothing
+            '                ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+            '            Else
+            '                LblFlowCodeResultInitial.Visible = True
+            '                LblFlowCodeResultInitial.ForeColor = Color.Red
+            '                LblFlowCodeResultInitial.Text = "Do not match"
+            '                LblFlowCodeFeedback.Visible = True
+            '                LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+
+            '                ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'f' for calibration station")
+            '            End If
+            '        End If
+
+            '        If flowcal.Value <> flowcal.ToString Then
+            '            'MsgBox(TboxFolderName.Text & " " & flowcal.Value)
+            '            LblFlowCodeResultInitial.Visible = True
+            '            LblFlowCodeResultInitial.ForeColor = Color.Red
+            '            LblFlowCodeResultInitial.Text = "Do not match"
+            '            LblFlowCodeFeedback.Visible = True
+            '            LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+
+            '            ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'f' for calibration station")
+            '        End If
+            '    End If
+
+            '    If station = "FT" Then
+            '        If correct = False Then
+            '            If flowftuart.Value <> Nothing Then
+            '                LblFlowCodeResultInitial.Visible = True
+            '                LblFlowCodeResultInitial.ForeColor = Color.Green
+            '                LblFlowCodeResultInitial.Text = "✔"
+            '                LblFlowCodeFeedback.Visible = False
+            '                LblFlowCodeFeedback.Text = Nothing
+            '                ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+            '            Else
+            '                LblFlowCodeResultInitial.Visible = True
+            '                LblFlowCodeResultInitial.ForeColor = Color.Red
+            '                LblFlowCodeResultInitial.Text = "Do not match"
+            '                LblFlowCodeFeedback.Visible = True
+            '                LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+
+            '                ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for final test station")
+            '            End If
+            '        End If
+
+            '        If flowftuart.Value <> flowftuart.ToString Then
+            '            LblFlowCodeResultInitial.Visible = True
+            '            LblFlowCodeResultInitial.ForeColor = Color.Red
+            '            LblFlowCodeResultInitial.Text = "Do not match"
+            '            LblFlowCodeFeedback.Visible = True
+            '            LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+
+            '            ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for final test station")
+            '        End If
+            '    End If
+
+            '    If station = "UART" Then
+            '        If correct = False Then
+            '            If flowftuart.Value <> Nothing Then
+            '                LblFlowCodeResultInitial.Visible = True
+            '                LblFlowCodeResultInitial.ForeColor = Color.Green
+            '                LblFlowCodeResultInitial.Text = "✔"
+            '                LblFlowCodeFeedback.Visible = False
+            '                LblFlowCodeFeedback.Text = Nothing
+            '                ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+            '            Else
+            '                LblFlowCodeResultInitial.Visible = True
+            '                LblFlowCodeResultInitial.ForeColor = Color.Red
+            '                LblFlowCodeResultInitial.Text = "Do not match"
+            '                LblFlowCodeFeedback.Visible = True
+            '                LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+
+            '                ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for uart station")
+            '            End If
+            '        End If
+
+            '        If flowftuart.Value <> flowftuart.ToString Then
+            '            LblFlowCodeResultInitial.Visible = True
+            '            LblFlowCodeResultInitial.ForeColor = Color.Red
+            '            LblFlowCodeResultInitial.Text = "Do not match"
+            '            LblFlowCodeFeedback.Visible = True
+            '            LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+
+            '            ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for uart station")
+            '        End If
+            '    End If
+        Else
+            If Regex.IsMatch(TboxFolderName.Text, "_[FP]_") Then
+                LblFlowCodeResultInitial.Visible = True
+                LblFlowCodeResultInitial.ForeColor = Color.Red
+                LblFlowCodeResultInitial.Text = "✘"
+                LblFlowCodeFeedback.Visible = True
+                LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+                ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be lower case")
+            End If
+
+            If Regex.IsMatch(LblFlowCodeFeedback.Text, "[fp]") = False Then
+                LblFlowCodeResultInitial.Visible = True
+                LblFlowCodeResultInitial.ForeColor = Color.Red
+                LblFlowCodeResultInitial.Text = "✘"
+                LblFlowCodeFeedback.Visible = True
+                LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
                 ErrorProvider1.SetError(LblFlowCodeFeedback, "invalid flow code")
             End If
         End If
 
         'start - Checking time stamp
         If Regex.IsMatch(TboxFolderName.Text, tstamp) Then
-            LblTimeStampResult.Visible = True
-            LblTimeStampResult.ForeColor = Color.Green
-            LblTimeStampResult.Text = "OK"
+            LblTimeStampResultInitial.Visible = True
+            LblTimeStampResultInitial.ForeColor = Color.Green
+            LblTimeStampResultInitial.Text = "✔"
             LblTimeStampFeedback.Visible = False
             LblTimeStampFeedback.Text = Nothing
             ErrorProvider1.SetError(LblTimeStampFeedback, "")
         Else
-            LblTimeStampResult.Visible = True
-            LblTimeStampResult.ForeColor = Color.Red
-            LblTimeStampResult.Text = "Do not match"
+            LblTimeStampResultInitial.Visible = True
+            LblTimeStampResultInitial.ForeColor = Color.Red
+            LblTimeStampResultInitial.Text = "✘"
             LblTimeStampFeedback.Visible = True
             LblTimeStampFeedback.Text = tstampc.Value
 
@@ -580,7 +641,7 @@ Public Class FrmMain
         strng.Clear()
 
         'start - Checking counter
-        If LblCMResult.Text = "OK" And LblMaterialResult.Text = "OK" And LblLotNoResult.Text = "OK" And LblStationIDResult.Text = "OK" And LblLotNoResult.Text = "OK" And LblStationIDResult.Text = "OK" And LblFlowCodeResult.Text = "OK" And LblTimeStampResult.Text = "OK" Then
+        If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
             For Each f In str
                 If LblStationValue.Text = "Calibration" Then
                     Dim p As New FileInfo(path.ToString & "\" & f)
@@ -669,7 +730,7 @@ Public Class FrmMain
                 ErrorProvider1.SetError(LblTotalCount, "")
             End If
 
-            If LblCMResult.Text = "OK" And LblMaterialResult.Text = "OK" And LblLotNoResult.Text = "OK" And LblStationIDResult.Text = "OK" And LblLotNoResult.Text = "OK" And LblStationIDResult.Text = "OK" And LblFlowCodeResult.Text = "OK" And LblTimeStampResult.Text = "OK" Then
+            If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
                 BtnSave.Visible = True
             Else
                 BtnSave.Visible = False
