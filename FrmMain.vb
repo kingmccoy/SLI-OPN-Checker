@@ -9,7 +9,7 @@ Public Class FrmMain
     Public ReadOnly strng As New List(Of String)
     Public defSavingPath As String = ToString()
     Public DefDir As String = ToString()
-    Dim dirTrue, defFin, refFin, correct, stp As Boolean
+    Dim dirTrue, defFin, refFin, stp As Boolean
     Public zip As ZipArchive
 
     Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OPNListToolStripMenuItem.Click
