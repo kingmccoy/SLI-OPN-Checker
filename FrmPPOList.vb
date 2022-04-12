@@ -104,4 +104,10 @@ Public Class FrmPPOList
     Private Sub FrmPPOList_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         DGVPPOList.ClearSelection()
     End Sub
+
+    Private Sub TboxSearch_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxSearch.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            BtnSearch.PerformClick()
+        End If
+    End Sub
 End Class

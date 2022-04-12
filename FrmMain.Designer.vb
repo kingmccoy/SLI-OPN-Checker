@@ -100,19 +100,19 @@ Partial Class FrmMain
         'OPNListToolStripMenuItem
         '
         Me.OPNListToolStripMenuItem.Name = "OPNListToolStripMenuItem"
-        Me.OPNListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.OPNListToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.OPNListToolStripMenuItem.Text = "&OPN List"
         '
         'ReferenceToolStripMenuItem
         '
         Me.ReferenceToolStripMenuItem.Name = "ReferenceToolStripMenuItem"
-        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.ReferenceToolStripMenuItem.Text = "&Reference"
         '
         'PPOListToolStripMenuItem
         '
         Me.PPOListToolStripMenuItem.Name = "PPOListToolStripMenuItem"
-        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.PPOListToolStripMenuItem.Text = "&PPO List"
         '
         'TboxPath
@@ -609,6 +609,7 @@ Partial Class FrmMain
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(619, 313)
         Me.Name = "FrmMain"

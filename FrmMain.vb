@@ -89,7 +89,7 @@ Public Class FrmMain
 
     Private Sub BtnCheck_Click(sender As Object, e As EventArgs) Handles BtnCheck.Click
         'start - Checking OPN format
-        Dim rg As String = "^(ionics|IONICS)_((r9113|R9113)[a-zA-Z0-9]{9})_71[0-9]{5}\.[1-9]{1,2}_([uartUART]{4}|[calibCALIB]{5}|[ftFT]{2}|)-[0-9]{2}-F[0-9]{2}_([a-zA-Z]|[FP])_[0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$"
+        Dim rg As String = "^([ionicsIONICS]{6})_((r9113|R9113)[a-zA-Z0-9]{9})_71[0-9]{5}\.[2-9]{1,2}_([uartUART]{4}|[calibCALIB]{5}|[ftFT]{2}|)-[0-9]{2}-F[0-9]{2}_([a-zA-Z]|[FP])_[0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$"
         'Dim rg As String = "^([a-zA-Z]+)_([a-zA-Z0-9]+)_([0-9\.0-9]+)_([a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]*)_([a-zA-Z])_([a-zA-Z0-9]+)$"
         '"[IONICS]+_([A-Z0-9]+)_([0-9\.0-9]+)_((CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_(.*)_([0-9]+)"
 
@@ -99,44 +99,7 @@ Public Class FrmMain
         End If
         'end
 
-        'start - Checking OPN if exist on the PPO records
-        Dim lot_number As Match
-
-        lot_number = Regex.Match(TboxFolderName.Text, "71[0-9]{5}\.[1-9]{1,2}")
-
-        conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-        Dim query = "select * from ppo_records where lot_number='" & lot_number.Value & "'"
-        Dim lotexist As Boolean
-        Dim matnum As String = ToString()
-
-        Try
-            conn.Open()
-            Using cmd As New SQLiteCommand(query, conn)
-                Using reader As SQLiteDataReader = cmd.ExecuteReader
-                    reader.Read()
-                    If reader.HasRows Then
-                        If reader("lot_number").ToString = lot_number.Value Then
-                            lotexist = True
-                        Else
-                            lotexist = False
-                        End If
-                    End If
-                End Using
-            End Using
-            conn.Close()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-
-        If lotexist = False Then
-            MessageBox.Show("PPO do not exist. Please create new PPO entry.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            FrmPPORecords.ShowDialog()
-            Return
-        End If
-        'end
-
-        ' original
-
+        'start - directory check
         If TboxPath.Text = Nothing Then
             MessageBox.Show("Please browse the directory to proceed!", "No Direcotry", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
@@ -147,6 +110,7 @@ Public Class FrmMain
             Clear()
             Return
         End If
+        'end
 
         'start - Checking the correct format
         Dim cm = "^(IONICS)"
@@ -157,10 +121,8 @@ Public Class FrmMain
         Dim tstamp = "([0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$)"
         'end
 
-        Dim cmc, materialc, lotc, stationidc, fcodec, tstampc As Match
-        'Dim cmr, materialr, lotr, stationidr, fcoder, tstampr As Regex
-
         'start - Error feedback check
+        Dim cmc, materialc, lotc, stationidc, fcodec, tstampc As Match
         cmc = Regex.Match(TboxFolderName.Text, "^[a-zA-Z]+")
         materialc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z0-9]{14}_")
         lotc = Regex.Match(TboxFolderName.Text, "_71[0-9]{5}\.[1-9]{1,2}")
@@ -179,12 +141,9 @@ Public Class FrmMain
         Dim MatList As New List(Of String)
         'Dim CountMat As Integer
 
-        Dim table As New DataTable
-
         Dim r As String = Regex.IsMatch(TboxFolderName.Text, material)
 
         'start - Checking Company Manufacturer
-        'cmc = cmr.Match(TboxFolderName.Text)
         If Regex.IsMatch(TboxFolderName.Text, cm) Then
             LblCMResultInitial.Visible = True
             LblCMResultInitial.ForeColor = Color.Green
@@ -211,87 +170,93 @@ Public Class FrmMain
 
         'start - Checking Material
         'If Regex.IsMatch(TboxFolderName.Text, material) Then
-        conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+
+        'Dim table As New DataTable
 
         Try
-            Dim q = "select material_no from material"
+            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+            Dim matval As Match = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}")
+            Dim q = "select material_no from material where material_no='" & matval.Value & "'"
+            Dim mat As String = ToString()
+            Dim y As Boolean
 
             conn.Open()
             Using cmd As New SQLiteCommand(q, conn)
-                Dim adapter As New SQLiteDataAdapter(cmd)
-                adapter.Fill(table)
+                Using reader As SQLiteDataReader = cmd.ExecuteReader
+                    reader.Read()
+                    If reader.HasRows Then
+                        mat = reader("material_no").ToString
+                        y = True
+                    Else
+                        y = False
+                    End If
+                End Using
+                'Dim adapter As New SQLiteDataAdapter(cmd)
+                'adapter.Fill(table)
             End Using
             conn.Close()
 
-        Catch ex As Exception
-            MessageBox.Show(ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-
-        For Each row As DataRow In table.Rows
-            MatList.Add(row.Item("material_no"))
-        Next
-
-        Dim y As Boolean
-
-        For Each dt In MatList
-            Dim reg As Match
-            reg = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}")
-            If dt = reg.Value Then
-                y = True
-            End If
-        Next
-
-        'start - Checking material if match on PPO Records
-        If y = True Then
-            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfmissing=True;"
-            Dim q = "select * from ppo_records where lot_number='" & Regex.Match(TboxFolderName.Text, "71[0-9]{5}.[1-9]{1,2}").Value & "'"
-            Dim material_num As String = ToString()
-
-            Try
-                conn.Open()
-                Using cmd As New SQLiteCommand(q, conn)
-                    Using reader As SQLiteDataReader = cmd.ExecuteReader
-                        reader.Read()
-                        If reader.HasRows Then
-                            material_num = reader("material").ToString
-                        End If
-                    End Using
-                End Using
-                conn.Close()
-            Catch ex As Exception
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-
-            If material_num <> Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value Then
-                LblMaterialResultInitial.Visible = True
-                LblMaterialResultInitial.ForeColor = Color.Red
-                LblMaterialResultInitial.Text = "✘"
-                LblMaterialFeedback.Visible = True
-                LblMaterialFeedback.Text = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value
-                ErrorProvider1.SetError(LblMaterialFeedback, "Do not match with the PPO records." & vbCrLf & "It must be " & material_num)
-            Else
+            If y = True Then
                 LblMaterialResultInitial.Visible = True
                 LblMaterialResultInitial.ForeColor = Color.Green
                 LblMaterialResultInitial.Text = "✔"
                 LblMaterialFeedback.Visible = False
                 LblMaterialFeedback.Text = Nothing
                 ErrorProvider1.SetError(LblMaterialFeedback, "")
-            End If
-        Else
-            LblMaterialResultInitial.Visible = True
-            LblMaterialResultInitial.ForeColor = Color.Red
-            LblMaterialResultInitial.Text = "✘"
-            LblMaterialFeedback.Visible = True
-            LblMaterialFeedback.Text = materialc.Value.Substring(1, 14)
-
-            If Regex.IsMatch(LblMaterialFeedback.Text, "[a-z]") Then
-                ErrorProvider1.SetError(LblMaterialFeedback, "must be uppercase")
             Else
-                If Regex.IsMatch(LblMaterialFeedback.Text, "[A-Z0-9]+") Then
-                    ErrorProvider1.SetError(LblMaterialFeedback, "do not match in the database")
+                LblMaterialResultInitial.Visible = True
+                LblMaterialResultInitial.ForeColor = Color.Red
+                LblMaterialResultInitial.Text = "✘"
+                LblMaterialFeedback.Visible = True
+                LblMaterialFeedback.Text = materialc.Value.Substring(1, 14)
+
+                If Regex.IsMatch(LblMaterialFeedback.Text, "[a-z]") Then
+                    ErrorProvider1.SetError(LblMaterialFeedback, "must be uppercase")
+                Else
+                    If Regex.IsMatch(LblMaterialFeedback.Text, "[A-Z0-9]+") Then
+                        ErrorProvider1.SetError(LblMaterialFeedback, "do not match in the database")
+                    End If
                 End If
             End If
-        End If
+        Catch ex As Exception
+            MessageBox.Show(ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+
+
+        'For Each row As DataRow In table.Rows
+        '    MatList.Add(row.Item("material_no"))
+        'Next
+
+        'Dim y As Boolean
+
+        'For Each dt In MatList
+        '    Dim reg As Match
+        '    reg = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}")
+        '    If dt = reg.Value Then
+        '        y = True
+        '    End If
+        'Next
+
+
+        'If y = True Then
+
+
+        'Else
+        '    LblMaterialResultInitial.Visible = True
+        '    LblMaterialResultInitial.ForeColor = Color.Red
+        '    LblMaterialResultInitial.Text = "✘"
+        '    LblMaterialFeedback.Visible = True
+        '    LblMaterialFeedback.Text = materialc.Value.Substring(1, 14)
+
+        '    If Regex.IsMatch(LblMaterialFeedback.Text, "[a-z]") Then
+        '        ErrorProvider1.SetError(LblMaterialFeedback, "must be uppercase")
+        '    Else
+        '        If Regex.IsMatch(LblMaterialFeedback.Text, "[A-Z0-9]+") Then
+        '            ErrorProvider1.SetError(LblMaterialFeedback, "do not match in the database")
+        '        End If
+        '    End If
+        'End If
         'end
         'End If
 
@@ -306,7 +271,7 @@ Public Class FrmMain
         Else
             LblLotNoResultInitial.Visible = True
             LblLotNoResultInitial.ForeColor = Color.Red
-            LblLotNoResultInitial.Text = "Do not match"
+            LblLotNoResultInitial.Text = "✘"
             LblLotNoFeedback.Visible = True
             LblLotNoFeedback.Text = lotc.Value.Substring(1)
             ErrorProvider1.SetError(LblLotNoFeedback, "format is invalid")
@@ -583,17 +548,18 @@ Public Class FrmMain
                 LblFlowCodeFeedback.Visible = True
                 LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
                 ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be lower case")
-            End If
-
-            If Regex.IsMatch(LblFlowCodeFeedback.Text, "[fp]") = False Then
-                LblFlowCodeResultInitial.Visible = True
-                LblFlowCodeResultInitial.ForeColor = Color.Red
-                LblFlowCodeResultInitial.Text = "✘"
-                LblFlowCodeFeedback.Visible = True
-                LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
-                ErrorProvider1.SetError(LblFlowCodeFeedback, "invalid flow code")
+            Else
+                If Regex.IsMatch(LblFlowCodeFeedback.Text, "[fp]") = False Then
+                    LblFlowCodeResultInitial.Visible = True
+                    LblFlowCodeResultInitial.ForeColor = Color.Red
+                    LblFlowCodeResultInitial.Text = "✘"
+                    LblFlowCodeFeedback.Visible = True
+                    LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+                    ErrorProvider1.SetError(LblFlowCodeFeedback, "invalid flow code")
+                End If
             End If
         End If
+        'end
 
         'start - Checking time stamp
         If Regex.IsMatch(TboxFolderName.Text, tstamp) Then
@@ -628,6 +594,125 @@ Public Class FrmMain
         '    End If
         'End If
 
+        'start - Checking OPN if exist on the PPO records
+        Dim lotexist As Boolean
+
+        If Not LblLotNoResultInitial.Text = "✘" Then
+            Try
+                Dim lot_number As Match
+
+                lot_number = Regex.Match(TboxFolderName.Text, "71[0-9]{5}\.[1-9]{1,2}")
+
+                conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+                Dim query = "select * from ppo_records where lot_number='" & lot_number.Value & "'"
+                Dim matnum As String = ToString()
+
+
+                conn.Open()
+                Using cmd As New SQLiteCommand(query, conn)
+                    Using reader As SQLiteDataReader = cmd.ExecuteReader
+                        reader.Read()
+                        If reader.HasRows Then
+                            If reader("lot_number").ToString = lot_number.Value Then
+                                LblLotNoResultFinal.Visible = True
+                                LblLotNoResultFinal.ForeColor = Color.Green
+                                LblLotNoResultFinal.Text = "✔"
+                                LblLotNoFeedback.Visible = False
+                                LblLotNoFeedback.Text = Nothing
+                                ErrorProvider1.SetError(LblLotNoFeedback, "")
+
+                                lotexist = True
+                            End If
+                        Else
+                            LblLotNoResultFinal.Visible = True
+                            LblLotNoResultFinal.ForeColor = Color.Red
+                            LblLotNoResultFinal.Text = "✘"
+                            LblLotNoFeedback.Visible = True
+                            LblLotNoFeedback.Text = lotc.Value.Substring(1)
+                            ErrorProvider1.SetError(LblLotNoFeedback, "OPN do not exist")
+                            lotexist = False
+                        End If
+                    End Using
+                End Using
+                conn.Close()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+        'end
+
+        'start - Checking material if match on PPO Records
+        Try
+            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfmissing=True;"
+            Dim q = "select * from ppo_records where lot_number='" & Regex.Match(TboxFolderName.Text, "71[0-9]{5}.[1-9]{1,2}").Value & "'"
+            Dim material_num As String = ToString()
+            Dim exist As Boolean
+
+            conn.Open()
+            Using cmd As New SQLiteCommand(q, conn)
+                Using reader As SQLiteDataReader = cmd.ExecuteReader
+                    reader.Read()
+                    If reader.HasRows Then
+                        material_num = reader("material").ToString
+                        exist = True
+                    Else
+                        exist = False
+                    End If
+                End Using
+            End Using
+            conn.Close()
+
+            If Not LblMaterialResultInitial.Text = "✘" Then
+                If exist = True Then
+                    If material_num <> Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value Then
+                        LblMaterialResultFinal.Visible = True
+                        LblMaterialResultFinal.ForeColor = Color.Red
+                        LblMaterialResultFinal.Text = "✘"
+                        LblMaterialFeedback.Visible = True
+                        LblMaterialFeedback.Text = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value
+                        ErrorProvider1.SetError(LblMaterialFeedback, "Do not match with the PPO records." & vbCrLf & "It must be " & material_num)
+                    Else
+                        LblMaterialResultFinal.Visible = True
+                        LblMaterialResultFinal.ForeColor = Color.Green
+                        LblMaterialResultFinal.Text = "✔"
+                        LblMaterialFeedback.Visible = False
+                        LblMaterialFeedback.Text = Nothing
+                        ErrorProvider1.SetError(LblMaterialFeedback, "")
+                    End If
+                Else
+                    If exist = False Then
+                        LblMaterialResultFinal.Visible = True
+                        LblMaterialResultFinal.ForeColor = Color.Red
+                        LblMaterialResultFinal.Text = "✘"
+                        LblMaterialFeedback.Visible = True
+                        LblMaterialFeedback.Text = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value
+                        ErrorProvider1.SetError(LblMaterialFeedback, "No record found")
+                    End If
+                End If
+                'Else
+                '    'LblMaterialResultFinal.Visible = True
+                '    'LblMaterialResultFinal.ForeColor = Color.Green
+                '    LblMaterialResultFinal.Text = Nothing
+                '    'LblMaterialFeedback.Visible = True
+                '    'LblMaterialFeedback.Text = Nothing
+                '    'ErrorProvider1.SetError(LblMaterialFeedback, "")
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+        'end
+
+        'If Not LblLotNoResultInitial.Text = "✘" Then
+        If lotexist = False Then
+                Dim DiagResult As DialogResult = MessageBox.Show("PPO do not exist. Do you want to create new PPO entry?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error)
+                If DiagResult = DialogResult.Yes Then
+                    FrmPPORecords.ShowDialog()
+                End If
+                'Return
+            End If
+        'End If
+
+        'start - Checking counter
         Dim str As New List(Of String)
         Dim pass, failed As Integer
 
@@ -640,8 +725,8 @@ Public Class FrmMain
 
         strng.Clear()
 
-        'start - Checking counter
         If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
+            'If LblMaterialResultFinal.Text = "✔" And LblLotNoResultFinal.Text = "✔" Then
             For Each f In str
                 If LblStationValue.Text = "Calibration" Then
                     Dim p As New FileInfo(path.ToString & "\" & f)
@@ -730,7 +815,8 @@ Public Class FrmMain
                 ErrorProvider1.SetError(LblTotalCount, "")
             End If
 
-            If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
+            'If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
+            If LblMaterialResultFinal.Text = "✔" And LblLotNoResultFinal.Text = "✔" Then
                 BtnSave.Visible = True
             Else
                 BtnSave.Visible = False
