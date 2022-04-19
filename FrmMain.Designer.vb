@@ -73,11 +73,13 @@ Partial Class FrmMain
         Me.GroupBoxOPNCheck = New System.Windows.Forms.GroupBox()
         Me.LblLotNoResultFinal = New System.Windows.Forms.Label()
         Me.LblMaterialResultFinal = New System.Windows.Forms.Label()
+        Me.ErrorProvider2 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxFormatCheck.SuspendLayout()
         Me.GroupBoxFormat.SuspendLayout()
         Me.GroupBoxOPNCheck.SuspendLayout()
+        CType(Me.ErrorProvider2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -572,6 +574,10 @@ Partial Class FrmMain
         Me.LblMaterialResultFinal.TabIndex = 5
         Me.LblMaterialResultFinal.Text = "OK"
         '
+        'ErrorProvider2
+        '
+        Me.ErrorProvider2.ContainerControl = Me
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -624,6 +630,7 @@ Partial Class FrmMain
         Me.GroupBoxFormat.PerformLayout()
         Me.GroupBoxOPNCheck.ResumeLayout(False)
         Me.GroupBoxOPNCheck.PerformLayout()
+        CType(Me.ErrorProvider2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -678,4 +685,5 @@ Partial Class FrmMain
     Friend WithEvents GroupBoxOPNCheck As GroupBox
     Friend WithEvents LblLotNoResultFinal As Label
     Friend WithEvents LblMaterialResultFinal As Label
+    Friend WithEvents ErrorProvider2 As ErrorProvider
 End Class

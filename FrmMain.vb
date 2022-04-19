@@ -93,12 +93,6 @@ Public Class FrmMain
         'Dim rg As String = "^([a-zA-Z]+)_([a-zA-Z0-9]+)_([0-9\.0-9]+)_([a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]*)_([a-zA-Z])_([a-zA-Z0-9]+)$"
         '"[IONICS]+_([A-Z0-9]+)_([0-9\.0-9]+)_((CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_(.*)_([0-9]+)"
 
-        If Not Regex.IsMatch(TboxFolderName.Text, rg) Then
-            MessageBox.Show("Filename invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-        'end
-
         'start - directory check
         If TboxPath.Text = Nothing Then
             MessageBox.Show("Please browse the directory to proceed!", "No Direcotry", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -108,6 +102,12 @@ Public Class FrmMain
         If Not Directory.Exists(TboxPath.Text) Then
             MessageBox.Show("Directory do not exist!", "Direcotry Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Clear()
+            Return
+        End If
+        'end
+
+        If Regex.IsMatch(TboxFolderName.Text, rg) = False Then
+            MessageBox.Show("Filename invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
         'end
@@ -595,7 +595,7 @@ Public Class FrmMain
         'End If
 
         'start - Checking OPN if exist on the PPO records
-        Dim lotexist As Boolean
+        Dim lotnotexist As Boolean
 
         If Not LblLotNoResultInitial.Text = "✘" Then
             Try
@@ -619,9 +619,9 @@ Public Class FrmMain
                                 LblLotNoResultFinal.Text = "✔"
                                 LblLotNoFeedback.Visible = False
                                 LblLotNoFeedback.Text = Nothing
-                                ErrorProvider1.SetError(LblLotNoFeedback, "")
+                                'ErrorProvider2.SetError(LblLotNoFeedback, "")
 
-                                lotexist = True
+                                lotnotexist = False
                             End If
                         Else
                             LblLotNoResultFinal.Visible = True
@@ -630,7 +630,7 @@ Public Class FrmMain
                             LblLotNoFeedback.Visible = True
                             LblLotNoFeedback.Text = lotc.Value.Substring(1)
                             ErrorProvider1.SetError(LblLotNoFeedback, "OPN do not exist")
-                            lotexist = False
+                            lotnotexist = True
                         End If
                     End Using
                 End Using
@@ -670,14 +670,14 @@ Public Class FrmMain
                         LblMaterialResultFinal.Text = "✘"
                         LblMaterialFeedback.Visible = True
                         LblMaterialFeedback.Text = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value
-                        ErrorProvider1.SetError(LblMaterialFeedback, "Do not match with the PPO records." & vbCrLf & "It must be " & material_num)
+                        ErrorProvider2.SetError(LblMaterialFeedback, "Do not match with the PPO records." & vbCrLf & "It must be " & material_num)
                     Else
                         LblMaterialResultFinal.Visible = True
                         LblMaterialResultFinal.ForeColor = Color.Green
                         LblMaterialResultFinal.Text = "✔"
                         LblMaterialFeedback.Visible = False
                         LblMaterialFeedback.Text = Nothing
-                        ErrorProvider1.SetError(LblMaterialFeedback, "")
+                        ErrorProvider2.SetError(LblMaterialFeedback, "")
                     End If
                 Else
                     If exist = False Then
@@ -686,7 +686,7 @@ Public Class FrmMain
                         LblMaterialResultFinal.Text = "✘"
                         LblMaterialFeedback.Visible = True
                         LblMaterialFeedback.Text = Regex.Match(TboxFolderName.Text, "R9113[A-Z0-9]{9}").Value
-                        ErrorProvider1.SetError(LblMaterialFeedback, "No record found")
+                        ErrorProvider2.SetError(LblMaterialFeedback, "No record found")
                     End If
                 End If
                 'Else
@@ -703,13 +703,15 @@ Public Class FrmMain
         'end
 
         'If Not LblLotNoResultInitial.Text = "✘" Then
-        If lotexist = False Then
+        If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
+            If lotnotexist = True Then
                 Dim DiagResult As DialogResult = MessageBox.Show("PPO do not exist. Do you want to create new PPO entry?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error)
                 If DiagResult = DialogResult.Yes Then
                     FrmPPORecords.ShowDialog()
                 End If
                 'Return
             End If
+        End If
         'End If
 
         'start - Checking counter
@@ -898,18 +900,18 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
-        'If Not BackgroundWorker1.IsBusy Then
-        '    ReferenceToolStripMenuItem.Enabled = False
-        '    TboxPath.Enabled = False
-        '    BtnBrowse.Enabled = False
-        '    BtnCheck.Enabled = False
-        '    LblPercent.Visible = True
-        '    BackgroundWorker1.RunWorkerAsync()
-        'Else
-        '    If BackgroundWorker1.IsBusy Then
-        '        MsgBox("Saving OPN is already running", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Saving")
-        '    End If
-        'End If
+        If Not BackgroundWorker1.IsBusy Then
+            ReferenceToolStripMenuItem.Enabled = False
+            TboxPath.Enabled = False
+            BtnBrowse.Enabled = False
+            BtnCheck.Enabled = False
+            LblPercent.Visible = True
+            BackgroundWorker1.RunWorkerAsync()
+        Else
+            If BackgroundWorker1.IsBusy Then
+                MsgBox("Saving OPN is already running", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Saving")
+            End If
+        End If
 
         'Dim dirInfo As New DirectoryInfo("C:\Users\inven\Desktop\Screened Result\2021\2112F005A3\IONICS_R9113NG0NP9X00_7103982.2_CALIB-03-F08_f_20201218061744")
         ''ZipFile.CreateFromDirectory("C:\Users\inven\Desktop\Screened Result\2021\2112F005A3\IONICS_R9113NG0NP9X00_7103982.2_CALIB-03-F08_f_20201218061744\IONICS_R9113NG0NP9X00_7103982.2_CALIB-03-F08_f_20201218061744", "C:\Users\inven\Documents\opn_checked\IONICS_R9113NG0NP9X00_7103982.2_CALIB-03-F08_f_20201218061744.zip")
@@ -1051,6 +1053,7 @@ Public Class FrmMain
             If dirTrue = False Then
                 If Not Directory.Exists(DefDir) Then
                     Directory.CreateDirectory(DefDir)
+                    'System.IO.Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked")
                 End If
 
                 If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
