@@ -1156,7 +1156,5 @@ Public Class FrmMain
             LblPercent.Visible = False
             LblPercent.Text = Nothing
         End If
-
-
     End Sub
 End Class
