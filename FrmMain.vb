@@ -89,7 +89,7 @@ Public Class FrmMain
 
     Private Sub BtnCheck_Click(sender As Object, e As EventArgs) Handles BtnCheck.Click
         'start - Checking OPN format
-        Dim rg As String = "^([ionicsIONICS]{6})_((r9113|R9113)[a-zA-Z0-9]{9})_71[0-9]{5}\.[2-9]{1,2}_([uartUART]{4}|[calibCALIB]{5}|[ftFT]{2}|)-[0-9]{2}-F[0-9]{2}_([a-zA-Z]|[FP])_[0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$"
+        Dim rg As String = "^([ionicsIONICS]{6})_((r9113|R9113)[a-zA-Z0-9]{9})_71[0-9]{5}\.[0-9]{1,2}_([uartUART]{4}|[calibCALIB]{5}|[ftFT]{2}|)-[0-9]{2}-F[0-9]{2}_([a-zA-Z]|[FP])_[0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$"
         'Dim rg As String = "^([a-zA-Z]+)_([a-zA-Z0-9]+)_([0-9\.0-9]+)_([a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]*)_([a-zA-Z])_([a-zA-Z0-9]+)$"
         '"[IONICS]+_([A-Z0-9]+)_([0-9\.0-9]+)_((CALIB|FT|UART)\-[0-9]{2}\-[FR][0-9]{2})_(.*)_([0-9]+)"
 
@@ -115,7 +115,7 @@ Public Class FrmMain
         'start - Checking the correct format
         Dim cm = "^(IONICS)"
         Dim material = "(R9113[A-Z0-9]{9})"
-        Dim lot = "(71[0-9]{5}\.[1-9]{1,2})"
+        Dim lot = "(71[0-9]{5}\.[1-9][0-9]|71[0-9]{5}\.[2-9]{1,2})"
         Dim stationid = "((UART|CALIB|FT)-[0-9]{2}-F[0-9]{2})"
         Dim fcode = "([fp])"
         Dim tstamp = "([0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$)"
@@ -125,7 +125,7 @@ Public Class FrmMain
         Dim cmc, materialc, lotc, stationidc, fcodec, tstampc As Match
         cmc = Regex.Match(TboxFolderName.Text, "^[a-zA-Z]+")
         materialc = Regex.Match(TboxFolderName.Text, "_[a-zA-Z0-9]{14}_")
-        lotc = Regex.Match(TboxFolderName.Text, "_71[0-9]{5}\.[1-9]{1,2}")
+        lotc = Regex.Match(TboxFolderName.Text, "_71[0-9]{5}\.[0-9]{1,2}")
         stationidc = Regex.Match(TboxFolderName.Text, "_([uartUART]{4}|[calibCALIB]{5}|[ftFT]{2}|)-[0-9]{2}-[fF][0-9]{2}") '"_[a-zA-Z]+\-[0-9]+\-[a-zA-Z][0-9]+")
         fcodec = Regex.Match(TboxFolderName.Text, "_[a-zA-Z]_")
         tstampc = Regex.Match(TboxFolderName.Text, "[0-9]+$")
@@ -336,17 +336,17 @@ Public Class FrmMain
         Dim correct As Boolean
 
         If Regex.IsMatch(TboxFolderName.Text, fcode) Then
-            If Regex.IsMatch(TboxPath.Text, "([calibCALIB]{5})") Then
+            If Regex.IsMatch(TboxPath.Text, "(_[calibCALIB]{5})") Then
                 correct = True
                 station = "CALIB"
             End If
 
-            If Regex.IsMatch(TboxPath.Text, "([ftFT]{2})") Then
+            If Regex.IsMatch(TboxPath.Text, "(_[ftFT]{2}-)") Then
                 correct = True
                 station = "FT"
             End If
 
-            If Regex.IsMatch(TboxPath.Text, "([uartUART]{4})") Then
+            If Regex.IsMatch(TboxPath.Text, "(_[uartUART]{4}-)") Then
                 correct = True
                 station = "UART"
             End If
@@ -594,6 +594,113 @@ Public Class FrmMain
         '    End If
         'End If
 
+        'start - Checking counter
+        Dim str As New List(Of String)
+        Dim pass, failed As Integer
+
+        Dim path As New DirectoryInfo(TboxPath.Text)
+
+        For Each d In path.GetFiles()
+            Dim f As New FileInfo(d.ToString)
+            str.Add(f.ToString)
+        Next
+
+        strng.Clear()
+
+        If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
+            'If LblMaterialResultFinal.Text = "✔" And LblLotNoResultFinal.Text = "✔" Then
+            For Each f In str
+                If LblStationValue.Text = "Calibration" Then
+                    Dim p As New FileInfo(path.ToString & "\" & f)
+                    'Dim g As New FileInfo(path.ToString & "\" & f)
+                    Dim m1, m2 As Match
+
+                    m1 = Regex.Match(f, "(RS9113)_[NBZ0]{3}_[SD01NFW]{3}[_DRG]{0,4}_[A-Z0-9]{12}" & p.Extension)
+                    m2 = Regex.Match(f, "[A-Za-z]{3}_[A-Za-z]{3}_{1,2}[0-9]{1,2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}" & p.Extension)
+                    'm2 = Regex.Match(f, "[A-Z][a-z]{2}_[A-Z][a-z]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}" & p.Extension)
+
+                    If f = m1.Value Then
+                        pass += 1
+                    End If
+
+                    If f = m2.Value Then
+                        failed += 1
+                    End If
+
+                    If f <> m1.Value And f <> m2.Value Then
+                        strng.Add(p.FullName)
+                    End If
+                Else
+                    If LblStationValue.Text = "FT" Then
+                        Dim p As New FileInfo(path.ToString & "\" & f)
+                        Dim f1, f2 As Match
+
+                        f1 = Regex.Match(f, "[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_pass" & p.Extension)
+                        f2 = Regex.Match(f, "[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_fail" & p.Extension)
+
+                        If f = f1.Value Then
+                            pass += 1
+                        End If
+
+                        If f = f2.Value Then
+                            failed += 1
+                        End If
+
+                        If f <> f1.Value And f <> f2.Value Then
+                            strng.Add(p.FullName)
+                        End If
+                    Else
+                        If LblStationValue.Text = "UART" Then
+                            Dim p As New FileInfo(path.ToString & "\" & f)
+                            Dim u1, u2 As Match
+
+                            u1 = Regex.Match(f, "[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}" & p.Extension)
+                            u2 = Regex.Match(f, "[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}_fail" & p.Extension)
+
+                            If f = u1.Value Then
+                                pass += 1
+                            End If
+
+                            If f = u2.Value Then
+                                failed += 1
+                            End If
+
+                            If f <> u1.Value And f <> u2.Value Then
+                                strng.Add(p.FullName)
+                            End If
+                        End If
+                    End If
+                End If
+            Next
+
+            LblStationValue.Visible = True
+            LblPassCount.Visible = True
+            LblFailedCount.Visible = True
+            LblTotalCount.Visible = True
+
+            LblPassCount.Text = pass
+            LblFailedCount.Text = failed
+            LblTotalCount.Text = path.GetFiles.Count
+
+            If path.GetFiles.Count <> pass + failed Then
+                Dim l = LblTotalCount.Location()
+                Dim lw = LblTotalCount.Width
+                Dim p = LblTotalFeedback.Location
+
+                LblTotalFeedback.Location = New Point(l.X + lw + 20, p.Y)
+                LblTotalFeedback.Text = "Click to view" 'path.GetFiles.Count - (pass + failed) & "Click to view"
+                ErrorProvider1.SetError(LblTotalCount, path.GetFiles.Count - (pass + failed) & " Unknown filename")
+                LblTotalFeedback.Visible = True
+            Else
+                LblTotalFeedback.Text = Nothing
+                LblTotalFeedback.Visible = False
+                ErrorProvider1.SetError(LblTotalCount, "")
+            End If
+
+            'If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
+        End If
+        'end 
+
         'start - Checking OPN if exist on the PPO records
         Dim lotnotexist As Boolean
 
@@ -707,132 +814,28 @@ Public Class FrmMain
             If lotnotexist = True Then
                 Dim DiagResult As DialogResult = MessageBox.Show("PPO do not exist. Do you want to create new PPO entry?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error)
                 If DiagResult = DialogResult.Yes Then
-                    FrmPPORecords.ShowDialog()
+                    FrmAddPPORecords.ShowDialog()
                 End If
                 'Return
             End If
         End If
         'End If
 
-        'start - Checking counter
-        Dim str As New List(Of String)
-        Dim pass, failed As Integer
+        'start - enabled save button when checked
+        If LblMaterialResultFinal.Text = "✔" And LblLotNoResultFinal.Text = "✔" Then
+            BtnSave.Visible = True
+        Else
+            BtnSave.Visible = False
+        End If
 
-        Dim path As New DirectoryInfo(TboxPath.Text)
-
-        For Each d In path.GetFiles()
-            Dim f As New FileInfo(d.ToString)
-            str.Add(f.ToString)
-        Next
-
-        strng.Clear()
-
-        If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
-            'If LblMaterialResultFinal.Text = "✔" And LblLotNoResultFinal.Text = "✔" Then
-            For Each f In str
-                If LblStationValue.Text = "Calibration" Then
-                    Dim p As New FileInfo(path.ToString & "\" & f)
-                    'Dim g As New FileInfo(path.ToString & "\" & f)
-                    Dim m1, m2 As Match
-
-                    m1 = Regex.Match(f, "(RS9113)_[NBZ0]{3}_[SD01NFW]{3}[_DRG]{0,4}_[A-Z0-9]{12}" & p.Extension)
-                    m2 = Regex.Match(f, "[A-Za-z]{3}_[A-Za-z]{3}_{1,2}[0-9]{1,2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}" & p.Extension)
-                    'm2 = Regex.Match(f, "[A-Z][a-z]{2}_[A-Z][a-z]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}" & p.Extension)
-
-                    If f = m1.Value Then
-                        pass += 1
-                    End If
-
-                    If f = m2.Value Then
-                        failed += 1
-                    End If
-
-                    If f <> m1.Value And f <> m2.Value Then
-                        strng.Add(p.FullName)
-                    End If
-                Else
-                    If LblStationValue.Text = "FT" Then
-                        Dim p As New FileInfo(path.ToString & "\" & f)
-                        Dim f1, f2 As Match
-
-                        f1 = Regex.Match(f, "[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_pass" & p.Extension)
-                        f2 = Regex.Match(f, "[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_[a-f0-9]{2}_fail" & p.Extension)
-
-                        If f = f1.Value Then
-                            pass += 1
-                        End If
-
-                        If f = f2.Value Then
-                            failed += 1
-                        End If
-
-                        If f <> f1.Value And f <> f2.Value Then
-                            strng.Add(p.FullName)
-                        End If
-                    Else
-                        If LblStationValue.Text = "UART" Then
-                            Dim p As New FileInfo(path.ToString & "\" & f)
-                            Dim u1, u2 As Match
-
-                            u1 = Regex.Match(f, "[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}" & p.Extension)
-                            u2 = Regex.Match(f, "[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}\-[a-f0-9]{2}_fail" & p.Extension)
-
-                            If f = u1.Value Then
-                                pass += 1
-                            End If
-
-                            If f = u2.Value Then
-                                failed += 1
-                            End If
-
-                            If f <> u1.Value And f <> u2.Value Then
-                                strng.Add(p.FullName)
-                            End If
-                        End If
-                    End If
-                End If
-            Next
-
-            LblStationValue.Visible = True
-            LblPassCount.Visible = True
-            LblFailedCount.Visible = True
-            LblTotalCount.Visible = True
-
-            LblPassCount.Text = pass
-            LblFailedCount.Text = failed
-            LblTotalCount.Text = path.GetFiles.Count
-
-            If path.GetFiles.Count <> pass + failed Then
-                Dim l = LblTotalCount.Location()
-                Dim lw = LblTotalCount.Width
-                Dim p = LblTotalFeedback.Location
-
-                LblTotalFeedback.Location = New Point(l.X + lw + 20, p.Y)
-                LblTotalFeedback.Text = "Click to view" 'path.GetFiles.Count - (pass + failed) & "Click to view"
-                ErrorProvider1.SetError(LblTotalCount, path.GetFiles.Count - (pass + failed) & " Unknown filename")
-                LblTotalFeedback.Visible = True
-            Else
-                LblTotalFeedback.Text = Nothing
-                LblTotalFeedback.Visible = False
-                ErrorProvider1.SetError(LblTotalCount, "")
-            End If
-
-            'If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
-            If LblMaterialResultFinal.Text = "✔" And LblLotNoResultFinal.Text = "✔" Then
-                BtnSave.Visible = True
-            Else
-                BtnSave.Visible = False
-            End If
-
-            If LblTotalFeedback.Visible = True Then
-                BtnSave.Enabled = False
-            Else
-                If LblTotalFeedback.Visible = False Then
-                    BtnSave.Enabled = True
-                End If
+        If LblTotalFeedback.Visible = True Then
+            BtnSave.Enabled = False
+        Else
+            If LblTotalFeedback.Visible = False Then
+                BtnSave.Enabled = True
             End If
         End If
-        'end 
+        'end
     End Sub
 
     Private Sub TboxPath_DragEnter(sender As Object, e As DragEventArgs) Handles TboxPath.DragEnter
@@ -966,7 +969,7 @@ Public Class FrmMain
                         defSavingPath = reader("path").ToString
                         dirTrue = True
                     Else
-                        DefDir = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "f_checked"
+                        DefDir = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked"
                         dirTrue = False
                     End If
                 End Using
@@ -1052,6 +1055,9 @@ Public Class FrmMain
         Else
             If dirTrue = False Then
                 If Not Directory.Exists(DefDir) Then
+                    'Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "Macky")
+                    ''Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "f_checked")
+                    'Directory.CreateDirectory(DefDir)
                     Directory.CreateDirectory(DefDir)
                     'System.IO.Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked")
                 End If

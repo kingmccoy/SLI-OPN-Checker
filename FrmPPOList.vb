@@ -38,7 +38,7 @@ Public Class FrmPPOList
     End Sub
 
     Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
-        FrmPPORecords.ShowDialog()
+        FrmAddPPORecords.ShowDialog()
     End Sub
 
     Private Sub BtnSearch_Click(sender As Object, e As EventArgs) Handles BtnSearch.Click

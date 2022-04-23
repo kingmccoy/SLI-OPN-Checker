@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SQLite
 Imports System.Text.RegularExpressions
 
-Public Class FrmPPORecords
+Public Class FrmAddPPORecords
     ReadOnly conn As New SQLiteConnection
     Dim mat, fw, lot, ftc As Boolean
 
@@ -182,6 +182,7 @@ Public Class FrmPPORecords
 
     Private Sub TboxLotNum_TextChanged(sender As Object, e As EventArgs) Handles TboxLotNum.TextChanged
         TboxLotNum.MaxLength = 10
+        TboxLotNum.CharacterCasing = CharacterCasing.Upper
 
         Dim lotn = "71[0-9]{5}.[1-9]{1,2}"
 
@@ -199,9 +200,9 @@ Public Class FrmPPORecords
     End Sub
 
     Private Sub TboxLotNum_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TboxLotNum.KeyPress
-        If (Char.IsNumber(e.KeyChar) Or e.KeyChar = "." Or e.KeyChar = vbBack) = False Then
-            e.Handled = True
-        End If
+        'If (Char.IsNumber(e.KeyChar) Or e.KeyChar = "." Or e.KeyChar = vbBack) = False Then
+        '    e.Handled = True
+        'End If
 
         If e.KeyChar = ChrW(Keys.Enter) Then
             BtnAdd.PerformClick()
@@ -222,6 +223,8 @@ Public Class FrmPPORecords
                 ErrorProvider1.SetError(TboxFTC, Nothing)
                 ftc = False
             End If
+        Else
+            ErrorProvider1.SetError(TboxFTC, Nothing)
         End If
     End Sub
 

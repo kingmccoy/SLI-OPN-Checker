@@ -42,7 +42,6 @@ D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmList.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmMain.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmDir.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmPPOList.resources
-D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmPPORecords.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmUnkList.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.Resources.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.GenerateResource.cache
@@ -50,3 +49,4 @@ D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CoreCompil
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CopyComplete
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.exe
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.pdb
+D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmAddPPORecords.resources

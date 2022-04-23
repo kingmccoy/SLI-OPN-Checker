@@ -540,7 +540,7 @@ Partial Class FrmMain
         Me.GroupBoxFormat.Size = New System.Drawing.Size(166, 141)
         Me.GroupBoxFormat.TabIndex = 19
         Me.GroupBoxFormat.TabStop = False
-        Me.GroupBoxFormat.Text = "Format"
+        Me.GroupBoxFormat.Text = "OPN Format"
         '
         'GroupBoxOPNCheck
         '

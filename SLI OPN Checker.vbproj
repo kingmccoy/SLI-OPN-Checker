@@ -145,10 +145,10 @@
     <Compile Include="FrmPPOList.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPPORecords.Designer.vb">
-      <DependentUpon>FrmPPORecords.vb</DependentUpon>
+    <Compile Include="FrmAddPPORecords.Designer.vb">
+      <DependentUpon>FrmAddPPORecords.vb</DependentUpon>
     </Compile>
-    <Compile Include="FrmPPORecords.vb">
+    <Compile Include="FrmAddPPORecords.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmUnkList.Designer.vb">
@@ -203,8 +203,8 @@
     <EmbeddedResource Include="FrmPPOList.resx">
       <DependentUpon>FrmPPOList.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPPORecords.resx">
-      <DependentUpon>FrmPPORecords.vb</DependentUpon>
+    <EmbeddedResource Include="FrmAddPPORecords.resx">
+      <DependentUpon>FrmAddPPORecords.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmUnkList.resx">
       <DependentUpon>FrmUnkList.vb</DependentUpon>
