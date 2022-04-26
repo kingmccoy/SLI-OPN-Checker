@@ -173,13 +173,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="OPN.Designer.vb">
+    <Compile Include="Logs.Designer.vb">
+      <DependentUpon>Logs.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OPN.xsd</DependentUpon>
     </Compile>
-    <Compile Include="OPN.vb">
-      <DependentUpon>OPN.xsd</DependentUpon>
+    <Compile Include="Logs.vb">
+      <DependentUpon>Logs.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OPNList.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OPNList.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OPNList.vb">
+      <DependentUpon>OPNList.xsd</DependentUpon>
     </Compile>
     <Compile Include="PPOList.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -227,16 +235,27 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
-    <None Include="OPN.xsc">
-      <DependentUpon>OPN.xsd</DependentUpon>
+    <None Include="Logs.xsc">
+      <DependentUpon>Logs.xsd</DependentUpon>
     </None>
-    <None Include="OPN.xsd">
+    <None Include="Logs.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Logs.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Logs.xss">
+      <DependentUpon>Logs.xsd</DependentUpon>
+    </None>
+    <None Include="OPNList.xsc">
+      <DependentUpon>OPNList.xsd</DependentUpon>
+    </None>
+    <None Include="OPNList.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>OPN.Designer.vb</LastGenOutput>
+      <LastGenOutput>OPNList.Designer.vb</LastGenOutput>
     </None>
-    <None Include="OPN.xss">
-      <DependentUpon>OPN.xsd</DependentUpon>
+    <None Include="OPNList.xss">
+      <DependentUpon>OPNList.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="PPOList.xsc">

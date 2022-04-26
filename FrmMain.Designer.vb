@@ -74,6 +74,7 @@ Partial Class FrmMain
         Me.LblLotNoResultFinal = New System.Windows.Forms.Label()
         Me.LblMaterialResultFinal = New System.Windows.Forms.Label()
         Me.ErrorProvider2 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.LogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxFormatCheck.SuspendLayout()
@@ -94,7 +95,7 @@ Partial Class FrmMain
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OPNListToolStripMenuItem, Me.ReferenceToolStripMenuItem, Me.PPOListToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OPNListToolStripMenuItem, Me.ReferenceToolStripMenuItem, Me.PPOListToolStripMenuItem, Me.LogsToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "&File"
@@ -102,19 +103,19 @@ Partial Class FrmMain
         'OPNListToolStripMenuItem
         '
         Me.OPNListToolStripMenuItem.Name = "OPNListToolStripMenuItem"
-        Me.OPNListToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.OPNListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.OPNListToolStripMenuItem.Text = "&OPN List"
         '
         'ReferenceToolStripMenuItem
         '
         Me.ReferenceToolStripMenuItem.Name = "ReferenceToolStripMenuItem"
-        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ReferenceToolStripMenuItem.Text = "&Reference"
         '
         'PPOListToolStripMenuItem
         '
         Me.PPOListToolStripMenuItem.Name = "PPOListToolStripMenuItem"
-        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PPOListToolStripMenuItem.Text = "&PPO List"
         '
         'TboxPath
@@ -578,6 +579,12 @@ Partial Class FrmMain
         '
         Me.ErrorProvider2.ContainerControl = Me
         '
+        'LogsToolStripMenuItem
+        '
+        Me.LogsToolStripMenuItem.Name = "LogsToolStripMenuItem"
+        Me.LogsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LogsToolStripMenuItem.Text = "&Logs"
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -616,7 +623,6 @@ Partial Class FrmMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(619, 313)
         Me.Name = "FrmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -686,4 +692,5 @@ Partial Class FrmMain
     Friend WithEvents LblLotNoResultFinal As Label
     Friend WithEvents LblMaterialResultFinal As Label
     Friend WithEvents ErrorProvider2 As ErrorProvider
+    Friend WithEvents LogsToolStripMenuItem As ToolStripMenuItem
 End Class
