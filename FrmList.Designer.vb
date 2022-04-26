@@ -30,7 +30,7 @@ Partial Class FrmList
         Me.MaterialnoDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.OrderingpartnoDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataTableOPNBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.OPN = New SLI_OPN_Checker.OPN()
+        Me.OPN = New SLI_OPN_Checker.OPNList()
         Me.BtnSearch = New System.Windows.Forms.Button()
         Me.TBoxSearch = New System.Windows.Forms.TextBox()
         Me.BtnAdd = New System.Windows.Forms.Button()
@@ -166,7 +166,7 @@ Partial Class FrmList
 
     Friend WithEvents DGVList As DataGridView
     Friend WithEvents DataTableOPNBindingSource As BindingSource
-    Friend WithEvents OPN As OPN
+    Friend WithEvents OPN As OPNList
     Friend WithEvents BtnSearch As Button
     Friend WithEvents TBoxSearch As TextBox
     Friend WithEvents BtnAdd As Button
