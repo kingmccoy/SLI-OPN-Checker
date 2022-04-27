@@ -12,7 +12,7 @@ Public Class FrmList
 
     Public Sub Load_OPN()
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-        Dim dataset As New OPN
+        Dim dataset As New OPNList
 
         Try
             Dim q = "select * from material"
@@ -36,7 +36,7 @@ Public Class FrmList
     End Sub
 
     Private Sub BtnSearch_Click(sender As Object, e As EventArgs) Handles BtnSearch.Click
-        Dim dt As New OPN
+        Dim dt As New OPNList
 
         'If TBoxSearch.Text = Nothing Then
         '    Load_OPN()

@@ -70,6 +70,9 @@
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -79,14 +82,14 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.115.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.115.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.EF6.1.0.115.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.EF6.1.0.115.5\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.115.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.Linq.1.0.115.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.Linq.1.0.115.5\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -120,6 +123,12 @@
     <Compile Include="FrmAddOPN.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FrmFTPCredentials.Designer.vb">
+      <DependentUpon>FrmFTPCredentials.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmFTPCredentials.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmList.Designer.vb">
       <DependentUpon>FrmList.vb</DependentUpon>
     </Compile>
@@ -137,6 +146,12 @@
       <DependentUpon>FrmDir.vb</DependentUpon>
     </Compile>
     <Compile Include="FrmDir.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogs.Designer.vb">
+      <DependentUpon>FrmLogs.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogs.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmPPOList.Designer.vb">
@@ -173,14 +188,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Logs.Designer.vb">
-      <DependentUpon>Logs.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Logs.vb">
-      <DependentUpon>Logs.xsd</DependentUpon>
-    </Compile>
     <Compile Include="OPNList.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -188,6 +195,11 @@
     </Compile>
     <Compile Include="OPNList.vb">
       <DependentUpon>OPNList.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Logs.Designer.vb">
+      <DependentUpon>Logs.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="PPOList.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -199,6 +211,9 @@
     <EmbeddedResource Include="FrmAddOPN.resx">
       <DependentUpon>FrmAddOPN.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmFTPCredentials.resx">
+      <DependentUpon>FrmFTPCredentials.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmList.resx">
       <DependentUpon>FrmList.vb</DependentUpon>
     </EmbeddedResource>
@@ -207,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmDir.resx">
       <DependentUpon>FrmDir.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogs.resx">
+      <DependentUpon>FrmLogs.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPPOList.resx">
       <DependentUpon>FrmPPOList.vb</DependentUpon>
@@ -235,17 +253,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
-    <None Include="Logs.xsc">
-      <DependentUpon>Logs.xsd</DependentUpon>
-    </None>
-    <None Include="Logs.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Logs.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Logs.xss">
-      <DependentUpon>Logs.xsd</DependentUpon>
-    </None>
     <None Include="OPNList.xsc">
       <DependentUpon>OPNList.xsd</DependentUpon>
     </None>
@@ -258,6 +265,17 @@
       <DependentUpon>OPNList.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Logs.xsc">
+      <DependentUpon>Logs.xsd</DependentUpon>
+    </None>
+    <None Include="Logs.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Logs.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Logs.xss">
+      <DependentUpon>Logs.xsd</DependentUpon>
+    </None>
     <None Include="PPOList.xsc">
       <DependentUpon>PPOList.xsd</DependentUpon>
     </None>
@@ -292,8 +310,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
   </Target>
   <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
-  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>

@@ -4,6 +4,9 @@ Imports System.Text.RegularExpressions
 Imports System.IO.Compression
 Imports System.ComponentModel
 
+Imports System.Net
+Imports System.Threading
+
 Public Class FrmMain
     ReadOnly conn As New SQLiteConnection
     Public ReadOnly strng As New List(Of String)
@@ -11,6 +14,8 @@ Public Class FrmMain
     Public DefDir As String = ToString()
     Dim dirTrue, defFin, refFin, stp As Boolean
     Public zip As ZipArchive
+
+    Dim ftpFilePath As String = Nothing
 
     Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OPNListToolStripMenuItem.Click
         FrmList.ShowDialog()
@@ -23,6 +28,8 @@ Public Class FrmMain
         LblPercent.Visible = False
         LblPercent.Text = Nothing
         Clear()
+
+        Control.CheckForIllegalCrossThreadCalls = False
     End Sub
 
     Sub Clear()
@@ -903,15 +910,15 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
-        If Not BackgroundWorker1.IsBusy Then
+        If Not BWorkerSave.IsBusy Then
             ReferenceToolStripMenuItem.Enabled = False
             TboxPath.Enabled = False
             BtnBrowse.Enabled = False
             BtnCheck.Enabled = False
             LblPercent.Visible = True
-            BackgroundWorker1.RunWorkerAsync()
+            BWorkerSave.RunWorkerAsync()
         Else
-            If BackgroundWorker1.IsBusy Then
+            If BWorkerSave.IsBusy Then
                 MsgBox("Saving OPN is already running", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Saving")
             End If
         End If
@@ -949,10 +956,105 @@ Public Class FrmMain
     End Sub
 
     Private Sub ReferenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReferenceToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub LogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LogsToolStripMenuItem.Click
+        FrmLogs.ShowDialog()
+    End Sub
+
+    Private Sub ButtonBrowse_Click(sender As Object, e As EventArgs) Handles ButtonBrowse.Click
+        Dim newFile As New OpenFileDialog
+        If newFile.ShowDialog = Windows.Forms.DialogResult.OK Then
+            TextBoxBrowse.Text = newFile.FileName
+            ftpFilePath = TextBoxFTPServer.Text & "/" & "/siliconlabs/test_programs" & "/" & IO.Path.GetFileName(TextBoxBrowse.Text)
+        End If
+    End Sub
+
+    Private Sub ButtonUplload_Click(sender As Object, e As EventArgs) Handles ButtonUplload.Click
+        If BWorkerFTPUpload.IsBusy = False Then
+            BWorkerFTPUpload.RunWorkerAsync()
+        Else
+            MsgBox("Already running")
+        End If
+    End Sub
+
+    Private Sub BWorkerFTPUpload_DoWork(sender As Object, e As DoWorkEventArgs) Handles BWorkerFTPUpload.DoWork
+        Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(ftpFilePath)), FtpWebRequest)
+        request.Method = WebRequestMethods.Ftp.UploadFile
+        request.Credentials = New NetworkCredential(TextBoxUsername.Text, TextBoxPassword.Text)
+        request.UseBinary = True
+        request.UsePassive = False
+        Dim fileStream() As Byte = System.IO.File.ReadAllBytes(TextBoxBrowse.Text)
+        Dim requestStream As System.IO.Stream = request.GetRequestStream()
+        For offset As Integer = 0 To fileStream.Length Step 1024
+            BWorkerFTPUpload.ReportProgress(CType(offset * pBar2.Maximum / fileStream.Length, Integer))
+            Dim chSize As Integer = fileStream.Length - offset
+            If chSize > 1024 Then chSize = 1024
+            requestStream.Write(fileStream, offset, chSize)
+        Next
+
+        requestStream.Close()
+        requestStream.Dispose()
+    End Sub
+
+    Private Sub BWorkerFTPUpload_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BWorkerFTPUpload.ProgressChanged
+        pBar2.Value = e.ProgressPercentage
+        LabelPercentage.Text = e.ProgressPercentage & " %"
+    End Sub
+
+    Private Sub BWorkerFTPUpload_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerFTPUpload.RunWorkerCompleted
+        MsgBox("Finish uploading!")
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim fdb As New FolderBrowserDialog With {
+            .Description = "Select your path."
+        }
+
+        If fdb.ShowDialog = DialogResult.OK Then
+            TextBox1.Text = fdb.SelectedPath
+        End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If String.IsNullOrEmpty(TextBox1.Text) Then
+            MessageBox.Show("Please select your folder.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            TextBox1.Focus()
+        End If
+
+        'Dim path As String = TextBox1.Text
+        'Dim thread = New thread
+
+        If String.IsNullOrEmpty(TextBox1.Text) Then
+            MessageBox.Show("Please select your folder.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            TextBox1.Focus()
+            Return
+        End If
+
+        Dim path As String = TextBox1.Text
+        Dim thread As New Thread(Function(t)
+                                     Using zip As New Ionic.Zip.ZipFile()
+                                         zip.AddDirectory(path)
+                                         Dim di As New System.IO.DirectoryInfo(path)
+                                         'zip.SaveProgress += zip_saveProgress
+                                         zip.Save(String.Format("{0}{1}.zip", di.Parent.FullName, di.Name))
+                                     End Using
+                                 End Function) With {
+                                        .IsBackground = True
+                                      }
+        thread.Start()
+    End Sub
+
+    Private Sub DirectoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DirectoryToolStripMenuItem.Click
         FrmDir.ShowDialog()
     End Sub
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+    Private Sub FTPCredentialsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FTPCredentialsToolStripMenuItem.Click
+        FrmFTPCredentials.ShowDialog()
+    End Sub
+
+    Private Sub BWorkerSave_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerSave.DoWork
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
 
         Dim origPath As New DirectoryInfo(TboxPath.Text)
@@ -987,7 +1089,7 @@ Public Class FrmMain
             If File.Exists(defSavingPath & "\" & origPath.Name & ".zip") Then
                 'If BackgroundWorker1.IsBusy Then
                 MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
-                BackgroundWorker1.CancelAsync()
+                BWorkerSave.CancelAsync()
                 stp = True
                 'End If
             End If
@@ -1036,7 +1138,7 @@ Public Class FrmMain
                         '    'BackgroundWorker1.ReportProgress(100)
                         '    'MsgBox("100")
                         'Else
-                        BackgroundWorker1.ReportProgress(dev * 100)
+                        BWorkerSave.ReportProgress(dev * 100)
                         'End If
                     End Using
                 End Using
@@ -1064,7 +1166,7 @@ Public Class FrmMain
 
                 If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
                     MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
-                    BackgroundWorker1.CancelAsync()
+                    BWorkerSave.CancelAsync()
                 End If
 
                 Dim startPath, zipPath As String
@@ -1103,7 +1205,7 @@ Public Class FrmMain
                             count += 1
                             dev = count / sum
 
-                            BackgroundWorker1.ReportProgress(dev * 100)
+                            BWorkerSave.ReportProgress(dev * 100)
 
                         End Using
                     End Using
@@ -1117,19 +1219,19 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+    Private Sub BWorkerSave_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BWorkerSave.ProgressChanged
         LblPercent.Text = "Saving " & e.ProgressPercentage & "% complete"
         ProgressBar1.Value = e.ProgressPercentage
         ProgressBar1.Visible = True
         ProgressBar1.Maximum = 100
     End Sub
 
-    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+    Private Sub BWorkerSave_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerSave.RunWorkerCompleted
         dirTrue = False
 
         If refFin = True Then
             Directory.Delete(TboxPath.Text, True)
-            MsgBox("OPN successfully saved to" & vbCrLf & defSavingPath, MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Saved")
+            MessageBox.Show("OPN successfully saved to" & vbCrLf & defSavingPath, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ProgressBar1.Visible = False
             ProgressBar1.Value = 0
             TboxPath.Clear()
@@ -1144,7 +1246,7 @@ Public Class FrmMain
 
         If defFin = True Then
             Directory.Delete(TboxPath.Text, True)
-            MsgBox("OPN successfully saved to default directory" & vbCrLf & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Saved")
+            MessageBox.Show("OPN successfully saved to default directory" & vbCrLf & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ProgressBar1.Visible = False
             ProgressBar1.Value = 0
             TboxPath.Clear()
