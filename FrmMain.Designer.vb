@@ -28,6 +28,8 @@ Partial Class FrmMain
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OPNListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReferenceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FTPCredentialsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DirectoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PPOListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TboxPath = New System.Windows.Forms.TextBox()
@@ -98,8 +100,8 @@ Partial Class FrmMain
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.ProgressBar2 = New System.Windows.Forms.ProgressBar()
-        Me.FTPCredentialsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DirectoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TreeView1 = New System.Windows.Forms.TreeView()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxFormatCheck.SuspendLayout()
@@ -120,7 +122,7 @@ Partial Class FrmMain
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OPNListToolStripMenuItem, Me.ReferenceToolStripMenuItem, Me.PPOListToolStripMenuItem, Me.LogsToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OPNListToolStripMenuItem, Me.ReferenceToolStripMenuItem, Me.PPOListToolStripMenuItem, Me.LogsToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "&File"
@@ -137,6 +139,18 @@ Partial Class FrmMain
         Me.ReferenceToolStripMenuItem.Name = "ReferenceToolStripMenuItem"
         Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ReferenceToolStripMenuItem.Text = "&Reference"
+        '
+        'FTPCredentialsToolStripMenuItem
+        '
+        Me.FTPCredentialsToolStripMenuItem.Name = "FTPCredentialsToolStripMenuItem"
+        Me.FTPCredentialsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FTPCredentialsToolStripMenuItem.Text = "&FTP Credentials"
+        '
+        'DirectoryToolStripMenuItem
+        '
+        Me.DirectoryToolStripMenuItem.Name = "DirectoryToolStripMenuItem"
+        Me.DirectoryToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DirectoryToolStripMenuItem.Text = "&Directory"
         '
         'PPOListToolStripMenuItem
         '
@@ -797,23 +811,26 @@ Partial Class FrmMain
         Me.ProgressBar2.Size = New System.Drawing.Size(499, 23)
         Me.ProgressBar2.TabIndex = 32
         '
-        'FTPCredentialsToolStripMenuItem
+        'TreeView1
         '
-        Me.FTPCredentialsToolStripMenuItem.Name = "FTPCredentialsToolStripMenuItem"
-        Me.FTPCredentialsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.FTPCredentialsToolStripMenuItem.Text = "&FTP Credentials"
+        Me.TreeView1.Location = New System.Drawing.Point(3, 536)
+        Me.TreeView1.Name = "TreeView1"
+        Me.TreeView1.Size = New System.Drawing.Size(121, 97)
+        Me.TreeView1.TabIndex = 33
         '
-        'DirectoryToolStripMenuItem
+        'ExitToolStripMenuItem
         '
-        Me.DirectoryToolStripMenuItem.Name = "DirectoryToolStripMenuItem"
-        Me.DirectoryToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.DirectoryToolStripMenuItem.Text = "&Directory"
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.F4), System.Windows.Forms.Keys)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(724, 665)
+        Me.Controls.Add(Me.TreeView1)
         Me.Controls.Add(Me.ProgressBar2)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
@@ -964,4 +981,6 @@ Partial Class FrmMain
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents FTPCredentialsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DirectoryToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TreeView1 As TreeView
+    Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
 End Class

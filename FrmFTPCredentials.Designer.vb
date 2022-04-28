@@ -29,7 +29,6 @@ Partial Class FrmFTPCredentials
         Me.LblUsername = New System.Windows.Forms.Label()
         Me.TBoxPassword = New System.Windows.Forms.TextBox()
         Me.LblPassword = New System.Windows.Forms.Label()
-        Me.BtnConnect = New System.Windows.Forms.Button()
         Me.TBoxPath = New System.Windows.Forms.TextBox()
         Me.LblPath = New System.Windows.Forms.Label()
         Me.BtnSave = New System.Windows.Forms.Button()
@@ -39,7 +38,7 @@ Partial Class FrmFTPCredentials
         '
         Me.TBoxHost.Location = New System.Drawing.Point(53, 15)
         Me.TBoxHost.Name = "TBoxHost"
-        Me.TBoxHost.Size = New System.Drawing.Size(100, 23)
+        Me.TBoxHost.Size = New System.Drawing.Size(121, 23)
         Me.TBoxHost.TabIndex = 0
         '
         'LblHost
@@ -53,15 +52,15 @@ Partial Class FrmFTPCredentials
         '
         'TBoxUsername
         '
-        Me.TBoxUsername.Location = New System.Drawing.Point(238, 15)
+        Me.TBoxUsername.Location = New System.Drawing.Point(267, 15)
         Me.TBoxUsername.Name = "TBoxUsername"
-        Me.TBoxUsername.Size = New System.Drawing.Size(100, 23)
+        Me.TBoxUsername.Size = New System.Drawing.Size(121, 23)
         Me.TBoxUsername.TabIndex = 1
         '
         'LblUsername
         '
         Me.LblUsername.AutoSize = True
-        Me.LblUsername.Location = New System.Drawing.Point(169, 19)
+        Me.LblUsername.Location = New System.Drawing.Point(198, 19)
         Me.LblUsername.Name = "LblUsername"
         Me.LblUsername.Size = New System.Drawing.Size(63, 15)
         Me.LblUsername.TabIndex = 1
@@ -69,28 +68,19 @@ Partial Class FrmFTPCredentials
         '
         'TBoxPassword
         '
-        Me.TBoxPassword.Location = New System.Drawing.Point(423, 15)
+        Me.TBoxPassword.Location = New System.Drawing.Point(481, 15)
         Me.TBoxPassword.Name = "TBoxPassword"
-        Me.TBoxPassword.Size = New System.Drawing.Size(100, 23)
+        Me.TBoxPassword.Size = New System.Drawing.Size(121, 23)
         Me.TBoxPassword.TabIndex = 2
         '
         'LblPassword
         '
         Me.LblPassword.AutoSize = True
-        Me.LblPassword.Location = New System.Drawing.Point(357, 19)
+        Me.LblPassword.Location = New System.Drawing.Point(415, 19)
         Me.LblPassword.Name = "LblPassword"
         Me.LblPassword.Size = New System.Drawing.Size(60, 15)
         Me.LblPassword.TabIndex = 2
         Me.LblPassword.Text = "Password:"
-        '
-        'BtnConnect
-        '
-        Me.BtnConnect.Location = New System.Drawing.Point(529, 12)
-        Me.BtnConnect.Name = "BtnConnect"
-        Me.BtnConnect.Size = New System.Drawing.Size(72, 29)
-        Me.BtnConnect.TabIndex = 3
-        Me.BtnConnect.Text = "Connect"
-        Me.BtnConnect.UseVisualStyleBackColor = True
         '
         'TBoxPath
         '
@@ -125,7 +115,6 @@ Partial Class FrmFTPCredentials
         Me.Controls.Add(Me.BtnSave)
         Me.Controls.Add(Me.LblPath)
         Me.Controls.Add(Me.TBoxPath)
-        Me.Controls.Add(Me.BtnConnect)
         Me.Controls.Add(Me.TBoxPassword)
         Me.Controls.Add(Me.TBoxUsername)
         Me.Controls.Add(Me.LblPassword)
@@ -153,7 +142,6 @@ Partial Class FrmFTPCredentials
     Friend WithEvents LblUsername As Label
     Friend WithEvents TBoxPassword As TextBox
     Friend WithEvents LblPassword As Label
-    Friend WithEvents BtnConnect As Button
     Friend WithEvents TBoxPath As TextBox
     Friend WithEvents LblPath As Label
     Friend WithEvents BtnSave As Button

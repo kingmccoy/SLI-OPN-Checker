@@ -1,10 +1,12 @@
 ﻿Imports System.Data.SQLite
+Imports System.Net
 
 Public Class FrmFTPCredentials
     Dim conn As New SQLiteConnection
 
     Private Sub FrmFTPCredentials_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_Credentials()
+        TBoxPassword.UseSystemPasswordChar = True
     End Sub
 
     Private Sub Load_Credentials()
@@ -34,33 +36,37 @@ Public Class FrmFTPCredentials
     End Sub
 
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
-        conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Verion=3;FailIfMissing=True;"
+        Dim DiagResult As DialogResult = MessageBox.Show("Do you want to save this credentials?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-        'delete existing database record
-        Try
-            Dim q = "delete from ftp_credentials"
-            conn.Open()
-            Using cmd As New SQLiteCommand(q, conn)
-                cmd.ExecuteNonQuery()
-            End Using
-            conn.Close()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        If DiagResult = DialogResult.Yes Then
+            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Verion=3;FailIfMissing=True;"
 
-        'add database record
-        Try
-            Dim q = "insert into ftp_credentials (host,username,password,path) values ('" & TBoxHost.Text & "','" & TBoxUsername.Text & "','" & TBoxPassword.Text & "','" & TBoxPath.Text & "')"
+            'delete existing database record
+            Try
+                Dim q = "delete from ftp_credentials"
+                conn.Open()
+                Using cmd As New SQLiteCommand(q, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
+                conn.Close()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
 
-            conn.Open()
-            Using cmd As New SQLiteCommand(q, conn)
-                cmd.ExecuteNonQuery()
-            End Using
-            conn.Close()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+            'add database record
+            Try
+                Dim q = "insert into ftp_credentials (host,username,password,path) values ('" & TBoxHost.Text & "','" & TBoxUsername.Text & "','" & TBoxPassword.Text & "','" & TBoxPath.Text & "')"
 
-        MessageBox.Show("Credentials successfully saved.", "FTP Credentials", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                conn.Open()
+                Using cmd As New SQLiteCommand(q, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
+                conn.Close()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+
+            MessageBox.Show("Credentials successfully saved.", "FTP Credentials", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
     End Sub
 End Class

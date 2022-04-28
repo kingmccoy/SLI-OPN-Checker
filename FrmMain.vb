@@ -16,6 +16,7 @@ Public Class FrmMain
     Public zip As ZipArchive
 
     Dim ftpFilePath As String = Nothing
+    Dim dirPath As FileInfo
 
     Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OPNListToolStripMenuItem.Click
         FrmList.ShowDialog()
@@ -980,22 +981,29 @@ Public Class FrmMain
     End Sub
 
     Private Sub BWorkerFTPUpload_DoWork(sender As Object, e As DoWorkEventArgs) Handles BWorkerFTPUpload.DoWork
-        Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(ftpFilePath)), FtpWebRequest)
-        request.Method = WebRequestMethods.Ftp.UploadFile
-        request.Credentials = New NetworkCredential(TextBoxUsername.Text, TextBoxPassword.Text)
-        request.UseBinary = True
-        request.UsePassive = False
-        Dim fileStream() As Byte = System.IO.File.ReadAllBytes(TextBoxBrowse.Text)
-        Dim requestStream As System.IO.Stream = request.GetRequestStream()
-        For offset As Integer = 0 To fileStream.Length Step 1024
-            BWorkerFTPUpload.ReportProgress(CType(offset * pBar2.Maximum / fileStream.Length, Integer))
-            Dim chSize As Integer = fileStream.Length - offset
-            If chSize > 1024 Then chSize = 1024
-            requestStream.Write(fileStream, offset, chSize)
-        Next
+        Try
+            Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(ftpFilePath)), FtpWebRequest)
 
-        requestStream.Close()
-        requestStream.Dispose()
+            request.Method = WebRequestMethods.Ftp.UploadFile
+            request.Credentials = New NetworkCredential(TextBoxUsername.Text, TextBoxPassword.Text)
+            request.UseBinary = True
+            request.UsePassive = False
+
+            Dim fileStream() As Byte = System.IO.File.ReadAllBytes(TextBoxBrowse.Text)
+            Dim requestStream As System.IO.Stream = request.GetRequestStream()
+
+            For offset As Integer = 0 To fileStream.Length Step 1024
+                BWorkerFTPUpload.ReportProgress(CType(offset * pBar2.Maximum / fileStream.Length, Integer))
+                Dim chSize As Integer = fileStream.Length - offset
+                If chSize > 1024 Then chSize = 1024
+                requestStream.Write(fileStream, offset, chSize)
+            Next
+
+            requestStream.Close()
+            requestStream.Dispose()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub BWorkerFTPUpload_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BWorkerFTPUpload.ProgressChanged
@@ -1052,6 +1060,10 @@ Public Class FrmMain
 
     Private Sub FTPCredentialsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FTPCredentialsToolStripMenuItem.Click
         FrmFTPCredentials.ShowDialog()
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Me.Close()
     End Sub
 
     Private Sub BWorkerSave_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerSave.DoWork
@@ -1230,7 +1242,9 @@ Public Class FrmMain
         dirTrue = False
 
         If refFin = True Then
-            Directory.Delete(TboxPath.Text, True)
+            dirPath = TboxFolderName.Text
+
+            'Directory.Delete(TboxPath.Text, True)
             MessageBox.Show("OPN successfully saved to" & vbCrLf & defSavingPath, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ProgressBar1.Visible = False
             ProgressBar1.Value = 0
@@ -1242,6 +1256,81 @@ Public Class FrmMain
             BtnCheck.Enabled = True
             LblPercent.Visible = False
             LblPercent.Text = Nothing
+
+            ' Upload to FTP Server
+            Dim host As String = ToString()
+            Dim username As String = ToString()
+            Dim password As String = ToString()
+            Dim path As String = ToString()
+            Dim dir As String = ToString()
+
+            ' Fetch ftp credentials from database
+            Try
+                conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+                Dim q = "select * from ftp_credentials"
+
+                conn.Open()
+                Using cmd As New SQLiteCommand(q, conn)
+                    Using reader As SQLiteDataReader = cmd.ExecuteReader
+                        reader.Read()
+                        If reader.HasRows Then
+                            host = reader("host").ToString
+                            username = reader("username").ToString
+                            password = reader("password").ToString
+                            path = reader("path").ToString
+                        End If
+                    End Using
+                End Using
+                conn.Close()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+
+            Try
+                conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+                Dim q = "select * from reference"
+
+                conn.Open()
+                Using cmd As New SQLiteCommand(q, conn)
+                    Using reader As SQLiteDataReader = cmd.ExecuteReader
+                        reader.Read()
+                        If reader.HasRows Then
+                            dir = reader("path").ToString
+                        End If
+                    End Using
+                End Using
+                conn.Close()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+
+            Dim FTPOpnPath As String = host & "/" & path & "/" & IO.Path.GetFileName(dirPath.Name & dirPath.Extension)
+
+            Try
+                Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(FTPOpnPath)), FtpWebRequest)
+
+                request.Method = WebRequestMethods.Ftp.UploadFile
+                request.Credentials = New NetworkCredential(username, password)
+                request.UseBinary = True
+                request.UsePassive = False
+
+                Dim fileStream() As Byte = System.IO.File.ReadAllBytes(dir & "/" & dirPath.Name & dirPath.Extension)
+                Dim requestStream As System.IO.Stream = request.GetRequestStream()
+
+                For offset As Integer = 0 To fileStream.Length Step 1024
+                    BWorkerFTPUpload.ReportProgress(CType(offset * pBar2.Maximum / fileStream.Length, Integer))
+                    Dim chSize As Integer = fileStream.Length - offset
+                    If chSize > 1024 Then chSize = 1024
+                    requestStream.Write(fileStream, offset, chSize)
+                Next
+
+                requestStream.Close()
+                requestStream.Dispose()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            End Try
+
+            MsgBox("Uploaded!")
         End If
 
         If defFin = True Then
