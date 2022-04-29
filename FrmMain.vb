@@ -16,7 +16,7 @@ Public Class FrmMain
     Public zip As ZipArchive
 
     Dim ftpFilePath As String = Nothing
-    Dim dirPath As FileInfo
+    Dim dirPath As String
 
     Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OPNListToolStripMenuItem.Click
         FrmList.ShowDialog()
@@ -25,9 +25,9 @@ Public Class FrmMain
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.SendToBack()
         TboxFolderName.ReadOnly = True
-        ProgressBar1.Visible = False
-        LblPercent.Visible = False
-        LblPercent.Text = Nothing
+        'ProgressBar1.Visible = False
+        LblSavingPercentage.Visible = False
+        'LblPercent.Text = Nothing
         Clear()
 
         Control.CheckForIllegalCrossThreadCalls = False
@@ -916,7 +916,7 @@ Public Class FrmMain
             TboxPath.Enabled = False
             BtnBrowse.Enabled = False
             BtnCheck.Enabled = False
-            LblPercent.Visible = True
+            LblSavingPercentage.Visible = True
             BWorkerSave.RunWorkerAsync()
         Else
             If BWorkerSave.IsBusy Then
@@ -993,7 +993,7 @@ Public Class FrmMain
             Dim requestStream As System.IO.Stream = request.GetRequestStream()
 
             For offset As Integer = 0 To fileStream.Length Step 1024
-                BWorkerFTPUpload.ReportProgress(CType(offset * pBar2.Maximum / fileStream.Length, Integer))
+                BWorkerFTPUpload.ReportProgress(CType(offset * PbarFTP.Maximum / fileStream.Length, Integer))
                 Dim chSize As Integer = fileStream.Length - offset
                 If chSize > 1024 Then chSize = 1024
                 requestStream.Write(fileStream, offset, chSize)
@@ -1007,8 +1007,8 @@ Public Class FrmMain
     End Sub
 
     Private Sub BWorkerFTPUpload_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BWorkerFTPUpload.ProgressChanged
-        pBar2.Value = e.ProgressPercentage
-        LabelPercentage.Text = e.ProgressPercentage & " %"
+        PbarFTP.Value = e.ProgressPercentage
+        LblFTPPercentage.Text = e.ProgressPercentage & " %"
     End Sub
 
     Private Sub BWorkerFTPUpload_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerFTPUpload.RunWorkerCompleted
@@ -1100,9 +1100,16 @@ Public Class FrmMain
 
             If File.Exists(defSavingPath & "\" & origPath.Name & ".zip") Then
                 'If BackgroundWorker1.IsBusy Then
-                MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
+
                 BWorkerSave.CancelAsync()
-                stp = True
+                'stp = True
+
+                TboxPath.Enabled = True
+                BtnBrowse.Enabled = True
+                BtnCheck.Enabled = True
+                'MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
+                MessageBox.Show("File already exist!", "File Exist", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return
                 'End If
             End If
 
@@ -1232,10 +1239,10 @@ Public Class FrmMain
     End Sub
 
     Private Sub BWorkerSave_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BWorkerSave.ProgressChanged
-        LblPercent.Text = "Saving " & e.ProgressPercentage & "% complete"
-        ProgressBar1.Value = e.ProgressPercentage
-        ProgressBar1.Visible = True
-        ProgressBar1.Maximum = 100
+        LblSavingPercentage.Text = e.ProgressPercentage & "%"
+        PbarSaving.Value = e.ProgressPercentage
+        PbarSaving.Visible = True
+        PbarSaving.Maximum = 100
     End Sub
 
     Private Sub BWorkerSave_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerSave.RunWorkerCompleted
@@ -1245,17 +1252,17 @@ Public Class FrmMain
             dirPath = TboxFolderName.Text
 
             'Directory.Delete(TboxPath.Text, True)
-            MessageBox.Show("OPN successfully saved to" & vbCrLf & defSavingPath, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            ProgressBar1.Visible = False
-            ProgressBar1.Value = 0
-            TboxPath.Clear()
-            refFin = False
-            ReferenceToolStripMenuItem.Enabled = True
-            TboxPath.Enabled = True
-            BtnBrowse.Enabled = True
-            BtnCheck.Enabled = True
-            LblPercent.Visible = False
-            LblPercent.Text = Nothing
+            'MessageBox.Show("OPN successfully saved to" & vbCrLf & defSavingPath, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ''ProgressBar1.Visible = False
+            ''ProgressBar1.Value = 0
+            'TboxPath.Clear()
+            'refFin = False
+            'ReferenceToolStripMenuItem.Enabled = True
+            'TboxPath.Enabled = True
+            'BtnBrowse.Enabled = True
+            'BtnCheck.Enabled = True
+            ''LblSavingPercentage.Visible = False
+            ''LblSavingPercentage.Text = Nothing
 
             ' Upload to FTP Server
             Dim host As String = ToString()
@@ -1304,7 +1311,16 @@ Public Class FrmMain
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
 
-            Dim FTPOpnPath As String = host & "/" & path & "/" & IO.Path.GetFileName(dirPath.Name & dirPath.Extension)
+            Dim DirOPN As New System.IO.DirectoryInfo(dir)
+            Dim OPN As String = Nothing
+
+            For Each i In DirOPN.GetFiles
+                If i.Name = dirPath & i.Extension Then
+                    OPN = i.Name
+                End If
+            Next
+
+            Dim FTPOpnPath As String = host & "/" & path & "/" & IO.Path.GetFileName(OPN)
 
             Try
                 Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(FTPOpnPath)), FtpWebRequest)
@@ -1314,11 +1330,11 @@ Public Class FrmMain
                 request.UseBinary = True
                 request.UsePassive = False
 
-                Dim fileStream() As Byte = System.IO.File.ReadAllBytes(dir & "/" & dirPath.Name & dirPath.Extension)
+                Dim fileStream() As Byte = System.IO.File.ReadAllBytes(dir & "/" & OPN)
                 Dim requestStream As System.IO.Stream = request.GetRequestStream()
 
                 For offset As Integer = 0 To fileStream.Length Step 1024
-                    BWorkerFTPUpload.ReportProgress(CType(offset * pBar2.Maximum / fileStream.Length, Integer))
+                    BWorkerFTPUpload.ReportProgress(CType(offset * PbarFTP.Maximum / fileStream.Length, Integer))
                     Dim chSize As Integer = fileStream.Length - offset
                     If chSize > 1024 Then chSize = 1024
                     requestStream.Write(fileStream, offset, chSize)
@@ -1330,22 +1346,36 @@ Public Class FrmMain
                 MessageBox.Show(ex.Message)
             End Try
 
-            MsgBox("Uploaded!")
+
+            MessageBox.Show("OPN successfully uploaded to FTP Server", "FTP", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            'PbarSaving.Visible = False
+            TboxPath.Clear()
+            TboxPath.Enabled = True
+            BtnBrowse.Enabled = True
+            BtnCheck.Enabled = True
+            PbarSaving.Value = 0
+            PbarFTP.Value = 0
+            LblSavingPercentage.Visible = False
+            LblSavingPercentage.Text = Nothing
+            LblFTPPercentage.Visible = False
+            LblFTPPercentage.Text = Nothing
+            refFin = False
+            ReferenceToolStripMenuItem.Enabled = True
         End If
 
         If defFin = True Then
             Directory.Delete(TboxPath.Text, True)
             MessageBox.Show("OPN successfully saved to default directory" & vbCrLf & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            ProgressBar1.Visible = False
-            ProgressBar1.Value = 0
+            PbarSaving.Visible = False
+            PbarSaving.Value = 0
             TboxPath.Clear()
             defFin = False
             ReferenceToolStripMenuItem.Enabled = True
             TboxPath.Enabled = True
             BtnBrowse.Enabled = True
             BtnCheck.Enabled = True
-            LblPercent.Visible = False
-            LblPercent.Text = Nothing
+            LblSavingPercentage.Visible = False
+            LblSavingPercentage.Text = Nothing
         End If
     End Sub
 End Class

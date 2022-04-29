@@ -32,6 +32,7 @@ Partial Class FrmMain
         Me.DirectoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PPOListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TboxPath = New System.Windows.Forms.TextBox()
         Me.BtnBrowse = New System.Windows.Forms.Button()
         Me.BtnCheck = New System.Windows.Forms.Button()
@@ -66,11 +67,11 @@ Partial Class FrmMain
         Me.LblFailedCount = New System.Windows.Forms.Label()
         Me.LblTotalCount = New System.Windows.Forms.Label()
         Me.BtnSave = New System.Windows.Forms.Button()
-        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.PbarSaving = New System.Windows.Forms.ProgressBar()
         Me.LblTotalFeedback = New System.Windows.Forms.Label()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.BWorkerSave = New System.ComponentModel.BackgroundWorker()
-        Me.LblPercent = New System.Windows.Forms.Label()
+        Me.LblSavingPercentage = New System.Windows.Forms.Label()
         Me.GroupBoxFormatCheck = New System.Windows.Forms.GroupBox()
         Me.GroupBoxFormat = New System.Windows.Forms.GroupBox()
         Me.GroupBoxOPNCheck = New System.Windows.Forms.GroupBox()
@@ -86,10 +87,10 @@ Partial Class FrmMain
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TextBoxBrowse = New System.Windows.Forms.TextBox()
         Me.ButtonBrowse = New System.Windows.Forms.Button()
-        Me.pBar2 = New System.Windows.Forms.ProgressBar()
+        Me.PbarFTP = New System.Windows.Forms.ProgressBar()
         Me.LabelProgress = New System.Windows.Forms.Label()
         Me.ButtonUplload = New System.Windows.Forms.Button()
-        Me.LabelPercentage = New System.Windows.Forms.Label()
+        Me.LblFTPPercentage = New System.Windows.Forms.Label()
         Me.BWorkerFTPUpload = New System.ComponentModel.BackgroundWorker()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -100,8 +101,8 @@ Partial Class FrmMain
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.ProgressBar2 = New System.Windows.Forms.ProgressBar()
-        Me.TreeView1 = New System.Windows.Forms.TreeView()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChkBoxFTPUpload = New System.Windows.Forms.CheckBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxFormatCheck.SuspendLayout()
@@ -143,13 +144,13 @@ Partial Class FrmMain
         'FTPCredentialsToolStripMenuItem
         '
         Me.FTPCredentialsToolStripMenuItem.Name = "FTPCredentialsToolStripMenuItem"
-        Me.FTPCredentialsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FTPCredentialsToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.FTPCredentialsToolStripMenuItem.Text = "&FTP Credentials"
         '
         'DirectoryToolStripMenuItem
         '
         Me.DirectoryToolStripMenuItem.Name = "DirectoryToolStripMenuItem"
-        Me.DirectoryToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DirectoryToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.DirectoryToolStripMenuItem.Text = "&Directory"
         '
         'PPOListToolStripMenuItem
@@ -163,6 +164,13 @@ Partial Class FrmMain
         Me.LogsToolStripMenuItem.Name = "LogsToolStripMenuItem"
         Me.LogsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.LogsToolStripMenuItem.Text = "&Logs"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.F4), System.Windows.Forms.Keys)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'TboxPath
         '
@@ -346,7 +354,7 @@ Partial Class FrmMain
         Me.LblCMFeedback.AutoSize = True
         Me.LblCMFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblCMFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblCMFeedback.Location = New System.Drawing.Point(388, 121)
+        Me.LblCMFeedback.Location = New System.Drawing.Point(388, 135)
         Me.LblCMFeedback.Name = "LblCMFeedback"
         Me.LblCMFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblCMFeedback.TabIndex = 4
@@ -357,7 +365,7 @@ Partial Class FrmMain
         Me.LblMaterialFeedback.AutoSize = True
         Me.LblMaterialFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblMaterialFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblMaterialFeedback.Location = New System.Drawing.Point(388, 141)
+        Me.LblMaterialFeedback.Location = New System.Drawing.Point(388, 155)
         Me.LblMaterialFeedback.Name = "LblMaterialFeedback"
         Me.LblMaterialFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblMaterialFeedback.TabIndex = 5
@@ -368,7 +376,7 @@ Partial Class FrmMain
         Me.LblLotNoFeedback.AutoSize = True
         Me.LblLotNoFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblLotNoFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblLotNoFeedback.Location = New System.Drawing.Point(388, 161)
+        Me.LblLotNoFeedback.Location = New System.Drawing.Point(388, 175)
         Me.LblLotNoFeedback.Name = "LblLotNoFeedback"
         Me.LblLotNoFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblLotNoFeedback.TabIndex = 6
@@ -379,7 +387,7 @@ Partial Class FrmMain
         Me.LblStationIDFeedback.AutoSize = True
         Me.LblStationIDFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblStationIDFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblStationIDFeedback.Location = New System.Drawing.Point(388, 181)
+        Me.LblStationIDFeedback.Location = New System.Drawing.Point(388, 195)
         Me.LblStationIDFeedback.Name = "LblStationIDFeedback"
         Me.LblStationIDFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblStationIDFeedback.TabIndex = 7
@@ -390,7 +398,7 @@ Partial Class FrmMain
         Me.LblFlowCodeFeedback.AutoSize = True
         Me.LblFlowCodeFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblFlowCodeFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblFlowCodeFeedback.Location = New System.Drawing.Point(388, 201)
+        Me.LblFlowCodeFeedback.Location = New System.Drawing.Point(388, 215)
         Me.LblFlowCodeFeedback.Name = "LblFlowCodeFeedback"
         Me.LblFlowCodeFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblFlowCodeFeedback.TabIndex = 8
@@ -401,7 +409,7 @@ Partial Class FrmMain
         Me.LblTimeStampFeedback.AutoSize = True
         Me.LblTimeStampFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTimeStampFeedback.ForeColor = System.Drawing.Color.SlateBlue
-        Me.LblTimeStampFeedback.Location = New System.Drawing.Point(388, 221)
+        Me.LblTimeStampFeedback.Location = New System.Drawing.Point(388, 235)
         Me.LblTimeStampFeedback.Name = "LblTimeStampFeedback"
         Me.LblTimeStampFeedback.Size = New System.Drawing.Size(57, 15)
         Me.LblTimeStampFeedback.TabIndex = 9
@@ -413,7 +421,7 @@ Partial Class FrmMain
         Me.LblPass.AutoSize = True
         Me.LblPass.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblPass.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblPass.Location = New System.Drawing.Point(519, 141)
+        Me.LblPass.Location = New System.Drawing.Point(519, 155)
         Me.LblPass.Name = "LblPass"
         Me.LblPass.Size = New System.Drawing.Size(30, 15)
         Me.LblPass.TabIndex = 11
@@ -425,7 +433,7 @@ Partial Class FrmMain
         Me.LblFailed.AutoSize = True
         Me.LblFailed.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblFailed.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblFailed.Location = New System.Drawing.Point(519, 161)
+        Me.LblFailed.Location = New System.Drawing.Point(519, 175)
         Me.LblFailed.Name = "LblFailed"
         Me.LblFailed.Size = New System.Drawing.Size(38, 15)
         Me.LblFailed.TabIndex = 12
@@ -437,7 +445,7 @@ Partial Class FrmMain
         Me.LblStation.AutoSize = True
         Me.LblStation.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblStation.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblStation.Location = New System.Drawing.Point(519, 121)
+        Me.LblStation.Location = New System.Drawing.Point(519, 135)
         Me.LblStation.Name = "LblStation"
         Me.LblStation.Size = New System.Drawing.Size(44, 15)
         Me.LblStation.TabIndex = 10
@@ -449,7 +457,7 @@ Partial Class FrmMain
         Me.LblTotal.AutoSize = True
         Me.LblTotal.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTotal.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblTotal.Location = New System.Drawing.Point(519, 181)
+        Me.LblTotal.Location = New System.Drawing.Point(519, 195)
         Me.LblTotal.Name = "LblTotal"
         Me.LblTotal.Size = New System.Drawing.Size(32, 15)
         Me.LblTotal.TabIndex = 13
@@ -461,7 +469,7 @@ Partial Class FrmMain
         Me.LblStationValue.AutoSize = True
         Me.LblStationValue.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblStationValue.ForeColor = System.Drawing.Color.DarkSlateBlue
-        Me.LblStationValue.Location = New System.Drawing.Point(569, 121)
+        Me.LblStationValue.Location = New System.Drawing.Point(569, 135)
         Me.LblStationValue.Name = "LblStationValue"
         Me.LblStationValue.Size = New System.Drawing.Size(65, 15)
         Me.LblStationValue.TabIndex = 10
@@ -473,7 +481,7 @@ Partial Class FrmMain
         Me.LblPassCount.AutoSize = True
         Me.LblPassCount.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblPassCount.ForeColor = System.Drawing.Color.DarkSlateBlue
-        Me.LblPassCount.Location = New System.Drawing.Point(569, 141)
+        Me.LblPassCount.Location = New System.Drawing.Point(569, 155)
         Me.LblPassCount.Name = "LblPassCount"
         Me.LblPassCount.Size = New System.Drawing.Size(46, 15)
         Me.LblPassCount.TabIndex = 11
@@ -485,7 +493,7 @@ Partial Class FrmMain
         Me.LblFailedCount.AutoSize = True
         Me.LblFailedCount.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblFailedCount.ForeColor = System.Drawing.Color.DarkSlateBlue
-        Me.LblFailedCount.Location = New System.Drawing.Point(569, 161)
+        Me.LblFailedCount.Location = New System.Drawing.Point(569, 175)
         Me.LblFailedCount.Name = "LblFailedCount"
         Me.LblFailedCount.Size = New System.Drawing.Size(46, 15)
         Me.LblFailedCount.TabIndex = 12
@@ -497,7 +505,7 @@ Partial Class FrmMain
         Me.LblTotalCount.AutoSize = True
         Me.LblTotalCount.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTotalCount.ForeColor = System.Drawing.Color.DarkSlateBlue
-        Me.LblTotalCount.Location = New System.Drawing.Point(569, 181)
+        Me.LblTotalCount.Location = New System.Drawing.Point(569, 195)
         Me.LblTotalCount.Name = "LblTotalCount"
         Me.LblTotalCount.Size = New System.Drawing.Size(46, 15)
         Me.LblTotalCount.TabIndex = 13
@@ -506,22 +514,22 @@ Partial Class FrmMain
         'BtnSave
         '
         Me.BtnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnSave.Location = New System.Drawing.Point(628, 204)
+        Me.BtnSave.Location = New System.Drawing.Point(628, 218)
         Me.BtnSave.Name = "BtnSave"
         Me.BtnSave.Size = New System.Drawing.Size(84, 35)
         Me.BtnSave.TabIndex = 15
         Me.BtnSave.Text = "Save"
         Me.BtnSave.UseVisualStyleBackColor = True
         '
-        'ProgressBar1
+        'PbarSaving
         '
-        Me.ProgressBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.PbarSaving.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 250)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(700, 23)
-        Me.ProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous
-        Me.ProgressBar1.TabIndex = 16
+        Me.PbarSaving.Location = New System.Drawing.Point(70, 264)
+        Me.PbarSaving.Name = "PbarSaving"
+        Me.PbarSaving.Size = New System.Drawing.Size(545, 23)
+        Me.PbarSaving.Style = System.Windows.Forms.ProgressBarStyle.Continuous
+        Me.PbarSaving.TabIndex = 16
         '
         'LblTotalFeedback
         '
@@ -529,7 +537,7 @@ Partial Class FrmMain
         Me.LblTotalFeedback.AutoSize = True
         Me.LblTotalFeedback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTotalFeedback.ForeColor = System.Drawing.Color.Red
-        Me.LblTotalFeedback.Location = New System.Drawing.Point(621, 181)
+        Me.LblTotalFeedback.Location = New System.Drawing.Point(621, 195)
         Me.LblTotalFeedback.Name = "LblTotalFeedback"
         Me.LblTotalFeedback.Size = New System.Drawing.Size(72, 15)
         Me.LblTotalFeedback.TabIndex = 14
@@ -542,20 +550,22 @@ Partial Class FrmMain
         'BWorkerSave
         '
         Me.BWorkerSave.WorkerReportsProgress = True
+        Me.BWorkerSave.WorkerSupportsCancellation = True
         '
-        'LblPercent
+        'LblSavingPercentage
         '
-        Me.LblPercent.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.LblSavingPercentage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblPercent.BackColor = System.Drawing.Color.Transparent
-        Me.LblPercent.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPercent.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblPercent.Location = New System.Drawing.Point(0, 276)
-        Me.LblPercent.Name = "LblPercent"
-        Me.LblPercent.Size = New System.Drawing.Size(724, 18)
-        Me.LblPercent.TabIndex = 17
-        Me.LblPercent.Text = "100%"
-        Me.LblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.LblSavingPercentage.AutoSize = True
+        Me.LblSavingPercentage.BackColor = System.Drawing.Color.Transparent
+        Me.LblSavingPercentage.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblSavingPercentage.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.LblSavingPercentage.Location = New System.Drawing.Point(621, 268)
+        Me.LblSavingPercentage.Name = "LblSavingPercentage"
+        Me.LblSavingPercentage.Size = New System.Drawing.Size(35, 15)
+        Me.LblSavingPercentage.TabIndex = 17
+        Me.LblSavingPercentage.Text = "100%"
+        Me.LblSavingPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'GroupBoxFormatCheck
         '
@@ -566,7 +576,7 @@ Partial Class FrmMain
         Me.GroupBoxFormatCheck.Controls.Add(Me.LblMaterialResultInitial)
         Me.GroupBoxFormatCheck.Controls.Add(Me.LblCMResultInitial)
         Me.GroupBoxFormatCheck.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBoxFormatCheck.Location = New System.Drawing.Point(184, 103)
+        Me.GroupBoxFormatCheck.Location = New System.Drawing.Point(184, 117)
         Me.GroupBoxFormatCheck.Name = "GroupBoxFormatCheck"
         Me.GroupBoxFormatCheck.Size = New System.Drawing.Size(96, 141)
         Me.GroupBoxFormatCheck.TabIndex = 18
@@ -582,7 +592,7 @@ Partial Class FrmMain
         Me.GroupBoxFormat.Controls.Add(Me.LblFlowCode)
         Me.GroupBoxFormat.Controls.Add(Me.LblTimeStamp)
         Me.GroupBoxFormat.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBoxFormat.Location = New System.Drawing.Point(12, 103)
+        Me.GroupBoxFormat.Location = New System.Drawing.Point(12, 117)
         Me.GroupBoxFormat.Name = "GroupBoxFormat"
         Me.GroupBoxFormat.Size = New System.Drawing.Size(166, 141)
         Me.GroupBoxFormat.TabIndex = 19
@@ -594,7 +604,7 @@ Partial Class FrmMain
         Me.GroupBoxOPNCheck.Controls.Add(Me.LblLotNoResultFinal)
         Me.GroupBoxOPNCheck.Controls.Add(Me.LblMaterialResultFinal)
         Me.GroupBoxOPNCheck.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBoxOPNCheck.Location = New System.Drawing.Point(286, 103)
+        Me.GroupBoxOPNCheck.Location = New System.Drawing.Point(286, 117)
         Me.GroupBoxOPNCheck.Name = "GroupBoxOPNCheck"
         Me.GroupBoxOPNCheck.Size = New System.Drawing.Size(96, 141)
         Me.GroupBoxOPNCheck.TabIndex = 18
@@ -627,7 +637,7 @@ Partial Class FrmMain
         '
         'TextBoxFTPServer
         '
-        Me.TextBoxFTPServer.Location = New System.Drawing.Point(82, 302)
+        Me.TextBoxFTPServer.Location = New System.Drawing.Point(82, 351)
         Me.TextBoxFTPServer.Name = "TextBoxFTPServer"
         Me.TextBoxFTPServer.Size = New System.Drawing.Size(124, 23)
         Me.TextBoxFTPServer.TabIndex = 20
@@ -635,7 +645,7 @@ Partial Class FrmMain
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 306)
+        Me.Label1.Location = New System.Drawing.Point(12, 355)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(64, 15)
         Me.Label1.TabIndex = 21
@@ -643,14 +653,14 @@ Partial Class FrmMain
         '
         'TextBoxUsername
         '
-        Me.TextBoxUsername.Location = New System.Drawing.Point(336, 302)
+        Me.TextBoxUsername.Location = New System.Drawing.Point(336, 351)
         Me.TextBoxUsername.Name = "TextBoxUsername"
         Me.TextBoxUsername.Size = New System.Drawing.Size(124, 23)
         Me.TextBoxUsername.TabIndex = 20
         '
         'TextBoxPassword
         '
-        Me.TextBoxPassword.Location = New System.Drawing.Point(590, 302)
+        Me.TextBoxPassword.Location = New System.Drawing.Point(590, 351)
         Me.TextBoxPassword.Name = "TextBoxPassword"
         Me.TextBoxPassword.Size = New System.Drawing.Size(124, 23)
         Me.TextBoxPassword.TabIndex = 20
@@ -658,7 +668,7 @@ Partial Class FrmMain
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(267, 306)
+        Me.Label2.Location = New System.Drawing.Point(267, 355)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(63, 15)
         Me.Label2.TabIndex = 21
@@ -667,7 +677,7 @@ Partial Class FrmMain
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(524, 306)
+        Me.Label3.Location = New System.Drawing.Point(524, 355)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(60, 15)
         Me.Label3.TabIndex = 21
@@ -676,7 +686,7 @@ Partial Class FrmMain
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 349)
+        Me.Label4.Location = New System.Drawing.Point(12, 398)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(83, 15)
         Me.Label4.TabIndex = 21
@@ -684,53 +694,53 @@ Partial Class FrmMain
         '
         'TextBoxBrowse
         '
-        Me.TextBoxBrowse.Location = New System.Drawing.Point(101, 345)
+        Me.TextBoxBrowse.Location = New System.Drawing.Point(101, 394)
         Me.TextBoxBrowse.Name = "TextBoxBrowse"
         Me.TextBoxBrowse.Size = New System.Drawing.Size(530, 23)
         Me.TextBoxBrowse.TabIndex = 20
         '
         'ButtonBrowse
         '
-        Me.ButtonBrowse.Location = New System.Drawing.Point(637, 342)
+        Me.ButtonBrowse.Location = New System.Drawing.Point(637, 391)
         Me.ButtonBrowse.Name = "ButtonBrowse"
         Me.ButtonBrowse.Size = New System.Drawing.Size(75, 29)
         Me.ButtonBrowse.TabIndex = 22
         Me.ButtonBrowse.Text = "Browse"
         Me.ButtonBrowse.UseVisualStyleBackColor = True
         '
-        'pBar2
+        'PbarFTP
         '
-        Me.pBar2.Location = New System.Drawing.Point(101, 380)
-        Me.pBar2.Name = "pBar2"
-        Me.pBar2.Size = New System.Drawing.Size(483, 23)
-        Me.pBar2.TabIndex = 23
+        Me.PbarFTP.Location = New System.Drawing.Point(70, 293)
+        Me.PbarFTP.Name = "PbarFTP"
+        Me.PbarFTP.Size = New System.Drawing.Size(545, 23)
+        Me.PbarFTP.TabIndex = 23
         '
         'LabelProgress
         '
         Me.LabelProgress.AutoSize = True
-        Me.LabelProgress.Location = New System.Drawing.Point(12, 384)
+        Me.LabelProgress.Location = New System.Drawing.Point(12, 297)
         Me.LabelProgress.Name = "LabelProgress"
-        Me.LabelProgress.Size = New System.Drawing.Size(52, 15)
+        Me.LabelProgress.Size = New System.Drawing.Size(26, 15)
         Me.LabelProgress.TabIndex = 21
-        Me.LabelProgress.Text = "Progress"
+        Me.LabelProgress.Text = "FTP"
         '
         'ButtonUplload
         '
-        Me.ButtonUplload.Location = New System.Drawing.Point(637, 377)
+        Me.ButtonUplload.Location = New System.Drawing.Point(637, 426)
         Me.ButtonUplload.Name = "ButtonUplload"
         Me.ButtonUplload.Size = New System.Drawing.Size(75, 29)
         Me.ButtonUplload.TabIndex = 22
         Me.ButtonUplload.Text = "Upload"
         Me.ButtonUplload.UseVisualStyleBackColor = True
         '
-        'LabelPercentage
+        'LblFTPPercentage
         '
-        Me.LabelPercentage.AutoSize = True
-        Me.LabelPercentage.Location = New System.Drawing.Point(587, 384)
-        Me.LabelPercentage.Name = "LabelPercentage"
-        Me.LabelPercentage.Size = New System.Drawing.Size(23, 15)
-        Me.LabelPercentage.TabIndex = 21
-        Me.LabelPercentage.Text = "0%"
+        Me.LblFTPPercentage.AutoSize = True
+        Me.LblFTPPercentage.Location = New System.Drawing.Point(621, 297)
+        Me.LblFTPPercentage.Name = "LblFTPPercentage"
+        Me.LblFTPPercentage.Size = New System.Drawing.Size(35, 15)
+        Me.LblFTPPercentage.TabIndex = 21
+        Me.LblFTPPercentage.Text = "100%"
         '
         'BWorkerFTPUpload
         '
@@ -738,7 +748,7 @@ Partial Class FrmMain
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(101, 427)
+        Me.TextBox1.Location = New System.Drawing.Point(101, 476)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(499, 23)
         Me.TextBox1.TabIndex = 24
@@ -746,7 +756,7 @@ Partial Class FrmMain
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 430)
+        Me.Label5.Location = New System.Drawing.Point(12, 479)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(43, 15)
         Me.Label5.TabIndex = 25
@@ -754,7 +764,7 @@ Partial Class FrmMain
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(606, 427)
+        Me.Button1.Location = New System.Drawing.Point(606, 476)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(25, 23)
         Me.Button1.TabIndex = 26
@@ -763,7 +773,7 @@ Partial Class FrmMain
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(606, 456)
+        Me.Button2.Location = New System.Drawing.Point(606, 505)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(25, 23)
         Me.Button2.TabIndex = 29
@@ -773,7 +783,7 @@ Partial Class FrmMain
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 459)
+        Me.Label6.Location = New System.Drawing.Point(12, 508)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(28, 15)
         Me.Label6.TabIndex = 28
@@ -781,14 +791,14 @@ Partial Class FrmMain
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(101, 456)
+        Me.TextBox2.Location = New System.Drawing.Point(101, 505)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(499, 23)
         Me.TextBox2.TabIndex = 27
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(637, 427)
+        Me.Button3.Location = New System.Drawing.Point(637, 476)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(75, 23)
         Me.Button3.TabIndex = 30
@@ -797,7 +807,7 @@ Partial Class FrmMain
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(637, 456)
+        Me.Button4.Location = New System.Drawing.Point(637, 505)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(75, 23)
         Me.Button4.TabIndex = 31
@@ -806,31 +816,37 @@ Partial Class FrmMain
         '
         'ProgressBar2
         '
-        Me.ProgressBar2.Location = New System.Drawing.Point(101, 485)
+        Me.ProgressBar2.Location = New System.Drawing.Point(101, 534)
         Me.ProgressBar2.Name = "ProgressBar2"
         Me.ProgressBar2.Size = New System.Drawing.Size(499, 23)
         Me.ProgressBar2.TabIndex = 32
         '
-        'TreeView1
+        'ChkBoxFTPUpload
         '
-        Me.TreeView1.Location = New System.Drawing.Point(3, 536)
-        Me.TreeView1.Name = "TreeView1"
-        Me.TreeView1.Size = New System.Drawing.Size(121, 97)
-        Me.TreeView1.TabIndex = 33
+        Me.ChkBoxFTPUpload.AutoSize = True
+        Me.ChkBoxFTPUpload.Location = New System.Drawing.Point(461, 92)
+        Me.ChkBoxFTPUpload.Name = "ChkBoxFTPUpload"
+        Me.ChkBoxFTPUpload.Size = New System.Drawing.Size(149, 19)
+        Me.ChkBoxFTPUpload.TabIndex = 34
+        Me.ChkBoxFTPUpload.Text = "Upload to FTP on finish"
+        Me.ChkBoxFTPUpload.UseVisualStyleBackColor = True
         '
-        'ExitToolStripMenuItem
+        'Label7
         '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.F4), System.Windows.Forms.Keys)
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ExitToolStripMenuItem.Text = "E&xit"
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(12, 268)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(42, 15)
+        Me.Label7.TabIndex = 35
+        Me.Label7.Text = "Saving"
         '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(724, 665)
-        Me.Controls.Add(Me.TreeView1)
+        Me.ClientSize = New System.Drawing.Size(724, 573)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.ChkBoxFTPUpload)
         Me.Controls.Add(Me.ProgressBar2)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
@@ -840,12 +856,12 @@ Partial Class FrmMain
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.pBar2)
+        Me.Controls.Add(Me.PbarFTP)
         Me.Controls.Add(Me.ButtonUplload)
         Me.Controls.Add(Me.ButtonBrowse)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.LabelPercentage)
+        Me.Controls.Add(Me.LblFTPPercentage)
         Me.Controls.Add(Me.LabelProgress)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label1)
@@ -856,9 +872,9 @@ Partial Class FrmMain
         Me.Controls.Add(Me.GroupBoxFormat)
         Me.Controls.Add(Me.GroupBoxOPNCheck)
         Me.Controls.Add(Me.GroupBoxFormatCheck)
-        Me.Controls.Add(Me.LblPercent)
+        Me.Controls.Add(Me.LblSavingPercentage)
         Me.Controls.Add(Me.LblTotalFeedback)
-        Me.Controls.Add(Me.ProgressBar1)
+        Me.Controls.Add(Me.PbarSaving)
         Me.Controls.Add(Me.BtnSave)
         Me.Controls.Add(Me.LblTotalCount)
         Me.Controls.Add(Me.LblFailedCount)
@@ -942,12 +958,12 @@ Partial Class FrmMain
     Friend WithEvents LblFailedCount As Label
     Friend WithEvents LblTotalCount As Label
     Friend WithEvents BtnSave As Button
-    Friend WithEvents ProgressBar1 As ProgressBar
+    Friend WithEvents PbarSaving As ProgressBar
     Friend WithEvents LblTotalFeedback As Label
     Friend WithEvents ErrorProvider1 As ErrorProvider
     Friend WithEvents ReferenceToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BWorkerSave As System.ComponentModel.BackgroundWorker
-    Friend WithEvents LblPercent As Label
+    Friend WithEvents LblSavingPercentage As Label
     Friend WithEvents PPOListToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GroupBoxFormatCheck As GroupBox
     Friend WithEvents GroupBoxFormat As GroupBox
@@ -956,7 +972,7 @@ Partial Class FrmMain
     Friend WithEvents LblMaterialResultFinal As Label
     Friend WithEvents ErrorProvider2 As ErrorProvider
     Friend WithEvents LogsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents pBar2 As ProgressBar
+    Friend WithEvents PbarFTP As ProgressBar
     Friend WithEvents ButtonBrowse As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
@@ -968,7 +984,7 @@ Partial Class FrmMain
     Friend WithEvents TextBoxFTPServer As TextBox
     Friend WithEvents ButtonUplload As Button
     Friend WithEvents LabelProgress As Label
-    Friend WithEvents LabelPercentage As Label
+    Friend WithEvents LblFTPPercentage As Label
     Friend WithEvents BWorkerFTPUpload As System.ComponentModel.BackgroundWorker
     Friend WithEvents ProgressBar2 As ProgressBar
     Friend WithEvents Button4 As Button
@@ -981,6 +997,7 @@ Partial Class FrmMain
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents FTPCredentialsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DirectoryToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents TreeView1 As TreeView
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ChkBoxFTPUpload As CheckBox
+    Friend WithEvents Label7 As Label
 End Class
