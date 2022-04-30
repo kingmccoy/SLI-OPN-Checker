@@ -67,6 +67,7 @@ Public Class FrmFTPCredentials
             End Try
 
             MessageBox.Show("Credentials successfully saved.", "FTP Credentials", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Me.Close()
         End If
     End Sub
 End Class

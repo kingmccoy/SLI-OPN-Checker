@@ -131,14 +131,14 @@ Partial Class FrmMain
         'OPNListToolStripMenuItem
         '
         Me.OPNListToolStripMenuItem.Name = "OPNListToolStripMenuItem"
-        Me.OPNListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.OPNListToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.OPNListToolStripMenuItem.Text = "&OPN List"
         '
         'ReferenceToolStripMenuItem
         '
         Me.ReferenceToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FTPCredentialsToolStripMenuItem, Me.DirectoryToolStripMenuItem})
         Me.ReferenceToolStripMenuItem.Name = "ReferenceToolStripMenuItem"
-        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.ReferenceToolStripMenuItem.Text = "&Reference"
         '
         'FTPCredentialsToolStripMenuItem
@@ -156,20 +156,20 @@ Partial Class FrmMain
         'PPOListToolStripMenuItem
         '
         Me.PPOListToolStripMenuItem.Name = "PPOListToolStripMenuItem"
-        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.PPOListToolStripMenuItem.Text = "&PPO List"
         '
         'LogsToolStripMenuItem
         '
         Me.LogsToolStripMenuItem.Name = "LogsToolStripMenuItem"
-        Me.LogsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LogsToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.LogsToolStripMenuItem.Text = "&Logs"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.F4), System.Windows.Forms.Keys)
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'TboxPath
@@ -745,6 +745,7 @@ Partial Class FrmMain
         'BWorkerFTPUpload
         '
         Me.BWorkerFTPUpload.WorkerReportsProgress = True
+        Me.BWorkerFTPUpload.WorkerSupportsCancellation = True
         '
         'TextBox1
         '
@@ -826,9 +827,9 @@ Partial Class FrmMain
         Me.ChkBoxFTPUpload.AutoSize = True
         Me.ChkBoxFTPUpload.Location = New System.Drawing.Point(461, 92)
         Me.ChkBoxFTPUpload.Name = "ChkBoxFTPUpload"
-        Me.ChkBoxFTPUpload.Size = New System.Drawing.Size(149, 19)
+        Me.ChkBoxFTPUpload.Size = New System.Drawing.Size(141, 19)
         Me.ChkBoxFTPUpload.TabIndex = 34
-        Me.ChkBoxFTPUpload.Text = "Upload to FTP on finish"
+        Me.ChkBoxFTPUpload.Text = "Upload OPN on finish"
         Me.ChkBoxFTPUpload.UseVisualStyleBackColor = True
         '
         'Label7
