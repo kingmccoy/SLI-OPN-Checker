@@ -1071,7 +1071,7 @@ Public Class FrmMain
             Dim requestStream As System.IO.Stream = request.GetRequestStream()
 
             For offset As Integer = 0 To fileStream.Length Step 1024
-                BWorkerFTPUpload.ReportProgres;+-s(CType(offset * PbarFTP.Maximum / fileStream.Length, Integer))
+                BWorkerFTPUpload.ReportProgress(CType(offset * PbarFTP.Maximum / fileStream.Length, Integer))
                 Dim chSize As Integer = fileStream.Length - offset
                 If chSize > 1024 Then chSize = 1024
                 requestStream.Write(fileStream, offset, chSize)

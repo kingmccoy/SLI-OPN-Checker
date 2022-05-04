@@ -2,7 +2,7 @@
 Imports System.Net
 
 Public Class FrmFTPCredentials
-    Dim conn As New SQLiteConnection
+    ReadOnly conn As New SQLiteConnection
 
     Private Sub FrmFTPCredentials_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_Credentials()
