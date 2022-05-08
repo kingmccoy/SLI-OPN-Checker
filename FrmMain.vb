@@ -1036,22 +1036,6 @@ Public Class FrmMain
         Dim FTPOpnPath As String = host & "/" & path & "/" & IO.Path.GetFileName(OPN)
 
 
-        ' try connect to ftp
-        'Try
-        '    Dim ftpconnect As String = host
-        '    Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(ftpconnect)), FtpWebRequest)
-
-        '    'request.Method = WebRequestMethods.Ftp.UploadFile
-        '    request.AuthenticationLevel = Security.AuthenticationLevel.MutualAuthRequired
-        '    request.Credentials = New NetworkCredential(username, password)
-        '    request.GetResponse()
-        '    'Dim requestStream As System.IO.Stream = request.GetRequestStream()
-        'Catch ex As Exception
-        '    MessageBox.Show(ex.Message)
-
-        '    Return
-        'End Try
-
         Try
             Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(FTPOpnPath)), FtpWebRequest)
 
@@ -1073,7 +1057,6 @@ Public Class FrmMain
             requestStream.Close()
             requestStream.Dispose()
         Catch ex As Exception
-            'MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             BWorkerFTPUpload.CancelAsync()
             If ex.Message.Contains("530") Then
                 MessageBox.Show("Invalid Username or Password.", "Credential", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1102,31 +1085,6 @@ Public Class FrmMain
         LblFTPPercentage.Text = Nothing
         refFin = False
         ReferenceToolStripMenuItem.Enabled = True
-
-
-        'Try
-        '    Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(ftpFilePath)), FtpWebRequest)
-
-        '    request.Method = WebRequestMethods.Ftp.UploadFile
-        '    request.Credentials = New NetworkCredential(TextBoxUsername.Text, TextBoxPassword.Text)
-        '    request.UseBinary = True
-        '    request.UsePassive = False
-
-        '    Dim fileStream() As Byte = System.IO.File.ReadAllBytes(TextBoxBrowse.Text)
-        '    Dim requestStream As System.IO.Stream = request.GetRequestStream()
-
-        '    For offset As Integer = 0 To fileStream.Length Step 1024
-        '        BWorkerFTPUpload.ReportProgress(CType(offset * PbarFTP.Maximum / fileStream.Length, Integer))
-        '        Dim chSize As Integer = fileStream.Length - offset
-        '        If chSize > 1024 Then chSize = 1024
-        '        requestStream.Write(fileStream, offset, chSize)
-        '    Next
-
-        '    requestStream.Close()
-        '    requestStream.Dispose()
-        'Catch ex As Exception
-        '    MessageBox.Show(ex.Message)
-        'End Try
     End Sub
 
     Private Sub BWorkerFTPUpload_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BWorkerFTPUpload.ProgressChanged
@@ -1169,8 +1127,6 @@ Public Class FrmMain
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
 
         Dim origPath As New DirectoryInfo(TboxPath.Text)
-        'Dim defSavingPath As String = ToString()
-        'Dim dir_true As Boolean
 
         Try
             Dim q = "select path from reference"
@@ -1198,18 +1154,16 @@ Public Class FrmMain
             End If
 
             If File.Exists(defSavingPath & "\" & origPath.Name & ".zip") Then
-                'If BackgroundWorker1.IsBusy Then
-
                 BWorkerSave.CancelAsync()
-                'stp = True
-
+                ReferenceToolStripMenuItem.Enabled = True
                 TboxPath.Enabled = True
                 BtnBrowse.Enabled = True
                 BtnCheck.Enabled = True
-                'MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
+                ChkBoxFTPUpload.Enabled = True
+                LblSavingPercentage.Visible = False
+                LblFTPPercentage.Visible = False
                 MessageBox.Show("File already exist!", "File Exist", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
-                'End If
             End If
 
             Dim startPath, zipPath As String
@@ -1219,28 +1173,12 @@ Public Class FrmMain
             startPath = TboxPath.Text
             zipPath = defSavingPath & "\" & origPath.Name & ".zip"
 
-            'origPath.CreateSubdirectory(origPath.Name)
-            'File.Create(origPath.FullName & "\" & origPath.Name & "\" & "tmp.txt")
-
             Directory.CreateDirectory(defSavingPath & "\" & origPath.Name)
             Directory.CreateDirectory(defSavingPath & "\" & origPath.Name & "\" & origPath.Name)
 
             sum = origPath.GetFiles.Count
-            'bar = sum * 0.01
             count = 0
-            'progress = 1
 
-            'For Each f In origPath.GetFiles
-            'count += 1
-            'File.Move(f.FullName, origPath.FullName & "\" & origPath.Name & "\" & f.Name)
-            'If count = bar Then
-            '    BackgroundWorker1.ReportProgress(progress)
-            '    progress += 1
-            '    bar += sum * 0.01
-            'End If
-            'Next
-
-            'ZipFile.CreateFromDirectory(startPath & "\" & origPath.Name, zipPath)
             ZipFile.CreateFromDirectory(defSavingPath & "\" & origPath.Name, defSavingPath & "\" & origPath.Name & ".zip")
 
             For Each f In origPath.GetFiles
@@ -1251,48 +1189,30 @@ Public Class FrmMain
                         Dim readmeEntry As ZipArchiveEntry = archive.CreateEntryFromFile(fi.FullName, origPath.Name & "\" & fi.Name)
                         count += 1
                         dev = count / sum
-
-                        'If dev = 1 Then
-                        '    'BackgroundWorker1.ReportProgress(100)
-                        '    'MsgBox("100")
-                        'Else
                         BWorkerSave.ReportProgress(dev * 100)
-                        'End If
                     End Using
                 End Using
             Next
 
             Directory.Delete(defSavingPath & "\" & origPath.Name, True)
 
-            'MsgBox("OPN successfully saved to" & vbCrLf & defSavingPath, MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Saved")
-
-            'dir_true = False
-
-            'origPath.Delete(True)
-            'RmDir(origPath.FullName)
-            'Directory.Delete(origPath.FullName)
             refFin = True
         Else
             If dirTrue = False Then
                 If Not Directory.Exists(DefDir) Then
-                    'Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "Macky")
-                    ''Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "f_checked")
-                    'Directory.CreateDirectory(DefDir)
                     Directory.CreateDirectory(DefDir)
-                    'System.IO.Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked")
                 End If
-
-                'If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
-                '    MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
-                '    BWorkerSave.CancelAsync()
-                'End If
 
                 If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
                     BWorkerSave.CancelAsync()
 
+                    ReferenceToolStripMenuItem.Enabled = True
                     TboxPath.Enabled = True
                     BtnBrowse.Enabled = True
                     BtnCheck.Enabled = True
+                    ChkBoxFTPUpload.Enabled = True
+                    LblSavingPercentage.Visible = False
+                    LblFTPPercentage.Visible = False
                     MessageBox.Show("File already exist!", "File Exist", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Return
                 End If
@@ -1304,23 +1224,11 @@ Public Class FrmMain
                 startPath = TboxPath.Text
                 zipPath = DefDir & "\" & origPath.Name & ".zip"
 
-                'origPath.CreateSubdirectory(origPath.Name)
-
                 Directory.CreateDirectory(DefDir & "\" & origPath.Name)
                 Directory.CreateDirectory(DefDir & "\" & origPath.Name & "\" & origPath.Name)
 
                 sum = origPath.GetFiles.Count
                 count = 0
-
-                'For Each f In origPath.GetFiles
-                '    count += 1
-                '    File.Move(f.FullName, origPath.FullName & "\" & origPath.Name & "\" & f.Name)
-                '    If count = bar Then
-                '        BackgroundWorker1.ReportProgress(Progress)
-                '        Progress += 1
-                '        bar += sum * 0.01
-                '    End If
-                'Next
 
                 ZipFile.CreateFromDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name & ".zip")
 
@@ -1339,7 +1247,6 @@ Public Class FrmMain
                     End Using
                 Next
 
-                'ZipFile.CreateFromDirectory(startPath, zipPath)
                 Directory.Delete(DefDir & "\" & origPath.Name, True)
 
                 defFin = True
