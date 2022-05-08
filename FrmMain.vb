@@ -918,7 +918,9 @@ Public Class FrmMain
             TboxPath.Enabled = False
             BtnBrowse.Enabled = False
             BtnCheck.Enabled = False
+            ChkBoxFTPUpload.Enabled = False
             LblSavingPercentage.Visible = True
+            LblFTPPercentage.Visible = True
             BWorkerSave.RunWorkerAsync()
         Else
             If BWorkerSave.IsBusy Then
@@ -966,22 +968,6 @@ Public Class FrmMain
         FrmLogs.ShowDialog()
     End Sub
 
-    Private Sub ButtonBrowse_Click(sender As Object, e As EventArgs) Handles ButtonBrowse.Click
-        Dim newFile As New OpenFileDialog
-        If newFile.ShowDialog = Windows.Forms.DialogResult.OK Then
-            TextBoxBrowse.Text = newFile.FileName
-            ftpFilePath = TextBoxFTPServer.Text & "/" & "/siliconlabs/test_programs" & "/" & IO.Path.GetFileName(TextBoxBrowse.Text)
-        End If
-    End Sub
-
-    Private Sub ButtonUplload_Click(sender As Object, e As EventArgs) Handles ButtonUplload.Click
-        If BWorkerFTPUpload.IsBusy = False Then
-            BWorkerFTPUpload.RunWorkerAsync()
-        Else
-            MsgBox("Already running")
-        End If
-    End Sub
-
     Private Sub BWorkerFTPUpload_DoWork(sender As Object, e As DoWorkEventArgs) Handles BWorkerFTPUpload.DoWork
         ' Upload to FTP Server
         LblFTPPercentage.Visible = True
@@ -1015,19 +1001,25 @@ Public Class FrmMain
         End Try
 
         Try
-            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-            Dim q = "select * from reference"
+            If dirTrue = True Then
+                conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+                Dim q = "select * from reference"
 
-            conn.Open()
-            Using cmd As New SQLiteCommand(q, conn)
-                Using reader As SQLiteDataReader = cmd.ExecuteReader
-                    reader.Read()
-                    If reader.HasRows Then
-                        dir = reader("path").ToString
-                    End If
+                conn.Open()
+                Using cmd As New SQLiteCommand(q, conn)
+                    Using reader As SQLiteDataReader = cmd.ExecuteReader
+                        reader.Read()
+                        If reader.HasRows Then
+                            dir = reader("path").ToString
+                        End If
+                    End Using
                 End Using
-            End Using
-            conn.Close()
+                conn.Close()
+            End If
+
+            If dirTrue = False Then
+                dir = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked"
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -1045,19 +1037,20 @@ Public Class FrmMain
 
 
         ' try connect to ftp
-        Try
-            Dim ftpconnect As String = host
-            Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(ftpconnect)), FtpWebRequest)
+        'Try
+        '    Dim ftpconnect As String = host
+        '    Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(ftpconnect)), FtpWebRequest)
 
-            'request.Method = WebRequestMethods.Ftp.UploadFile
-            request.AuthenticationLevel = Security.AuthenticationLevel.MutualAuthRequired
-            request.Credentials = New NetworkCredential(username, password)
-            request.GetResponse()
-            'Dim requestStream As System.IO.Stream = request.GetRequestStream()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            Return
-        End Try
+        '    'request.Method = WebRequestMethods.Ftp.UploadFile
+        '    request.AuthenticationLevel = Security.AuthenticationLevel.MutualAuthRequired
+        '    request.Credentials = New NetworkCredential(username, password)
+        '    request.GetResponse()
+        '    'Dim requestStream As System.IO.Stream = request.GetRequestStream()
+        'Catch ex As Exception
+        '    MessageBox.Show(ex.Message)
+
+        '    Return
+        'End Try
 
         Try
             Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(FTPOpnPath)), FtpWebRequest)
@@ -1067,7 +1060,7 @@ Public Class FrmMain
             request.UseBinary = True
             request.UsePassive = False
 
-            Dim fileStream() As Byte = System.IO.File.ReadAllBytes(dir & "/" & OPN)
+            Dim fileStream() As Byte = System.IO.File.ReadAllBytes(dir & "\" & OPN)
             Dim requestStream As System.IO.Stream = request.GetRequestStream()
 
             For offset As Integer = 0 To fileStream.Length Step 1024
@@ -1084,11 +1077,14 @@ Public Class FrmMain
             BWorkerFTPUpload.CancelAsync()
             If ex.Message.Contains("530") Then
                 MessageBox.Show("Invalid Username or Password.", "Credential", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                BWorkerFTPUpload.CancelAsync()
             Else
                 If ex.Message.Contains("550") Then
                     MessageBox.Show("Invalid FTP directory.", "No Directory Found", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    BWorkerFTPUpload.CancelAsync()
                 Else
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    BWorkerFTPUpload.CancelAsync()
                 End If
             End If
         End Try
@@ -1139,46 +1135,8 @@ Public Class FrmMain
     End Sub
 
     Private Sub BWorkerFTPUpload_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerFTPUpload.RunWorkerCompleted
+        ChkBoxFTPUpload.Enabled = True
         MessageBox.Show("OPN successfully uploaded to FTP Server", "FTP", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim fdb As New FolderBrowserDialog With {
-            .Description = "Select your path."
-        }
-
-        If fdb.ShowDialog = DialogResult.OK Then
-            TextBox1.Text = fdb.SelectedPath
-        End If
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        If String.IsNullOrEmpty(TextBox1.Text) Then
-            MessageBox.Show("Please select your folder.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            TextBox1.Focus()
-        End If
-
-        'Dim path As String = TextBox1.Text
-        'Dim thread = New thread
-
-        If String.IsNullOrEmpty(TextBox1.Text) Then
-            MessageBox.Show("Please select your folder.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            TextBox1.Focus()
-            Return
-        End If
-
-        Dim path As String = TextBox1.Text
-        Dim thread As New Thread(Function(t)
-                                     Using zip As New Ionic.Zip.ZipFile()
-                                         zip.AddDirectory(path)
-                                         Dim di As New System.IO.DirectoryInfo(path)
-                                         'zip.SaveProgress += zip_saveProgress
-                                         zip.Save(String.Format("{0}{1}.zip", di.Parent.FullName, di.Name))
-                                     End Using
-                                 End Function) With {
-                                        .IsBackground = True
-                                      }
-        thread.Start()
     End Sub
 
     Private Sub DirectoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DirectoryToolStripMenuItem.Click
@@ -1191,6 +1149,20 @@ Public Class FrmMain
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Me.Close()
+    End Sub
+
+    Private Sub ChkBoxFTPUpload_CheckedChanged(sender As Object, e As EventArgs) Handles ChkBoxFTPUpload.CheckedChanged
+        If ChkBoxFTPUpload.Checked = True Then
+            LblFTPProgress.Visible = True
+            PbarFTP.Visible = True
+            'LblFTPPercentage.Visible = True
+        Else
+            If ChkBoxFTPUpload.Checked = False Then
+                LblFTPProgress.Visible = False
+                PbarFTP.Visible = False
+                'LblFTPPercentage.Visible = False
+            End If
+        End If
     End Sub
 
     Private Sub BWorkerSave_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerSave.DoWork
@@ -1310,9 +1282,19 @@ Public Class FrmMain
                     'System.IO.Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked")
                 End If
 
+                'If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
+                '    MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
+                '    BWorkerSave.CancelAsync()
+                'End If
+
                 If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
-                    MsgBox("File already exist!", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "File Exist")
                     BWorkerSave.CancelAsync()
+
+                    TboxPath.Enabled = True
+                    BtnBrowse.Enabled = True
+                    BtnCheck.Enabled = True
+                    MessageBox.Show("File already exist!", "File Exist", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return
                 End If
 
                 Dim startPath, zipPath As String
@@ -1375,6 +1357,7 @@ Public Class FrmMain
     Private Sub BWorkerSave_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerSave.RunWorkerCompleted
         dirTrue = False
 
+        ' Default reference saving directory (Reference Finished)
         If refFin = True Then
             If ChkBoxFTPUpload.Checked = True Then
                 If BWorkerFTPUpload.IsBusy = False Then
@@ -1385,38 +1368,51 @@ Public Class FrmMain
             End If
 
             If ChkBoxFTPUpload.Checked = False Then
-
+                'Directory.Delete(TboxPath.Text, True)
+                MessageBox.Show("OPN successfully saved to" & vbCrLf & defSavingPath, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                'PbarSaving.Visible = False
+                PbarSaving.Value = 0
+                TboxPath.Clear()
+                refFin = False
+                ReferenceToolStripMenuItem.Enabled = True
+                TboxPath.Enabled = True
+                BtnBrowse.Enabled = True
+                BtnCheck.Enabled = True
+                ChkBoxFTPUpload.Enabled = True
+                'LblSavingPercentage.Visible = False
+                LblSavingPercentage.Text = Nothing
             End If
 
             dirPath = TboxFolderName.Text
-
-            'Directory.Delete(TboxPath.Text, True)
-            'MessageBox.Show("OPN successfully saved to" & vbCrLf & defSavingPath, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            ''ProgressBar1.Visible = False
-            ''ProgressBar1.Value = 0
-            'TboxPath.Clear()
-            'refFin = False
-            'ReferenceToolStripMenuItem.Enabled = True
-            'TboxPath.Enabled = True
-            'BtnBrowse.Enabled = True
-            'BtnCheck.Enabled = True
-            ''LblSavingPercentage.Visible = False
-            ''LblSavingPercentage.Text = Nothing
         End If
 
+        ' Default saving directory (Default Finished)
         If defFin = True Then
-            Directory.Delete(TboxPath.Text, True)
-            MessageBox.Show("OPN successfully saved to default directory" & vbCrLf & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            PbarSaving.Visible = False
-            PbarSaving.Value = 0
-            TboxPath.Clear()
-            defFin = False
-            ReferenceToolStripMenuItem.Enabled = True
-            TboxPath.Enabled = True
-            BtnBrowse.Enabled = True
-            BtnCheck.Enabled = True
-            LblSavingPercentage.Visible = False
-            LblSavingPercentage.Text = Nothing
+            If ChkBoxFTPUpload.Checked = True Then
+                If BWorkerFTPUpload.IsBusy = False Then
+                    BWorkerFTPUpload.RunWorkerAsync()
+                Else
+                    MessageBox.Show("Already running", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+
+            If ChkBoxFTPUpload.Checked = False Then
+                'Directory.Delete(TboxPath.Text, True)
+                MessageBox.Show("OPN successfully saved to default directory" & vbCrLf & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                'PbarSaving.Visible = False
+                PbarSaving.Value = 0
+                TboxPath.Clear()
+                defFin = False
+                ReferenceToolStripMenuItem.Enabled = True
+                TboxPath.Enabled = True
+                BtnBrowse.Enabled = True
+                BtnCheck.Enabled = True
+                ChkBoxFTPUpload.Enabled = True
+                'LblSavingPercentage.Visible = False
+                LblSavingPercentage.Text = Nothing
+            End If
+
+            dirPath = TboxFolderName.Text
         End If
     End Sub
 End Class

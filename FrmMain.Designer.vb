@@ -78,31 +78,12 @@ Partial Class FrmMain
         Me.LblLotNoResultFinal = New System.Windows.Forms.Label()
         Me.LblMaterialResultFinal = New System.Windows.Forms.Label()
         Me.ErrorProvider2 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.TextBoxFTPServer = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBoxUsername = New System.Windows.Forms.TextBox()
-        Me.TextBoxPassword = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.TextBoxBrowse = New System.Windows.Forms.TextBox()
-        Me.ButtonBrowse = New System.Windows.Forms.Button()
         Me.PbarFTP = New System.Windows.Forms.ProgressBar()
-        Me.LabelProgress = New System.Windows.Forms.Label()
-        Me.ButtonUplload = New System.Windows.Forms.Button()
+        Me.LblFTPProgress = New System.Windows.Forms.Label()
         Me.LblFTPPercentage = New System.Windows.Forms.Label()
         Me.BWorkerFTPUpload = New System.ComponentModel.BackgroundWorker()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.ProgressBar2 = New System.Windows.Forms.ProgressBar()
         Me.ChkBoxFTPUpload = New System.Windows.Forms.CheckBox()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.LblSavingProgress = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxFormatCheck.SuspendLayout()
@@ -527,7 +508,7 @@ Partial Class FrmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PbarSaving.Location = New System.Drawing.Point(70, 264)
         Me.PbarSaving.Name = "PbarSaving"
-        Me.PbarSaving.Size = New System.Drawing.Size(545, 23)
+        Me.PbarSaving.Size = New System.Drawing.Size(577, 23)
         Me.PbarSaving.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.PbarSaving.TabIndex = 16
         '
@@ -560,7 +541,7 @@ Partial Class FrmMain
         Me.LblSavingPercentage.BackColor = System.Drawing.Color.Transparent
         Me.LblSavingPercentage.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblSavingPercentage.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LblSavingPercentage.Location = New System.Drawing.Point(621, 268)
+        Me.LblSavingPercentage.Location = New System.Drawing.Point(653, 268)
         Me.LblSavingPercentage.Name = "LblSavingPercentage"
         Me.LblSavingPercentage.Size = New System.Drawing.Size(35, 15)
         Me.LblSavingPercentage.TabIndex = 17
@@ -635,108 +616,26 @@ Partial Class FrmMain
         '
         Me.ErrorProvider2.ContainerControl = Me
         '
-        'TextBoxFTPServer
-        '
-        Me.TextBoxFTPServer.Location = New System.Drawing.Point(82, 351)
-        Me.TextBoxFTPServer.Name = "TextBoxFTPServer"
-        Me.TextBoxFTPServer.Size = New System.Drawing.Size(124, 23)
-        Me.TextBoxFTPServer.TabIndex = 20
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 355)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(64, 15)
-        Me.Label1.TabIndex = 21
-        Me.Label1.Text = "FTP Server:"
-        '
-        'TextBoxUsername
-        '
-        Me.TextBoxUsername.Location = New System.Drawing.Point(336, 351)
-        Me.TextBoxUsername.Name = "TextBoxUsername"
-        Me.TextBoxUsername.Size = New System.Drawing.Size(124, 23)
-        Me.TextBoxUsername.TabIndex = 20
-        '
-        'TextBoxPassword
-        '
-        Me.TextBoxPassword.Location = New System.Drawing.Point(590, 351)
-        Me.TextBoxPassword.Name = "TextBoxPassword"
-        Me.TextBoxPassword.Size = New System.Drawing.Size(124, 23)
-        Me.TextBoxPassword.TabIndex = 20
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(267, 355)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(63, 15)
-        Me.Label2.TabIndex = 21
-        Me.Label2.Text = "Username:"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(524, 355)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(60, 15)
-        Me.Label3.TabIndex = 21
-        Me.Label3.Text = "Password:"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 398)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(83, 15)
-        Me.Label4.TabIndex = 21
-        Me.Label4.Text = "File to Upload:"
-        '
-        'TextBoxBrowse
-        '
-        Me.TextBoxBrowse.Location = New System.Drawing.Point(101, 394)
-        Me.TextBoxBrowse.Name = "TextBoxBrowse"
-        Me.TextBoxBrowse.Size = New System.Drawing.Size(530, 23)
-        Me.TextBoxBrowse.TabIndex = 20
-        '
-        'ButtonBrowse
-        '
-        Me.ButtonBrowse.Location = New System.Drawing.Point(637, 391)
-        Me.ButtonBrowse.Name = "ButtonBrowse"
-        Me.ButtonBrowse.Size = New System.Drawing.Size(75, 29)
-        Me.ButtonBrowse.TabIndex = 22
-        Me.ButtonBrowse.Text = "Browse"
-        Me.ButtonBrowse.UseVisualStyleBackColor = True
-        '
         'PbarFTP
         '
         Me.PbarFTP.Location = New System.Drawing.Point(70, 293)
         Me.PbarFTP.Name = "PbarFTP"
-        Me.PbarFTP.Size = New System.Drawing.Size(545, 23)
+        Me.PbarFTP.Size = New System.Drawing.Size(577, 23)
         Me.PbarFTP.TabIndex = 23
         '
-        'LabelProgress
+        'LblFTPProgress
         '
-        Me.LabelProgress.AutoSize = True
-        Me.LabelProgress.Location = New System.Drawing.Point(12, 297)
-        Me.LabelProgress.Name = "LabelProgress"
-        Me.LabelProgress.Size = New System.Drawing.Size(26, 15)
-        Me.LabelProgress.TabIndex = 21
-        Me.LabelProgress.Text = "FTP"
-        '
-        'ButtonUplload
-        '
-        Me.ButtonUplload.Location = New System.Drawing.Point(637, 426)
-        Me.ButtonUplload.Name = "ButtonUplload"
-        Me.ButtonUplload.Size = New System.Drawing.Size(75, 29)
-        Me.ButtonUplload.TabIndex = 22
-        Me.ButtonUplload.Text = "Upload"
-        Me.ButtonUplload.UseVisualStyleBackColor = True
+        Me.LblFTPProgress.AutoSize = True
+        Me.LblFTPProgress.Location = New System.Drawing.Point(12, 297)
+        Me.LblFTPProgress.Name = "LblFTPProgress"
+        Me.LblFTPProgress.Size = New System.Drawing.Size(26, 15)
+        Me.LblFTPProgress.TabIndex = 21
+        Me.LblFTPProgress.Text = "FTP"
         '
         'LblFTPPercentage
         '
         Me.LblFTPPercentage.AutoSize = True
-        Me.LblFTPPercentage.Location = New System.Drawing.Point(621, 297)
+        Me.LblFTPPercentage.Location = New System.Drawing.Point(653, 297)
         Me.LblFTPPercentage.Name = "LblFTPPercentage"
         Me.LblFTPPercentage.Size = New System.Drawing.Size(35, 15)
         Me.LblFTPPercentage.TabIndex = 21
@@ -746,81 +645,6 @@ Partial Class FrmMain
         '
         Me.BWorkerFTPUpload.WorkerReportsProgress = True
         Me.BWorkerFTPUpload.WorkerSupportsCancellation = True
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(101, 476)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(499, 23)
-        Me.TextBox1.TabIndex = 24
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 479)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(43, 15)
-        Me.Label5.TabIndex = 25
-        Me.Label5.Text = "Folder:"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(606, 476)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(25, 23)
-        Me.Button1.TabIndex = 26
-        Me.Button1.Text = "..."
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(606, 505)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(25, 23)
-        Me.Button2.TabIndex = 29
-        Me.Button2.Text = "..."
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 508)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(28, 15)
-        Me.Label6.TabIndex = 28
-        Me.Label6.Text = "File:"
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Location = New System.Drawing.Point(101, 505)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(499, 23)
-        Me.TextBox2.TabIndex = 27
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(637, 476)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 23)
-        Me.Button3.TabIndex = 30
-        Me.Button3.Text = "Zip"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(637, 505)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 23)
-        Me.Button4.TabIndex = 31
-        Me.Button4.Text = "Zip"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'ProgressBar2
-        '
-        Me.ProgressBar2.Location = New System.Drawing.Point(101, 534)
-        Me.ProgressBar2.Name = "ProgressBar2"
-        Me.ProgressBar2.Size = New System.Drawing.Size(499, 23)
-        Me.ProgressBar2.TabIndex = 32
         '
         'ChkBoxFTPUpload
         '
@@ -832,44 +656,25 @@ Partial Class FrmMain
         Me.ChkBoxFTPUpload.Text = "Upload OPN on finish"
         Me.ChkBoxFTPUpload.UseVisualStyleBackColor = True
         '
-        'Label7
+        'LblSavingProgress
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(12, 268)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(42, 15)
-        Me.Label7.TabIndex = 35
-        Me.Label7.Text = "Saving"
+        Me.LblSavingProgress.AutoSize = True
+        Me.LblSavingProgress.Location = New System.Drawing.Point(12, 268)
+        Me.LblSavingProgress.Name = "LblSavingProgress"
+        Me.LblSavingProgress.Size = New System.Drawing.Size(42, 15)
+        Me.LblSavingProgress.TabIndex = 35
+        Me.LblSavingProgress.Text = "Saving"
         '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(724, 573)
-        Me.Controls.Add(Me.Label7)
+        Me.ClientSize = New System.Drawing.Size(724, 330)
+        Me.Controls.Add(Me.LblSavingProgress)
         Me.Controls.Add(Me.ChkBoxFTPUpload)
-        Me.Controls.Add(Me.ProgressBar2)
-        Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.PbarFTP)
-        Me.Controls.Add(Me.ButtonUplload)
-        Me.Controls.Add(Me.ButtonBrowse)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.LblFTPPercentage)
-        Me.Controls.Add(Me.LabelProgress)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.TextBoxPassword)
-        Me.Controls.Add(Me.TextBoxUsername)
-        Me.Controls.Add(Me.TextBoxBrowse)
-        Me.Controls.Add(Me.TextBoxFTPServer)
+        Me.Controls.Add(Me.LblFTPProgress)
         Me.Controls.Add(Me.GroupBoxFormat)
         Me.Controls.Add(Me.GroupBoxOPNCheck)
         Me.Controls.Add(Me.GroupBoxFormatCheck)
@@ -974,31 +779,12 @@ Partial Class FrmMain
     Friend WithEvents ErrorProvider2 As ErrorProvider
     Friend WithEvents LogsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PbarFTP As ProgressBar
-    Friend WithEvents ButtonBrowse As Button
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents TextBoxPassword As TextBox
-    Friend WithEvents TextBoxUsername As TextBox
-    Friend WithEvents TextBoxBrowse As TextBox
-    Friend WithEvents TextBoxFTPServer As TextBox
-    Friend WithEvents ButtonUplload As Button
-    Friend WithEvents LabelProgress As Label
+    Friend WithEvents LblFTPProgress As Label
     Friend WithEvents LblFTPPercentage As Label
     Friend WithEvents BWorkerFTPUpload As System.ComponentModel.BackgroundWorker
-    Friend WithEvents ProgressBar2 As ProgressBar
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Label6 As Label
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Label5 As Label
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents FTPCredentialsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DirectoryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ChkBoxFTPUpload As CheckBox
-    Friend WithEvents Label7 As Label
+    Friend WithEvents LblSavingProgress As Label
 End Class
