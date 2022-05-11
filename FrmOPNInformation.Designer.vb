@@ -170,6 +170,8 @@ Partial Class FrmOPNInformation
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "FrmOPNInformation"
+        Me.ShowInTaskbar = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "OPN Information"
         Me.ResumeLayout(False)
         Me.PerformLayout()
