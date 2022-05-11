@@ -99,7 +99,7 @@ Partial Class FrmList
         '
         'OPN
         '
-        Me.OPN.DataSetName = "OPN"
+        Me.OPN.DataSetName = "OPN List"
         Me.OPN.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'BtnSearch

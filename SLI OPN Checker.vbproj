@@ -154,6 +154,12 @@
     <Compile Include="FrmLogs.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FrmOPNInformation.Designer.vb">
+      <DependentUpon>FrmOPNInformation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmOPNInformation.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmPPOList.Designer.vb">
       <DependentUpon>FrmPPOList.vb</DependentUpon>
     </Compile>
@@ -225,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogs.resx">
       <DependentUpon>FrmLogs.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOPNInformation.resx">
+      <DependentUpon>FrmOPNInformation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPPOList.resx">
       <DependentUpon>FrmPPOList.vb</DependentUpon>

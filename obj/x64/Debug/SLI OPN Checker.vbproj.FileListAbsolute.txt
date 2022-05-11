@@ -55,3 +55,35 @@ D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CopyComple
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.exe
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.pdb
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmFTPCredentials.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\SLI OPN Checker.exe.config
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\SLI OPN Checker.exe
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\SLI OPN Checker.pdb
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\DotNetZip.dll
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\EntityFramework.dll
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\EntityFramework.SqlServer.dll
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\System.Data.SQLite.dll
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\System.Data.SQLite.EF6.dll
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\System.Data.SQLite.Linq.dll
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\DotNetZip.pdb
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\DotNetZip.xml
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\EntityFramework.xml
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\EntityFramework.SqlServer.xml
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\bin\x64\Debug\System.Data.SQLite.xml
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI OPN Checker.vbproj.AssemblyReference.cache
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI OPN Checker.vbproj.SuggestedBindingRedirects.cache
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmAddOPN.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmFTPCredentials.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmList.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmMain.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmDir.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmLogs.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmOPNInformation.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmPPOList.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmAddPPORecords.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.FrmUnkList.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI_OPN_Checker.Resources.resources
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI OPN Checker.vbproj.GenerateResource.cache
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CoreCompileInputs.cache
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CopyComplete
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI OPN Checker.exe
+C:\Users\te.smt\Desktop\SLI-OPN-Checker\obj\x64\Debug\SLI OPN Checker.pdb

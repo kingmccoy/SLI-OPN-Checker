@@ -84,6 +84,7 @@ Partial Class FrmMain
         Me.BWorkerFTPUpload = New System.ComponentModel.BackgroundWorker()
         Me.ChkBoxFTPUpload = New System.Windows.Forms.CheckBox()
         Me.LblSavingProgress = New System.Windows.Forms.Label()
+        Me.LblViewOPN = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxFormatCheck.SuspendLayout()
@@ -665,11 +666,25 @@ Partial Class FrmMain
         Me.LblSavingProgress.TabIndex = 35
         Me.LblSavingProgress.Text = "Saving"
         '
+        'LblViewOPN
+        '
+        Me.LblViewOPN.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblViewOPN.AutoSize = True
+        Me.LblViewOPN.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.LblViewOPN.Font = New System.Drawing.Font("Segoe UI", 9.0!, CType((System.Drawing.FontStyle.Italic Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblViewOPN.ForeColor = System.Drawing.Color.DarkSlateBlue
+        Me.LblViewOPN.Location = New System.Drawing.Point(569, 114)
+        Me.LblViewOPN.Name = "LblViewOPN"
+        Me.LblViewOPN.Size = New System.Drawing.Size(125, 15)
+        Me.LblViewOPN.TabIndex = 37
+        Me.LblViewOPN.Text = "View OPN Information"
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(724, 330)
+        Me.Controls.Add(Me.LblViewOPN)
         Me.Controls.Add(Me.LblSavingProgress)
         Me.Controls.Add(Me.ChkBoxFTPUpload)
         Me.Controls.Add(Me.PbarFTP)
@@ -787,4 +802,5 @@ Partial Class FrmMain
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ChkBoxFTPUpload As CheckBox
     Friend WithEvents LblSavingProgress As Label
+    Friend WithEvents LblViewOPN As Label
 End Class

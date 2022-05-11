@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SQLite
 
-Public Class FrmLogs
+Public Class FrmPPOList
     ReadOnly conn As New SQLiteConnection
     Dim id As Integer
 

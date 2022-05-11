@@ -15,7 +15,7 @@ Public Class FrmMain
     Dim dirTrue, defFin, refFin, stp As Boolean
     Public zip As ZipArchive
 
-    Dim ftpFilePath As String = Nothing
+    ReadOnly ftpFilePath As String = Nothing
     Dim dirPath As String
 
     Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OPNListToolStripMenuItem.Click
@@ -81,6 +81,7 @@ Public Class FrmMain
         LblTotalFeedback.Text = Nothing
 
         BtnSave.Visible = False
+        LblViewOPN.Visible = False
     End Sub
 
     Private Sub BtnBrowse_Click(sender As Object, e As EventArgs) Handles BtnBrowse.Click
@@ -278,6 +279,7 @@ Public Class FrmMain
             LblLotNoFeedback.Visible = False
             LblLotNoFeedback.Text = Nothing
             ErrorProvider1.SetError(LblLotNoFeedback, "")
+            FrmOPNInformation.Lot(Regex.Match(TboxFolderName.Text, lot).Value)
         Else
             LblLotNoResultInitial.Visible = True
             LblLotNoResultInitial.ForeColor = Color.Red
@@ -834,15 +836,19 @@ Public Class FrmMain
         'start - enabled save button when checked
         If LblMaterialResultFinal.Text = "✔" And LblLotNoResultFinal.Text = "✔" Then
             BtnSave.Visible = True
+            LblViewOPN.Visible = True
         Else
             BtnSave.Visible = False
+            LblViewOPN.Visible = False
         End If
 
         If LblTotalFeedback.Visible = True Then
             BtnSave.Enabled = False
+            LblViewOPN.Visible = True
         Else
             If LblTotalFeedback.Visible = False Then
                 BtnSave.Enabled = True
+                LblViewOPN.Visible = True
             End If
         End If
         'end
@@ -1121,6 +1127,10 @@ Public Class FrmMain
                 'LblFTPPercentage.Visible = False
             End If
         End If
+    End Sub
+
+    Private Sub LblViewOPN_Click(sender As Object, e As EventArgs) Handles LblViewOPN.Click
+        FrmOPNInformation.ShowDialog()
     End Sub
 
     Private Sub BWorkerSave_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerSave.DoWork
