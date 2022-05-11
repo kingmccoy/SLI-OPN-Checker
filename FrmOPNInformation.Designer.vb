@@ -168,6 +168,7 @@ Partial Class FrmOPNInformation
         Me.Controls.Add(Me.LblMaterial)
         Me.Controls.Add(Me.BtnOK)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "FrmOPNInformation"
         Me.ShowInTaskbar = False
