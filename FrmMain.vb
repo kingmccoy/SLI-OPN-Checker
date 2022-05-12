@@ -12,11 +12,12 @@ Public Class FrmMain
     Public ReadOnly strng As New List(Of String)
     Public defSavingPath As String = ToString()
     Public DefDir As String = ToString()
-    Dim dirTrue, defFin, refFin, stp As Boolean
+    Dim dirTrue, defFin, refFin As Boolean
     Public zip As ZipArchive
 
     ReadOnly ftpFilePath As String = Nothing
     Dim dirPath As String
+    Dim LogLot As String = Nothing
 
     Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OPNListToolStripMenuItem.Click
         FrmList.ShowDialog()
@@ -739,7 +740,7 @@ Public Class FrmMain
                                 LblLotNoFeedback.Visible = False
                                 LblLotNoFeedback.Text = Nothing
                                 'ErrorProvider2.SetError(LblLotNoFeedback, "")
-
+                                LogLot = reader("lot_number")
                                 lotnotexist = False
                             End If
                         Else
@@ -925,8 +926,8 @@ Public Class FrmMain
             BtnBrowse.Enabled = False
             BtnCheck.Enabled = False
             ChkBoxFTPUpload.Enabled = False
-            LblSavingPercentage.Visible = True
-            LblFTPPercentage.Visible = True
+            'LblSavingPercentage.Visible = True
+            'LblFTPPercentage.Visible = True
             BWorkerSave.RunWorkerAsync()
         Else
             If BWorkerSave.IsBusy Then
@@ -1191,6 +1192,8 @@ Public Class FrmMain
 
             ZipFile.CreateFromDirectory(defSavingPath & "\" & origPath.Name, defSavingPath & "\" & origPath.Name & ".zip")
 
+            LblSavingPercentage.Visible = True
+
             For Each f In origPath.GetFiles
                 Dim fi As New FileInfo(f.FullName)
                 Using zipToOpen As New FileStream(defSavingPath & "\" & origPath.Name & ".zip", FileMode.Open)
@@ -1262,6 +1265,54 @@ Public Class FrmMain
                 defFin = True
             End If
         End If
+
+        'Get OPN details from database thru lot number
+        Dim LMaterial As String = Nothing
+        Dim LOPN As String = Nothing
+        Dim LFw As String = Nothing
+        Dim LLot As String = Nothing
+        Dim LTrace As String = Nothing
+        Dim LPPOQty As String = Nothing
+
+        Try
+            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+            Dim q = "select * from ppo_records where lot_number='" & LogLot & "'"
+
+            conn.Open()
+            Using cmd As New SQLiteCommand(q, conn)
+                Using reader As SQLiteDataReader = cmd.ExecuteReader
+                    reader.Read()
+                    If reader.HasRows Then
+                        LMaterial = reader("material").ToString
+                        LOPN = reader("new_ordering_part_number").ToString
+                        LFw = reader("firmware").ToString
+                        LLot = reader("lot_number").ToString
+                        LTrace = reader("full_trace_code").ToString
+                        LPPOQty = reader("ppo_qty")
+                    End If
+                End Using
+            End Using
+            conn.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        Dim DateNow As String = Date.Now.ToString("MM-dd-yyyy")
+        Dim TimeNow As String = Date.Now.ToString("HH:mm:ss")
+
+        Try
+            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+            Dim q1 = "insert into logs (material,new_ordering_part_number,firmware,lot_number,full_trace_code,ppo_qty,date,time) values ('" &
+                     LMaterial & "','" & LOPN & "','" & LFw & "','" & LLot & "','" & LTrace & "','" & LPPOQty & "','" & DateNow & "','" & TimeNow & "')"
+
+            conn.Open()
+            Using cmd As New SQLiteCommand(q1, conn)
+                cmd.ExecuteNonQuery()
+            End Using
+            conn.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub BWorkerSave_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BWorkerSave.ProgressChanged
