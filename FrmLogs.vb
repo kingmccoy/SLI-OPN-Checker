@@ -5,7 +5,7 @@ Public Class FrmLogs
     Dim id As Integer
 
     Private Sub FrmPPOList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Load_PPO_List()
+        Load_Logs()
 
         'DGVPPOList.ClearSelection()
 
@@ -16,17 +16,17 @@ Public Class FrmLogs
         End With
     End Sub
 
-    Public Sub Load_PPO_List()
+    Public Sub Load_Logs()
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-        Dim q = "select * from ppo_records"
+        Dim q = "select * from logs"
         'Dim dt As New DataTable
-        Dim dt As New PPOList
+        Dim dt As New Logs
 
         Try
             conn.Open()
             Using cmd As New SQLiteCommand(q, conn)
                 Using adapter As New SQLiteDataAdapter(cmd)
-                    adapter.Fill(dt.Tables("DataTablePPOList"))
+                    adapter.Fill(dt.Tables("DataTableLogs"))
                 End Using
             End Using
             conn.Close()
@@ -34,7 +34,7 @@ Public Class FrmLogs
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        DGVPPOList.DataSource = dt.Tables("DataTablePPOList")
+        DGVPPOList.DataSource = dt.Tables("DataTableLogs")
     End Sub
 
     Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
@@ -43,7 +43,7 @@ Public Class FrmLogs
 
     Private Sub BtnSearch_Click(sender As Object, e As EventArgs) Handles BtnSearch.Click
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-        Dim q = "select * from ppo_records where id like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or material like '%" &
+        Dim q = "select * from logs where id like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or material like '%" &
                 TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or new_ordering_part_number like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
                 "%' escape '\' or firmware like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or lot_number like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
                 "%' escape '\' or full_trace_code like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or ppo_qty like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\'"
@@ -53,7 +53,7 @@ Public Class FrmLogs
             conn.Open()
             Using cmd As New SQLiteCommand(q, conn)
                 Using adapter As New SQLiteDataAdapter(cmd)
-                    adapter.Fill(dataset.Tables("DataTablePPOList"))
+                    adapter.Fill(dataset.Tables("DataTableLogs"))
                 End Using
             End Using
             conn.Close()
@@ -76,7 +76,7 @@ Public Class FrmLogs
 
     Private Sub BtnRemove_Click(sender As Object, e As EventArgs) Handles BtnRemove.Click
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-        Dim q = "delete from ppo_records where id='" & id & "'"
+        Dim q = "delete from logs where id='" & id & "'"
 
         If DGVPPOList.SelectedRows.Count = 0 Then
             MessageBox.Show("Please select row to remove", "Select row", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -91,7 +91,7 @@ Public Class FrmLogs
                     End Using
                     conn.Close()
 
-                    Load_PPO_List()
+                    Load_Logs()
                     DGVPPOList.ClearSelection()
                     MessageBox.Show("OPN successfully removed.", "OPN Removed", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Catch ex As Exception
