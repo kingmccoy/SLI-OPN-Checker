@@ -25,17 +25,6 @@ Partial Class FrmLogs
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogs))
         Me.DGVLogs = New System.Windows.Forms.DataGridView()
-        Me.IdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.MaterialDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NeworderingpartnumberDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FirmwareDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LotnumberDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FulltracecodeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PpoqtyDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DateDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TimeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataTableLogsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Logs = New SLI_OPN_Checker.Logs()
         Me.TboxSearch = New System.Windows.Forms.TextBox()
         Me.BtnSearch = New System.Windows.Forms.Button()
         Me.DtpFrom = New System.Windows.Forms.DateTimePicker()
@@ -43,9 +32,25 @@ Partial Class FrmLogs
         Me.LblTo = New System.Windows.Forms.Label()
         Me.DtpTo = New System.Windows.Forms.DateTimePicker()
         Me.BtnFilter = New System.Windows.Forms.Button()
+        Me.Logs = New SLI_OPN_Checker.Logs()
+        Me.DataTableLogsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.IdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FilenameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MaterialDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NeworderingpartnumberDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FirmwareDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LotnumberDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FulltracecodeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PpoqtyDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.StationDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.QtyDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PassedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FailedDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DateDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TimeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.DGVLogs, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataTableLogsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Logs, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataTableLogsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DGVLogs
@@ -54,99 +59,21 @@ Partial Class FrmLogs
         Me.DGVLogs.AllowUserToDeleteRows = False
         Me.DGVLogs.AllowUserToResizeRows = False
         Me.DGVLogs.AutoGenerateColumns = False
-        Me.DGVLogs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.DGVLogs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DGVLogs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DGVLogs.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         Me.DGVLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DGVLogs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn, Me.MaterialDataGridViewTextBoxColumn, Me.NeworderingpartnumberDataGridViewTextBoxColumn, Me.FirmwareDataGridViewTextBoxColumn, Me.LotnumberDataGridViewTextBoxColumn, Me.FulltracecodeDataGridViewTextBoxColumn, Me.PpoqtyDataGridViewTextBoxColumn, Me.DateDataGridViewTextBoxColumn, Me.TimeDataGridViewTextBoxColumn})
+        Me.DGVLogs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn, Me.FilenameDataGridViewTextBoxColumn, Me.MaterialDataGridViewTextBoxColumn, Me.NeworderingpartnumberDataGridViewTextBoxColumn, Me.FirmwareDataGridViewTextBoxColumn, Me.LotnumberDataGridViewTextBoxColumn, Me.FulltracecodeDataGridViewTextBoxColumn, Me.PpoqtyDataGridViewTextBoxColumn, Me.StationDataGridViewTextBoxColumn, Me.QtyDataGridViewTextBoxColumn, Me.PassedDataGridViewTextBoxColumn, Me.FailedDataGridViewTextBoxColumn, Me.DateDataGridViewTextBoxColumn, Me.TimeDataGridViewTextBoxColumn})
         Me.DGVLogs.DataSource = Me.DataTableLogsBindingSource
         Me.DGVLogs.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.DGVLogs.Location = New System.Drawing.Point(0, 53)
         Me.DGVLogs.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.DGVLogs.MultiSelect = False
         Me.DGVLogs.Name = "DGVLogs"
         Me.DGVLogs.ReadOnly = True
         Me.DGVLogs.RowHeadersVisible = False
         Me.DGVLogs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DGVLogs.Size = New System.Drawing.Size(865, 466)
+        Me.DGVLogs.Size = New System.Drawing.Size(964, 466)
         Me.DGVLogs.TabIndex = 0
-        '
-        'IdDataGridViewTextBoxColumn
-        '
-        Me.IdDataGridViewTextBoxColumn.DataPropertyName = "id"
-        Me.IdDataGridViewTextBoxColumn.FillWeight = 50.0!
-        Me.IdDataGridViewTextBoxColumn.HeaderText = "ID"
-        Me.IdDataGridViewTextBoxColumn.Name = "IdDataGridViewTextBoxColumn"
-        Me.IdDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'MaterialDataGridViewTextBoxColumn
-        '
-        Me.MaterialDataGridViewTextBoxColumn.DataPropertyName = "material"
-        Me.MaterialDataGridViewTextBoxColumn.HeaderText = "Material"
-        Me.MaterialDataGridViewTextBoxColumn.Name = "MaterialDataGridViewTextBoxColumn"
-        Me.MaterialDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'NeworderingpartnumberDataGridViewTextBoxColumn
-        '
-        Me.NeworderingpartnumberDataGridViewTextBoxColumn.DataPropertyName = "new_ordering_part_number"
-        Me.NeworderingpartnumberDataGridViewTextBoxColumn.FillWeight = 205.0!
-        Me.NeworderingpartnumberDataGridViewTextBoxColumn.HeaderText = "New Ordering Part Number"
-        Me.NeworderingpartnumberDataGridViewTextBoxColumn.Name = "NeworderingpartnumberDataGridViewTextBoxColumn"
-        Me.NeworderingpartnumberDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'FirmwareDataGridViewTextBoxColumn
-        '
-        Me.FirmwareDataGridViewTextBoxColumn.DataPropertyName = "firmware"
-        Me.FirmwareDataGridViewTextBoxColumn.HeaderText = "Firmware"
-        Me.FirmwareDataGridViewTextBoxColumn.Name = "FirmwareDataGridViewTextBoxColumn"
-        Me.FirmwareDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'LotnumberDataGridViewTextBoxColumn
-        '
-        Me.LotnumberDataGridViewTextBoxColumn.DataPropertyName = "lot_number"
-        Me.LotnumberDataGridViewTextBoxColumn.FillWeight = 110.0!
-        Me.LotnumberDataGridViewTextBoxColumn.HeaderText = "Lot Number"
-        Me.LotnumberDataGridViewTextBoxColumn.Name = "LotnumberDataGridViewTextBoxColumn"
-        Me.LotnumberDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'FulltracecodeDataGridViewTextBoxColumn
-        '
-        Me.FulltracecodeDataGridViewTextBoxColumn.DataPropertyName = "full_trace_code"
-        Me.FulltracecodeDataGridViewTextBoxColumn.FillWeight = 130.0!
-        Me.FulltracecodeDataGridViewTextBoxColumn.HeaderText = "Full Trace Code"
-        Me.FulltracecodeDataGridViewTextBoxColumn.Name = "FulltracecodeDataGridViewTextBoxColumn"
-        Me.FulltracecodeDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'PpoqtyDataGridViewTextBoxColumn
-        '
-        Me.PpoqtyDataGridViewTextBoxColumn.DataPropertyName = "ppo_qty"
-        Me.PpoqtyDataGridViewTextBoxColumn.HeaderText = "PPO Qty"
-        Me.PpoqtyDataGridViewTextBoxColumn.Name = "PpoqtyDataGridViewTextBoxColumn"
-        Me.PpoqtyDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'DateDataGridViewTextBoxColumn
-        '
-        Me.DateDataGridViewTextBoxColumn.DataPropertyName = "date"
-        Me.DateDataGridViewTextBoxColumn.HeaderText = "Date"
-        Me.DateDataGridViewTextBoxColumn.Name = "DateDataGridViewTextBoxColumn"
-        Me.DateDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'TimeDataGridViewTextBoxColumn
-        '
-        Me.TimeDataGridViewTextBoxColumn.DataPropertyName = "time"
-        Me.TimeDataGridViewTextBoxColumn.HeaderText = "Time"
-        Me.TimeDataGridViewTextBoxColumn.Name = "TimeDataGridViewTextBoxColumn"
-        Me.TimeDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'DataTableLogsBindingSource
-        '
-        Me.DataTableLogsBindingSource.DataMember = "DataTableLogs"
-        Me.DataTableLogsBindingSource.DataSource = Me.Logs
-        '
-        'Logs
-        '
-        Me.Logs.DataSetName = "Logs"
-        Me.Logs.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'TboxSearch
         '
@@ -170,7 +97,7 @@ Partial Class FrmLogs
         '
         Me.DtpFrom.CustomFormat = "MMMM dd, yyyy"
         Me.DtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DtpFrom.Location = New System.Drawing.Point(427, 18)
+        Me.DtpFrom.Location = New System.Drawing.Point(526, 18)
         Me.DtpFrom.Name = "DtpFrom"
         Me.DtpFrom.Size = New System.Drawing.Size(148, 23)
         Me.DtpFrom.TabIndex = 3
@@ -178,7 +105,7 @@ Partial Class FrmLogs
         'LblFrom
         '
         Me.LblFrom.AutoSize = True
-        Me.LblFrom.Location = New System.Drawing.Point(383, 22)
+        Me.LblFrom.Location = New System.Drawing.Point(482, 22)
         Me.LblFrom.Name = "LblFrom"
         Me.LblFrom.Size = New System.Drawing.Size(38, 15)
         Me.LblFrom.TabIndex = 4
@@ -187,7 +114,7 @@ Partial Class FrmLogs
         'LblTo
         '
         Me.LblTo.AutoSize = True
-        Me.LblTo.Location = New System.Drawing.Point(581, 22)
+        Me.LblTo.Location = New System.Drawing.Point(680, 22)
         Me.LblTo.Name = "LblTo"
         Me.LblTo.Size = New System.Drawing.Size(22, 15)
         Me.LblTo.TabIndex = 5
@@ -197,14 +124,14 @@ Partial Class FrmLogs
         '
         Me.DtpTo.CustomFormat = "MMMM dd, yyyy"
         Me.DtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DtpTo.Location = New System.Drawing.Point(609, 18)
+        Me.DtpTo.Location = New System.Drawing.Point(708, 18)
         Me.DtpTo.Name = "DtpTo"
         Me.DtpTo.Size = New System.Drawing.Size(148, 23)
         Me.DtpTo.TabIndex = 6
         '
         'BtnFilter
         '
-        Me.BtnFilter.Location = New System.Drawing.Point(764, 13)
+        Me.BtnFilter.Location = New System.Drawing.Point(863, 13)
         Me.BtnFilter.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.BtnFilter.Name = "BtnFilter"
         Me.BtnFilter.Size = New System.Drawing.Size(88, 33)
@@ -212,11 +139,133 @@ Partial Class FrmLogs
         Me.BtnFilter.Text = "Filter"
         Me.BtnFilter.UseVisualStyleBackColor = True
         '
+        'Logs
+        '
+        Me.Logs.DataSetName = "Logs"
+        Me.Logs.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'DataTableLogsBindingSource
+        '
+        Me.DataTableLogsBindingSource.DataMember = "DataTableLogs"
+        Me.DataTableLogsBindingSource.DataSource = Me.Logs
+        '
+        'IdDataGridViewTextBoxColumn
+        '
+        Me.IdDataGridViewTextBoxColumn.DataPropertyName = "id"
+        Me.IdDataGridViewTextBoxColumn.HeaderText = "ID"
+        Me.IdDataGridViewTextBoxColumn.Name = "IdDataGridViewTextBoxColumn"
+        Me.IdDataGridViewTextBoxColumn.ReadOnly = True
+        Me.IdDataGridViewTextBoxColumn.Width = 43
+        '
+        'FilenameDataGridViewTextBoxColumn
+        '
+        Me.FilenameDataGridViewTextBoxColumn.DataPropertyName = "filename"
+        Me.FilenameDataGridViewTextBoxColumn.HeaderText = "File Name"
+        Me.FilenameDataGridViewTextBoxColumn.Name = "FilenameDataGridViewTextBoxColumn"
+        Me.FilenameDataGridViewTextBoxColumn.ReadOnly = True
+        Me.FilenameDataGridViewTextBoxColumn.Width = 85
+        '
+        'MaterialDataGridViewTextBoxColumn
+        '
+        Me.MaterialDataGridViewTextBoxColumn.DataPropertyName = "material"
+        Me.MaterialDataGridViewTextBoxColumn.HeaderText = "Material"
+        Me.MaterialDataGridViewTextBoxColumn.Name = "MaterialDataGridViewTextBoxColumn"
+        Me.MaterialDataGridViewTextBoxColumn.ReadOnly = True
+        Me.MaterialDataGridViewTextBoxColumn.Width = 75
+        '
+        'NeworderingpartnumberDataGridViewTextBoxColumn
+        '
+        Me.NeworderingpartnumberDataGridViewTextBoxColumn.DataPropertyName = "new_ordering_part_number"
+        Me.NeworderingpartnumberDataGridViewTextBoxColumn.HeaderText = "New Ordering Part Number"
+        Me.NeworderingpartnumberDataGridViewTextBoxColumn.Name = "NeworderingpartnumberDataGridViewTextBoxColumn"
+        Me.NeworderingpartnumberDataGridViewTextBoxColumn.ReadOnly = True
+        Me.NeworderingpartnumberDataGridViewTextBoxColumn.Width = 122
+        '
+        'FirmwareDataGridViewTextBoxColumn
+        '
+        Me.FirmwareDataGridViewTextBoxColumn.DataPropertyName = "firmware"
+        Me.FirmwareDataGridViewTextBoxColumn.HeaderText = "Firmware"
+        Me.FirmwareDataGridViewTextBoxColumn.Name = "FirmwareDataGridViewTextBoxColumn"
+        Me.FirmwareDataGridViewTextBoxColumn.ReadOnly = True
+        Me.FirmwareDataGridViewTextBoxColumn.Width = 81
+        '
+        'LotnumberDataGridViewTextBoxColumn
+        '
+        Me.LotnumberDataGridViewTextBoxColumn.DataPropertyName = "lot_number"
+        Me.LotnumberDataGridViewTextBoxColumn.HeaderText = "Lot Number"
+        Me.LotnumberDataGridViewTextBoxColumn.Name = "LotnumberDataGridViewTextBoxColumn"
+        Me.LotnumberDataGridViewTextBoxColumn.ReadOnly = True
+        Me.LotnumberDataGridViewTextBoxColumn.Width = 88
+        '
+        'FulltracecodeDataGridViewTextBoxColumn
+        '
+        Me.FulltracecodeDataGridViewTextBoxColumn.DataPropertyName = "full_trace_code"
+        Me.FulltracecodeDataGridViewTextBoxColumn.HeaderText = "Full Trace Code"
+        Me.FulltracecodeDataGridViewTextBoxColumn.Name = "FulltracecodeDataGridViewTextBoxColumn"
+        Me.FulltracecodeDataGridViewTextBoxColumn.ReadOnly = True
+        Me.FulltracecodeDataGridViewTextBoxColumn.Width = 103
+        '
+        'PpoqtyDataGridViewTextBoxColumn
+        '
+        Me.PpoqtyDataGridViewTextBoxColumn.DataPropertyName = "ppo_qty"
+        Me.PpoqtyDataGridViewTextBoxColumn.HeaderText = "PPO Qty"
+        Me.PpoqtyDataGridViewTextBoxColumn.Name = "PpoqtyDataGridViewTextBoxColumn"
+        Me.PpoqtyDataGridViewTextBoxColumn.ReadOnly = True
+        Me.PpoqtyDataGridViewTextBoxColumn.Width = 71
+        '
+        'StationDataGridViewTextBoxColumn
+        '
+        Me.StationDataGridViewTextBoxColumn.DataPropertyName = "station"
+        Me.StationDataGridViewTextBoxColumn.HeaderText = "Station"
+        Me.StationDataGridViewTextBoxColumn.Name = "StationDataGridViewTextBoxColumn"
+        Me.StationDataGridViewTextBoxColumn.ReadOnly = True
+        Me.StationDataGridViewTextBoxColumn.Width = 69
+        '
+        'QtyDataGridViewTextBoxColumn
+        '
+        Me.QtyDataGridViewTextBoxColumn.DataPropertyName = "qty"
+        Me.QtyDataGridViewTextBoxColumn.HeaderText = "Quantity"
+        Me.QtyDataGridViewTextBoxColumn.Name = "QtyDataGridViewTextBoxColumn"
+        Me.QtyDataGridViewTextBoxColumn.ReadOnly = True
+        Me.QtyDataGridViewTextBoxColumn.Width = 78
+        '
+        'PassedDataGridViewTextBoxColumn
+        '
+        Me.PassedDataGridViewTextBoxColumn.DataPropertyName = "passed"
+        Me.PassedDataGridViewTextBoxColumn.HeaderText = "Passed"
+        Me.PassedDataGridViewTextBoxColumn.Name = "PassedDataGridViewTextBoxColumn"
+        Me.PassedDataGridViewTextBoxColumn.ReadOnly = True
+        Me.PassedDataGridViewTextBoxColumn.Width = 68
+        '
+        'FailedDataGridViewTextBoxColumn
+        '
+        Me.FailedDataGridViewTextBoxColumn.DataPropertyName = "failed"
+        Me.FailedDataGridViewTextBoxColumn.HeaderText = "Failed"
+        Me.FailedDataGridViewTextBoxColumn.Name = "FailedDataGridViewTextBoxColumn"
+        Me.FailedDataGridViewTextBoxColumn.ReadOnly = True
+        Me.FailedDataGridViewTextBoxColumn.Width = 63
+        '
+        'DateDataGridViewTextBoxColumn
+        '
+        Me.DateDataGridViewTextBoxColumn.DataPropertyName = "date"
+        Me.DateDataGridViewTextBoxColumn.HeaderText = "Date"
+        Me.DateDataGridViewTextBoxColumn.Name = "DateDataGridViewTextBoxColumn"
+        Me.DateDataGridViewTextBoxColumn.ReadOnly = True
+        Me.DateDataGridViewTextBoxColumn.Width = 56
+        '
+        'TimeDataGridViewTextBoxColumn
+        '
+        Me.TimeDataGridViewTextBoxColumn.DataPropertyName = "time"
+        Me.TimeDataGridViewTextBoxColumn.HeaderText = "Time"
+        Me.TimeDataGridViewTextBoxColumn.Name = "TimeDataGridViewTextBoxColumn"
+        Me.TimeDataGridViewTextBoxColumn.ReadOnly = True
+        Me.TimeDataGridViewTextBoxColumn.Width = 58
+        '
         'FrmLogs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(865, 519)
+        Me.ClientSize = New System.Drawing.Size(964, 519)
         Me.Controls.Add(Me.BtnFilter)
         Me.Controls.Add(Me.DtpTo)
         Me.Controls.Add(Me.LblTo)
@@ -236,8 +285,8 @@ Partial Class FrmLogs
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Logs"
         CType(Me.DGVLogs, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataTableLogsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Logs, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataTableLogsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -246,20 +295,25 @@ Partial Class FrmLogs
     Friend WithEvents DGVLogs As DataGridView
     Friend WithEvents TboxSearch As TextBox
     Friend WithEvents BtnSearch As Button
-    Friend WithEvents DataTableLogsBindingSource As BindingSource
-    Friend WithEvents Logs As Logs
+    Friend WithEvents DtpFrom As DateTimePicker
+    Friend WithEvents LblFrom As Label
+    Friend WithEvents LblTo As Label
+    Friend WithEvents DtpTo As DateTimePicker
+    Friend WithEvents BtnFilter As Button
     Friend WithEvents IdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents FilenameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents MaterialDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents NeworderingpartnumberDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents FirmwareDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents LotnumberDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents FulltracecodeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents PpoqtyDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents StationDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents QtyDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents PassedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents FailedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents DateDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents TimeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents DtpFrom As DateTimePicker
-    Friend WithEvents LblFrom As Label
-    Friend WithEvents LblTo As Label
-    Friend WithEvents DtpTo As DateTimePicker
-    Friend WithEvents BtnFilter As Button
+    Friend WithEvents DataTableLogsBindingSource As BindingSource
+    Friend WithEvents Logs As Logs
 End Class

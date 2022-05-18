@@ -249,6 +249,10 @@ Public Class FrmAddPPORecords
         If e.KeyChar = ChrW(Keys.Enter) Then
             BtnAdd.PerformClick()
         End If
+
+        If e.KeyChar = ChrW(Keys.Space) Or Char.IsLetter(e.KeyChar) Then
+            e.Handled = True
+        End If
     End Sub
 
     Private Sub FrmPPORecords_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

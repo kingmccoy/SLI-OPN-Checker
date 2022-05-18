@@ -39,10 +39,12 @@ Public Class FrmLogs
 
     Private Sub BtnSearch_Click(sender As Object, e As EventArgs) Handles BtnSearch.Click
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-        Dim q = "select * from logs where id like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or material like '%" &
-                TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or new_ordering_part_number like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
+        Dim q = "select * from logs where id like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or filename like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
+                "%' escape '\' or material like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or new_ordering_part_number like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
                 "%' escape '\' or firmware like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or lot_number like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
                 "%' escape '\' or full_trace_code like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or ppo_qty like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
+                "%' escape '\' or station like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or qty like'%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
+                "%' escape '\' or passed like'%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or failed like'%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") &
                 "%' escape '\' or date like'%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\' or time like '%" & TboxSearch.Text.Replace("'", "''").Replace("\", "\\") & "%' escape '\'"
         Dim dataset As New Logs
 

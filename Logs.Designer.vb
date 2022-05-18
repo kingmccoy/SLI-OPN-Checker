@@ -285,6 +285,8 @@ Partial Public Class Logs
         
         Private columnid As Global.System.Data.DataColumn
         
+        Private columnfilename As Global.System.Data.DataColumn
+        
         Private columnmaterial As Global.System.Data.DataColumn
         
         Private columnnew_ordering_part_number As Global.System.Data.DataColumn
@@ -296,6 +298,14 @@ Partial Public Class Logs
         Private columnfull_trace_code As Global.System.Data.DataColumn
         
         Private columnppo_qty As Global.System.Data.DataColumn
+        
+        Private columnstation As Global.System.Data.DataColumn
+        
+        Private columnqty As Global.System.Data.DataColumn
+        
+        Private columnpassed As Global.System.Data.DataColumn
+        
+        Private columnfailed As Global.System.Data.DataColumn
         
         Private columndate As Global.System.Data.DataColumn
         
@@ -346,6 +356,14 @@ Partial Public Class Logs
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property filenameColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnfilename
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property materialColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnmaterial
@@ -389,6 +407,38 @@ Partial Public Class Logs
         Public ReadOnly Property ppo_qtyColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnppo_qty
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property stationColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnstation
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property qtyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnqty
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property passedColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnpassed
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property failedColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnfailed
             End Get
         End Property
         
@@ -445,9 +495,9 @@ Partial Public Class Logs
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddDataTableLogsRow(ByVal id As String, ByVal material As String, ByVal new_ordering_part_number As String, ByVal firmware As String, ByVal lot_number As String, ByVal full_trace_code As String, ByVal ppo_qty As String, ByVal _date As String, ByVal time As String) As DataTableLogsRow
+        Public Overloads Function AddDataTableLogsRow(ByVal id As String, ByVal filename As String, ByVal material As String, ByVal new_ordering_part_number As String, ByVal firmware As String, ByVal lot_number As String, ByVal full_trace_code As String, ByVal ppo_qty As String, ByVal station As String, ByVal qty As String, ByVal passed As String, ByVal failed As String, ByVal _date As String, ByVal time As String) As DataTableLogsRow
             Dim rowDataTableLogsRow As DataTableLogsRow = CType(Me.NewRow,DataTableLogsRow)
-            Dim columnValuesArray() As Object = New Object() {id, material, new_ordering_part_number, firmware, lot_number, full_trace_code, ppo_qty, _date, time}
+            Dim columnValuesArray() As Object = New Object() {id, filename, material, new_ordering_part_number, firmware, lot_number, full_trace_code, ppo_qty, station, qty, passed, failed, _date, time}
             rowDataTableLogsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowDataTableLogsRow)
             Return rowDataTableLogsRow
@@ -477,12 +527,17 @@ Partial Public Class Logs
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnid = MyBase.Columns("id")
+            Me.columnfilename = MyBase.Columns("filename")
             Me.columnmaterial = MyBase.Columns("material")
             Me.columnnew_ordering_part_number = MyBase.Columns("new_ordering_part_number")
             Me.columnfirmware = MyBase.Columns("firmware")
             Me.columnlot_number = MyBase.Columns("lot_number")
             Me.columnfull_trace_code = MyBase.Columns("full_trace_code")
             Me.columnppo_qty = MyBase.Columns("ppo_qty")
+            Me.columnstation = MyBase.Columns("station")
+            Me.columnqty = MyBase.Columns("qty")
+            Me.columnpassed = MyBase.Columns("passed")
+            Me.columnfailed = MyBase.Columns("failed")
             Me.columndate = MyBase.Columns("date")
             Me.columntime = MyBase.Columns("time")
         End Sub
@@ -492,6 +547,8 @@ Partial Public Class Logs
         Private Sub InitClass()
             Me.columnid = New Global.System.Data.DataColumn("id", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnid)
+            Me.columnfilename = New Global.System.Data.DataColumn("filename", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnfilename)
             Me.columnmaterial = New Global.System.Data.DataColumn("material", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnmaterial)
             Me.columnnew_ordering_part_number = New Global.System.Data.DataColumn("new_ordering_part_number", GetType(String), Nothing, Global.System.Data.MappingType.Element)
@@ -504,6 +561,14 @@ Partial Public Class Logs
             MyBase.Columns.Add(Me.columnfull_trace_code)
             Me.columnppo_qty = New Global.System.Data.DataColumn("ppo_qty", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnppo_qty)
+            Me.columnstation = New Global.System.Data.DataColumn("station", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnstation)
+            Me.columnqty = New Global.System.Data.DataColumn("qty", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnqty)
+            Me.columnpassed = New Global.System.Data.DataColumn("passed", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnpassed)
+            Me.columnfailed = New Global.System.Data.DataColumn("failed", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnfailed)
             Me.columndate = New Global.System.Data.DataColumn("date", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             Me.columndate.ExtendedProperties.Add("Generator_ColumnPropNameInTable", "dateColumn")
             Me.columndate.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "columndate")
@@ -671,6 +736,21 @@ Partial Public Class Logs
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property filename() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTableLogs.filenameColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'filename' in table 'DataTableLogs' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTableLogs.filenameColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property material() As String
             Get
                 Try 
@@ -762,6 +842,66 @@ Partial Public Class Logs
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property station() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTableLogs.stationColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'station' in table 'DataTableLogs' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTableLogs.stationColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property qty() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTableLogs.qtyColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'qty' in table 'DataTableLogs' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTableLogs.qtyColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property passed() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTableLogs.passedColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'passed' in table 'DataTableLogs' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTableLogs.passedColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property failed() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableDataTableLogs.failedColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'failed' in table 'DataTableLogs' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableDataTableLogs.failedColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property _date() As String
             Get
                 Try 
@@ -789,6 +929,18 @@ Partial Public Class Logs
                 Me(Me.tableDataTableLogs.timeColumn) = value
             End Set
         End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsfilenameNull() As Boolean
+            Return Me.IsNull(Me.tableDataTableLogs.filenameColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetfilenameNull()
+            Me(Me.tableDataTableLogs.filenameColumn) = Global.System.Convert.DBNull
+        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
@@ -860,6 +1012,54 @@ Partial Public Class Logs
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub Setppo_qtyNull()
             Me(Me.tableDataTableLogs.ppo_qtyColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsstationNull() As Boolean
+            Return Me.IsNull(Me.tableDataTableLogs.stationColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetstationNull()
+            Me(Me.tableDataTableLogs.stationColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsqtyNull() As Boolean
+            Return Me.IsNull(Me.tableDataTableLogs.qtyColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetqtyNull()
+            Me(Me.tableDataTableLogs.qtyColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IspassedNull() As Boolean
+            Return Me.IsNull(Me.tableDataTableLogs.passedColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetpassedNull()
+            Me(Me.tableDataTableLogs.passedColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsfailedNull() As Boolean
+            Return Me.IsNull(Me.tableDataTableLogs.failedColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetfailedNull()
+            Me(Me.tableDataTableLogs.failedColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

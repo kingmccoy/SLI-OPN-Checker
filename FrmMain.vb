@@ -16,8 +16,8 @@ Public Class FrmMain
     Public zip As ZipArchive
 
     ReadOnly ftpFilePath As String = Nothing
-    Dim dirPath As String
-    Dim LogLot As String = Nothing
+    Dim dirPath, LogStation, LogLot As String
+    Dim passed, failed, quantity As Integer
 
     Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OPNListToolStripMenuItem.Click
         FrmList.ShowDialog()
@@ -352,16 +352,19 @@ Public Class FrmMain
             If Regex.IsMatch(TboxPath.Text, "(_[calibCALIB]{5})") Then
                 correct = True
                 station = "CALIB"
+                logstation = station
             End If
 
             If Regex.IsMatch(TboxPath.Text, "(_[ftFT]{2}-)") Then
                 correct = True
                 station = "FT"
+                LogStation = station
             End If
 
             If Regex.IsMatch(TboxPath.Text, "(_[uartUART]{4}-)") Then
                 correct = True
                 station = "UART"
+                LogStation = station
             End If
 
             If Regex.IsMatch(TboxFolderName.Text, "[fp]") Then
@@ -609,7 +612,7 @@ Public Class FrmMain
 
         'start - Checking counter
         Dim str As New List(Of String)
-        Dim pass, failed As Integer
+        Dim pass, fail As Integer
 
         Dim path As New DirectoryInfo(TboxPath.Text)
 
@@ -628,7 +631,7 @@ Public Class FrmMain
                     'Dim g As New FileInfo(path.ToString & "\" & f)
                     Dim m1, m2 As Match
 
-                    m1 = Regex.Match(f, "(RS9113)_[NBZ0]{3}_[SD01NFW]{3}[_DRG]{0,4}_[A-Z0-9]{12}" & p.Extension)
+                    m1 = Regex.Match(f, "(RS9113)_[NBZ0]{3}_[SD01NFW]{3}[_DRG]{0,4}_[A-Z0-9]{12,13}" & p.Extension)
                     m2 = Regex.Match(f, "[A-Za-z]{3}_[A-Za-z]{3}_{1,2}[0-9]{1,2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}" & p.Extension)
                     'm2 = Regex.Match(f, "[A-Z][a-z]{2}_[A-Z][a-z]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}" & p.Extension)
 
@@ -637,7 +640,7 @@ Public Class FrmMain
                     End If
 
                     If f = m2.Value Then
-                        failed += 1
+                        fail += 1
                     End If
 
                     If f <> m1.Value And f <> m2.Value Then
@@ -656,7 +659,7 @@ Public Class FrmMain
                         End If
 
                         If f = f2.Value Then
-                            failed += 1
+                            fail += 1
                         End If
 
                         If f <> f1.Value And f <> f2.Value Then
@@ -675,7 +678,7 @@ Public Class FrmMain
                             End If
 
                             If f = u2.Value Then
-                                failed += 1
+                                fail += 1
                             End If
 
                             If f <> u1.Value And f <> u2.Value Then
@@ -692,8 +695,12 @@ Public Class FrmMain
             LblTotalCount.Visible = True
 
             LblPassCount.Text = pass
-            LblFailedCount.Text = failed
+            LblFailedCount.Text = fail
             LblTotalCount.Text = path.GetFiles.Count
+
+            passed = pass
+            failed = fail
+            quantity = pass + fail
 
             If path.GetFiles.Count <> pass + failed Then
                 Dim l = LblTotalCount.Location()
@@ -1042,7 +1049,6 @@ Public Class FrmMain
 
         Dim FTPOpnPath As String = host & "/" & path & "/" & IO.Path.GetFileName(OPN)
 
-
         Try
             Dim request As FtpWebRequest = DirectCast(WebRequest.Create(New Uri(FTPOpnPath)), FtpWebRequest)
 
@@ -1066,14 +1072,14 @@ Public Class FrmMain
         Catch ex As Exception
             BWorkerFTPUpload.CancelAsync()
             If ex.Message.Contains("530") Then
-                MessageBox.Show("Invalid Username or Password.", "Credential", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Invalid Username or Password.", "FTP Credential", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 BWorkerFTPUpload.CancelAsync()
             Else
                 If ex.Message.Contains("550") Then
-                    MessageBox.Show("Invalid FTP directory.", "No Directory Found", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("Invalid FTP directory.", "No FTP Directory Found", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     BWorkerFTPUpload.CancelAsync()
                 Else
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show(ex.Message, "Error FTP Upload", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     BWorkerFTPUpload.CancelAsync()
                 End If
             End If
@@ -1139,6 +1145,7 @@ Public Class FrmMain
 
         Dim origPath As New DirectoryInfo(TboxPath.Text)
 
+        ' Setting path for directory reference
         Try
             Dim q = "select path from reference"
             conn.Open()
@@ -1159,6 +1166,7 @@ Public Class FrmMain
             MsgBox(ex.Message, MsgBoxStyle.OkOnly + MsgBoxStyle.Critical, "Error")
         End Try
 
+        ' Default directory base what is saved on database
         If dirTrue = True Then
             If Not Directory.Exists(defSavingPath) Then
                 Directory.CreateDirectory(defSavingPath)
@@ -1210,60 +1218,61 @@ Public Class FrmMain
             Directory.Delete(defSavingPath & "\" & origPath.Name, True)
 
             refFin = True
-        Else
-            If dirTrue = False Then
-                If Not Directory.Exists(DefDir) Then
-                    Directory.CreateDirectory(DefDir)
-                End If
+        End If
 
-                If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
-                    BWorkerSave.CancelAsync()
-
-                    ReferenceToolStripMenuItem.Enabled = True
-                    TboxPath.Enabled = True
-                    BtnBrowse.Enabled = True
-                    BtnCheck.Enabled = True
-                    ChkBoxFTPUpload.Enabled = True
-                    LblSavingPercentage.Visible = False
-                    LblFTPPercentage.Visible = False
-                    MessageBox.Show("File already exist!", "File Exist", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Return
-                End If
-
-                Dim startPath, zipPath As String
-                Dim sum, count As Integer
-                Dim dev As Double
-
-                startPath = TboxPath.Text
-                zipPath = DefDir & "\" & origPath.Name & ".zip"
-
-                Directory.CreateDirectory(DefDir & "\" & origPath.Name)
-                Directory.CreateDirectory(DefDir & "\" & origPath.Name & "\" & origPath.Name)
-
-                sum = origPath.GetFiles.Count
-                count = 0
-
-                ZipFile.CreateFromDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name & ".zip")
-
-                For Each f In origPath.GetFiles
-                    Dim fi As New FileInfo(f.FullName)
-                    Using zipToOpen As New FileStream(DefDir & "\" & origPath.Name & ".zip", FileMode.Open)
-
-                        Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-                            Dim readmeEntry As ZipArchiveEntry = archive.CreateEntryFromFile(fi.FullName, origPath.Name & "\" & fi.Name)
-                            count += 1
-                            dev = count / sum
-
-                            BWorkerSave.ReportProgress(dev * 100)
-
-                        End Using
-                    End Using
-                Next
-
-                Directory.Delete(DefDir & "\" & origPath.Name, True)
-
-                defFin = True
+        ' Default directory if database is empty
+        If dirTrue = False Then
+            If Not Directory.Exists(DefDir) Then
+                Directory.CreateDirectory(DefDir)
             End If
+
+            If File.Exists(DefDir & "\" & origPath.Name & ".zip") Then
+                BWorkerSave.CancelAsync()
+
+                ReferenceToolStripMenuItem.Enabled = True
+                TboxPath.Enabled = True
+                BtnBrowse.Enabled = True
+                BtnCheck.Enabled = True
+                ChkBoxFTPUpload.Enabled = True
+                LblSavingPercentage.Visible = False
+                LblFTPPercentage.Visible = False
+                MessageBox.Show("File already exist!", "File Exist", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return
+            End If
+
+            Dim startPath, zipPath As String
+            Dim sum, count As Integer
+            Dim dev As Double
+
+            startPath = TboxPath.Text
+            zipPath = DefDir & "\" & origPath.Name & ".zip"
+
+            Directory.CreateDirectory(DefDir & "\" & origPath.Name)
+            Directory.CreateDirectory(DefDir & "\" & origPath.Name & "\" & origPath.Name)
+
+            sum = origPath.GetFiles.Count
+            count = 0
+
+            ZipFile.CreateFromDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked" & "\" & origPath.Name & ".zip")
+
+            For Each f In origPath.GetFiles
+                Dim fi As New FileInfo(f.FullName)
+                Using zipToOpen As New FileStream(DefDir & "\" & origPath.Name & ".zip", FileMode.Open)
+
+                    Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
+                        Dim readmeEntry As ZipArchiveEntry = archive.CreateEntryFromFile(fi.FullName, origPath.Name & "\" & fi.Name)
+                        count += 1
+                        dev = count / sum
+
+                        BWorkerSave.ReportProgress(dev * 100)
+
+                    End Using
+                End Using
+            Next
+
+            Directory.Delete(DefDir & "\" & origPath.Name, True)
+
+            defFin = True
         End If
 
         'Get OPN details from database thru lot number
@@ -1302,8 +1311,8 @@ Public Class FrmMain
 
         Try
             conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-            Dim q1 = "insert into logs (material,new_ordering_part_number,firmware,lot_number,full_trace_code,ppo_qty,date,time) values ('" &
-                     LMaterial & "','" & LOPN & "','" & LFw & "','" & LLot & "','" & LTrace & "','" & LPPOQty & "','" & DateNow & "','" & TimeNow & "')"
+            Dim q1 = "insert into logs (filename,material,new_ordering_part_number,firmware,lot_number,full_trace_code,ppo_qty,station,qty,passed,failed,date,time) values ('" &
+                     dirPath & "','" & LMaterial & "','" & LOPN & "','" & LFw & "','" & LLot & "','" & LTrace & "','" & LPPOQty & "','" & LogStation & "','" & quantity & "','" & passed & "','" & failed & "','" & DateNow & "','" & TimeNow & "')"
 
             conn.Open()
             Using cmd As New SQLiteCommand(q1, conn)
@@ -1323,10 +1332,16 @@ Public Class FrmMain
     End Sub
 
     Private Sub BWorkerSave_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerSave.RunWorkerCompleted
-        dirTrue = False
+        If ChkBoxFTPUpload.Checked = False Then
+            dirTrue = False
+        Else
+            dirTrue = True
+        End If
 
         ' Default reference saving directory (Reference Finished)
         If refFin = True Then
+            dirPath = TboxFolderName.Text
+
             If ChkBoxFTPUpload.Checked = True Then
                 If BWorkerFTPUpload.IsBusy = False Then
                     BWorkerFTPUpload.RunWorkerAsync()
@@ -1335,8 +1350,8 @@ Public Class FrmMain
                 End If
             End If
 
-            If ChkBoxFTPUpload.Checked = False Then
-                'Directory.Delete(TboxPath.Text, True)
+            If ChkBoxFTPUpload.Checked = True Then
+                Directory.Delete(TboxPath.Text, True)
                 MessageBox.Show("OPN successfully saved to" & vbCrLf & defSavingPath, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 'PbarSaving.Visible = False
                 PbarSaving.Value = 0
@@ -1350,12 +1365,12 @@ Public Class FrmMain
                 'LblSavingPercentage.Visible = False
                 LblSavingPercentage.Text = Nothing
             End If
-
-            dirPath = TboxFolderName.Text
         End If
 
         ' Default saving directory (Default Finished)
         If defFin = True Then
+            dirPath = TboxFolderName.Text
+
             If ChkBoxFTPUpload.Checked = True Then
                 If BWorkerFTPUpload.IsBusy = False Then
                     BWorkerFTPUpload.RunWorkerAsync()
@@ -1365,7 +1380,7 @@ Public Class FrmMain
             End If
 
             If ChkBoxFTPUpload.Checked = False Then
-                'Directory.Delete(TboxPath.Text, True)
+                Directory.Delete(TboxPath.Text, True)
                 MessageBox.Show("OPN successfully saved to default directory" & vbCrLf & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & "opn_checked", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 'PbarSaving.Visible = False
                 PbarSaving.Value = 0
@@ -1379,8 +1394,6 @@ Public Class FrmMain
                 'LblSavingPercentage.Visible = False
                 LblSavingPercentage.Text = Nothing
             End If
-
-            dirPath = TboxFolderName.Text
         End If
     End Sub
 End Class
