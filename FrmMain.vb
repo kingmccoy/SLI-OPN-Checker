@@ -12,7 +12,7 @@ Public Class FrmMain
     Public ReadOnly strng As New List(Of String)
     Public defSavingPath As String = ToString()
     Public DefDir As String = ToString()
-    Dim dirTrue, defFin, refFin As Boolean
+    Dim dirTrue, defFin, refFin, FtpFailed As Boolean
     Public zip As ZipArchive
 
     ReadOnly ftpFilePath As String = Nothing
@@ -927,6 +927,20 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+        conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "opn.db;Version=3;FailIfMissing=True;"
+        Dim q = "select * from ftp_credentials"
+
+        Try
+            Using cmd As New SQLiteCommand(q, conn)
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("No FTP Credentials found. Please check the FTP Credentials", "Error FTP Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            FrmFTPCredentials.ShowDialog()
+            Return
+        End Try
+
+
         If Not BWorkerSave.IsBusy Then
             ReferenceToolStripMenuItem.Enabled = False
             TboxPath.Enabled = False
@@ -1073,14 +1087,14 @@ Public Class FrmMain
             BWorkerFTPUpload.CancelAsync()
             If ex.Message.Contains("530") Then
                 MessageBox.Show("Invalid Username or Password.", "FTP Credential", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                BWorkerFTPUpload.CancelAsync()
+                FtpFailed = True
             Else
                 If ex.Message.Contains("550") Then
                     MessageBox.Show("Invalid FTP directory.", "No FTP Directory Found", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    BWorkerFTPUpload.CancelAsync()
+                    FtpFailed = True
                 Else
                     MessageBox.Show(ex.Message, "Error FTP Upload", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    BWorkerFTPUpload.CancelAsync()
+                    FtpFailed = True
                 End If
             End If
         End Try
@@ -1106,8 +1120,10 @@ Public Class FrmMain
     End Sub
 
     Private Sub BWorkerFTPUpload_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerFTPUpload.RunWorkerCompleted
-        ChkBoxFTPUpload.Enabled = True
-        MessageBox.Show("OPN successfully uploaded to FTP Server", "FTP", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If FtpFailed = False Then
+            ChkBoxFTPUpload.Enabled = True
+            MessageBox.Show("OPN successfully uploaded to FTP Server", "FTP", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
     End Sub
 
     Private Sub DirectoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DirectoryToolStripMenuItem.Click
