@@ -127,7 +127,7 @@ Public Class FrmMain
         'start - Checking the correct format
         Dim cm = "^(IONICS)"
         Dim material = "(R9113[A-Z0-9]{9})"
-        Dim lot = "(71[0-9]{5}\.[1-9][0-9]|71[0-9]{5}\.[2-9]{1,2})"
+        Dim lot = "(71[0-9]{5}\.[1-9][0-9]|71[0-9]{5}\.[1-9]{1,2})"
         Dim stationid = "((UART|CALIB|FT)-[0-9]{2}-F[0-9]{2})"
         Dim fcode = "([fp])"
         Dim tstamp = "([0-9]{4}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$)"
@@ -927,16 +927,24 @@ Public Class FrmMain
     End Sub
 
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
-        conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "opn.db;Version=3;FailIfMissing=True;"
-        Dim q = "select * from ftp_credentials"
-
         Try
+            conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+            Dim q = "select * from ftp_credentials"
+
+            conn.Open()
             Using cmd As New SQLiteCommand(q, conn)
-                cmd.ExecuteNonQuery()
+                Using reader As SQLiteDataReader = cmd.ExecuteReader
+                    reader.Read()
+                    If reader.HasRows = False Then
+                        MessageBox.Show("No FTP Credentials found. Please check the FTP Credentials", "Error FTP Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        FrmFTPCredentials.ShowDialog()
+                        Return
+                    End If
+                End Using
             End Using
+            conn.Close()
         Catch ex As Exception
-            MessageBox.Show("No FTP Credentials found. Please check the FTP Credentials", "Error FTP Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            FrmFTPCredentials.ShowDialog()
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End Try
 
