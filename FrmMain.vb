@@ -1081,6 +1081,7 @@ Public Class FrmMain
 
             Dim fileStream() As Byte = System.IO.File.ReadAllBytes(dir & "\" & OPN)
             Dim requestStream As System.IO.Stream = request.GetRequestStream()
+            LblFTPPercentage.Visible = True
 
             For offset As Integer = 0 To fileStream.Length Step 1024
                 BWorkerFTPUpload.ReportProgress(CType(offset * PbarFTP.Maximum / fileStream.Length, Integer))
@@ -1368,13 +1369,14 @@ Public Class FrmMain
 
             If ChkBoxFTPUpload.Checked = True Then
                 If BWorkerFTPUpload.IsBusy = False Then
+                    Directory.Delete(TboxPath.Text, True)
                     BWorkerFTPUpload.RunWorkerAsync()
                 Else
                     MessageBox.Show("Already running", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
             End If
 
-            If ChkBoxFTPUpload.Checked = True Then
+            If ChkBoxFTPUpload.Checked = False Then
                 Directory.Delete(TboxPath.Text, True)
                 MessageBox.Show("OPN successfully saved to" & vbCrLf & defSavingPath, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 'PbarSaving.Visible = False
@@ -1397,6 +1399,7 @@ Public Class FrmMain
 
             If ChkBoxFTPUpload.Checked = True Then
                 If BWorkerFTPUpload.IsBusy = False Then
+                    Directory.Delete(TboxPath.Text, True)
                     BWorkerFTPUpload.RunWorkerAsync()
                 Else
                     MessageBox.Show("Already running", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
