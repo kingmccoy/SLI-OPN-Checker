@@ -64,6 +64,7 @@ Public Class FrmFTPCredentials
                     conn.Close()
                 Catch ex As Exception
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
                 End Try
 
                 'add database record
@@ -77,6 +78,7 @@ Public Class FrmFTPCredentials
                     conn.Close()
                 Catch ex As Exception
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
                 End Try
 
                 MessageBox.Show("Credentials successfully saved.", "FTP Credentials", MessageBoxButtons.OK, MessageBoxIcon.Information)

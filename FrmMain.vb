@@ -1139,6 +1139,10 @@ Public Class FrmMain
         FrmDir.ShowDialog()
     End Sub
 
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        FrmAboutBox.ShowDialog()
+    End Sub
+
     Private Sub FTPCredentialsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FTPCredentialsToolStripMenuItem.Click
         FrmFTPCredentials.ShowDialog()
     End Sub
@@ -1333,6 +1337,7 @@ Public Class FrmMain
 
         Dim DateNow As String = Date.Now.ToString("MM-dd-yyyy")
         Dim TimeNow As String = Date.Now.ToString("HH:mm:ss")
+        dirPath = TboxFolderName.Text
 
         Try
             conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
@@ -1365,7 +1370,7 @@ Public Class FrmMain
 
         ' Default reference saving directory (Reference Finished)
         If refFin = True Then
-            dirPath = TboxFolderName.Text
+            'dirPath = TboxFolderName.Text
 
             If ChkBoxFTPUpload.Checked = True Then
                 If BWorkerFTPUpload.IsBusy = False Then
@@ -1395,7 +1400,7 @@ Public Class FrmMain
 
         ' Default saving directory (Default Finished)
         If defFin = True Then
-            dirPath = TboxFolderName.Text
+            'dirPath = TboxFolderName.Text
 
             If ChkBoxFTPUpload.Checked = True Then
                 If BWorkerFTPUpload.IsBusy = False Then

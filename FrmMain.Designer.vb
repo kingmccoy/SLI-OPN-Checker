@@ -85,6 +85,7 @@ Partial Class FrmMain
         Me.ChkBoxFTPUpload = New System.Windows.Forms.CheckBox()
         Me.LblSavingProgress = New System.Windows.Forms.Label()
         Me.LblViewOPN = New System.Windows.Forms.Label()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxFormatCheck.SuspendLayout()
@@ -96,7 +97,7 @@ Partial Class FrmMain
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(724, 24)
@@ -113,14 +114,14 @@ Partial Class FrmMain
         'OPNListToolStripMenuItem
         '
         Me.OPNListToolStripMenuItem.Name = "OPNListToolStripMenuItem"
-        Me.OPNListToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.OPNListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.OPNListToolStripMenuItem.Text = "&OPN List"
         '
         'ReferenceToolStripMenuItem
         '
         Me.ReferenceToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FTPCredentialsToolStripMenuItem, Me.DirectoryToolStripMenuItem})
         Me.ReferenceToolStripMenuItem.Name = "ReferenceToolStripMenuItem"
-        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.ReferenceToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ReferenceToolStripMenuItem.Text = "&Reference"
         '
         'FTPCredentialsToolStripMenuItem
@@ -138,20 +139,20 @@ Partial Class FrmMain
         'PPOListToolStripMenuItem
         '
         Me.PPOListToolStripMenuItem.Name = "PPOListToolStripMenuItem"
-        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.PPOListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PPOListToolStripMenuItem.Text = "&PPO List"
         '
         'LogsToolStripMenuItem
         '
         Me.LogsToolStripMenuItem.Name = "LogsToolStripMenuItem"
-        Me.LogsToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.LogsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.LogsToolStripMenuItem.Text = "&Logs"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.F4), System.Windows.Forms.Keys)
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'TboxPath
@@ -679,6 +680,12 @@ Partial Class FrmMain
         Me.LblViewOPN.TabIndex = 37
         Me.LblViewOPN.Text = "View OPN Information"
         '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem.Text = "&About"
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -803,4 +810,5 @@ Partial Class FrmMain
     Friend WithEvents ChkBoxFTPUpload As CheckBox
     Friend WithEvents LblSavingProgress As Label
     Friend WithEvents LblViewOPN As Label
+    Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
 End Class

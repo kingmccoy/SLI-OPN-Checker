@@ -77,7 +77,6 @@ D:\macky_program\SLI OPN Checker 01\obj\Debug\SLI OPN Checker.pdb
 D:\macky_program\SLI OPN Checker\bin\Debug\SLI OPN Checker.exe.config
 D:\macky_program\SLI OPN Checker\bin\Debug\SLI OPN Checker.exe
 D:\macky_program\SLI OPN Checker\bin\Debug\SLI OPN Checker.pdb
-D:\macky_program\SLI OPN Checker\bin\Debug\SLI OPN Checker.xml
 D:\macky_program\SLI OPN Checker\bin\Debug\EntityFramework.dll
 D:\macky_program\SLI OPN Checker\bin\Debug\EntityFramework.SqlServer.dll
 D:\macky_program\SLI OPN Checker\bin\Debug\System.Data.SQLite.dll
@@ -93,14 +92,12 @@ D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmList.resources
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmMain.resources
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmDir.resources
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmPPOList.resources
-D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmPPORecords.resources
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmUnkList.resources
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.Resources.resources
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.GenerateResource.cache
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.CoreCompileInputs.cache
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.CopyComplete
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.exe
-D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.xml
 D:\macky_program\SLI OPN Checker\obj\Debug\SLI OPN Checker.pdb
 D:\Documents\Visual Basic\SLI OPN Checker\bin\Debug\SLI OPN Checker.exe.config
 D:\Documents\Visual Basic\SLI OPN Checker\bin\Debug\SLI OPN Checker.exe
@@ -128,3 +125,10 @@ D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.CoreC
 D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI OPN Checker.vbproj.CopyComplete
 D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI OPN Checker.exe
 D:\Documents\Visual Basic\SLI OPN Checker\obj\Debug\SLI OPN Checker.pdb
+D:\macky_program\SLI OPN Checker\bin\Debug\DotNetZip.dll
+D:\macky_program\SLI OPN Checker\bin\Debug\DotNetZip.pdb
+D:\macky_program\SLI OPN Checker\bin\Debug\DotNetZip.xml
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmFTPCredentials.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmLogs.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmOPNInformation.resources
+D:\macky_program\SLI OPN Checker\obj\Debug\SLI_OPN_Checker.FrmAddPPORecords.resources
