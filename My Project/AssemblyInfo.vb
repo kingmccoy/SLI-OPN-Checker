@@ -10,10 +10,10 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("SLI OPN Checker")>
-<Assembly: AssemblyDescription("This program is intended for checking SLI OPN format, OPN records and auto upload OPN to FTP server.")>
+<Assembly: AssemblyDescription("This program is intended for checking SLI OPN format, OPN records, and auto-upload OPN to the FTP server. Changes included the option of auto-upload.")>
 <Assembly: AssemblyCompany("Ionics Ems, Inc.")>
 <Assembly: AssemblyProduct("SLI OPN Checker")>
-<Assembly: AssemblyCopyright("Copyright ©  2022 Develop by Macky")>
+<Assembly: AssemblyCopyright("Copyright ©  2022")>
 <Assembly: AssemblyTrademark("Christian Mark Tibong")>
 
 <Assembly: ComVisible(False)>

@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="TextBoxDescription.Text" xml:space="preserve">
+    <value>Description :
+
+(At runtime, the labels' text will be replaced with the application's assembly information.
+Customize the application's assembly information in the Application pane of Project Designer.)</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="LogoPictureBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAn0AAAZtCAYAAAC36uJFAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAy
-        vwAAMr8BereA9gAASnRJREFUeF7t3Xm8ffd49/9vbzXWUKVKKa0aGyFCgyo1tSlKzTErSmqoOYYYgpZK
+        vAAAMrwB1w6hmwAASnRJREFUeF7t3Xm8ffd49/9vbzXWUKVKKa0aGyFCgyo1tSlKzTErSmqoOYYYgpZK
         zWOKCCGmag01lBpCYqigMQYxjzETU8y53+vOlbvbspOcc9baa3/23s/n4/f646ec7PVZ+Tyu687J95xd
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -441,12 +447,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAp27Xrv8LVa6fyAU+
         WUIAAAAASUVORK5CYII=
 </value>
-  </data>
-  <data name="TextBoxDescription.Text" xml:space="preserve">
-    <value>Description :
-
-(At runtime, the labels' text will be replaced with the application's assembly information.
-Customize the application's assembly information in the Application pane of Project Designer.)</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

@@ -852,11 +852,11 @@ Public Class FrmMain
 
         If LblTotalFeedback.Visible = True Then
             BtnSave.Enabled = False
-            LblViewOPN.Visible = True
+            'LblViewOPN.Visible = True
         Else
             If LblTotalFeedback.Visible = False Then
                 BtnSave.Enabled = True
-                LblViewOPN.Visible = True
+                'LblViewOPN.Visible = True
             End If
         End If
         'end
