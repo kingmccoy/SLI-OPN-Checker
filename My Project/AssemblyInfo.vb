@@ -13,7 +13,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("This program is intended for checking SLI OPN format, OPN records, and auto-upload OPN to the FTP server. Changes included the option of auto-upload.")>
 <Assembly: AssemblyCompany("Ionics Ems, Inc.")>
 <Assembly: AssemblyProduct("SLI OPN Checker")>
-<Assembly: AssemblyCopyright("Copyright ©  2022")>
+<Assembly: AssemblyCopyright("Copyright ©  2021")>
 <Assembly: AssemblyTrademark("Christian Mark Tibong")>
 
 <Assembly: ComVisible(False)>
