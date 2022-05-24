@@ -3,9 +3,7 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.IO.Compression
 Imports System.ComponentModel
-
 Imports System.Net
-Imports System.Threading
 
 Public Class FrmMain
     ReadOnly conn As New SQLiteConnection
