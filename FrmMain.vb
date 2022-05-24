@@ -1123,7 +1123,7 @@ Public Class FrmMain
 
     Private Sub BWorkerFTPUpload_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BWorkerFTPUpload.ProgressChanged
         PbarFTP.Value = e.ProgressPercentage
-        LblFTPPercentage.Text = e.ProgressPercentage & " %"
+        LblFTPPercentage.Text = e.ProgressPercentage & "%"
     End Sub
 
     Private Sub BWorkerFTPUpload_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BWorkerFTPUpload.RunWorkerCompleted
