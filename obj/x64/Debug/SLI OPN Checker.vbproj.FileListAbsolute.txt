@@ -72,6 +72,7 @@ D:\macky_program\SLI OPN Checker\bin\x64\Debug\EntityFramework.SqlServer.xml
 D:\macky_program\SLI OPN Checker\bin\x64\Debug\System.Data.SQLite.xml
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.AssemblyReference.cache
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.SuggestedBindingRedirects.cache
+D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmAboutBox.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmAddOPN.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmFTPCredentials.resources
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmList.resources
@@ -88,4 +89,3 @@ D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CoreCompil
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.vbproj.CopyComplete
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.exe
 D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI OPN Checker.pdb
-D:\macky_program\SLI OPN Checker\obj\x64\Debug\SLI_OPN_Checker.FrmAboutBox.resources

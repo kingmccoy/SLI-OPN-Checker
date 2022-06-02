@@ -33,6 +33,7 @@ Partial Class FrmMain
         Me.PPOListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TboxPath = New System.Windows.Forms.TextBox()
         Me.BtnBrowse = New System.Windows.Forms.Button()
         Me.BtnCheck = New System.Windows.Forms.Button()
@@ -85,7 +86,6 @@ Partial Class FrmMain
         Me.ChkBoxFTPUpload = New System.Windows.Forms.CheckBox()
         Me.LblSavingProgress = New System.Windows.Forms.Label()
         Me.LblViewOPN = New System.Windows.Forms.Label()
-        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxFormatCheck.SuspendLayout()
@@ -126,14 +126,15 @@ Partial Class FrmMain
         '
         'FTPCredentialsToolStripMenuItem
         '
+        Me.FTPCredentialsToolStripMenuItem.Enabled = False
         Me.FTPCredentialsToolStripMenuItem.Name = "FTPCredentialsToolStripMenuItem"
-        Me.FTPCredentialsToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.FTPCredentialsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FTPCredentialsToolStripMenuItem.Text = "&FTP Credentials"
         '
         'DirectoryToolStripMenuItem
         '
         Me.DirectoryToolStripMenuItem.Name = "DirectoryToolStripMenuItem"
-        Me.DirectoryToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.DirectoryToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.DirectoryToolStripMenuItem.Text = "&Directory"
         '
         'PPOListToolStripMenuItem
@@ -154,6 +155,12 @@ Partial Class FrmMain
         Me.ExitToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.F4), System.Windows.Forms.Keys)
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
+        '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem.Text = "&About"
         '
         'TboxPath
         '
@@ -679,12 +686,6 @@ Partial Class FrmMain
         Me.LblViewOPN.Size = New System.Drawing.Size(125, 15)
         Me.LblViewOPN.TabIndex = 37
         Me.LblViewOPN.Text = "View OPN Information"
-        '
-        'AboutToolStripMenuItem
-        '
-        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
-        Me.AboutToolStripMenuItem.Text = "&About"
         '
         'FrmMain
         '
