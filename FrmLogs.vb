@@ -6,6 +6,7 @@ Public Class FrmLogs
 
     Private Sub FrmPPOList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_Logs()
+        TboxSearch.Clear()
 
         'DGVPPOList.ClearSelection()
 
