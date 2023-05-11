@@ -348,21 +348,27 @@ Public Class FrmMain
 
         If Regex.IsMatch(TboxFolderName.Text, fcode) Then
             If Regex.IsMatch(TboxPath.Text, "(_[calibCALIB]{5})") Then
-                correct = True
                 station = "CALIB"
-                logstation = station
+                LogStation = station
+                If Regex.IsMatch(TboxFolderName.Text, "(_f_)") Then
+                    correct = True
+                End If
             End If
 
             If Regex.IsMatch(TboxPath.Text, "(_[ftFT]{2}-)") Then
-                correct = True
                 station = "FT"
                 LogStation = station
+                If Regex.IsMatch(TboxFolderName.Text, "(_p_)") Then
+                    correct = True
+                End If
             End If
 
             If Regex.IsMatch(TboxPath.Text, "(_[uartUART]{4}-)") Then
-                correct = True
                 station = "UART"
                 LogStation = station
+                If Regex.IsMatch(TboxPath.Text, "(_p_)") Then
+                    correct = True
+                End If
             End If
 
             If Regex.IsMatch(TboxFolderName.Text, "[fp]") Then
@@ -406,22 +412,20 @@ Public Class FrmMain
 
                 If station = "UART" Then
                     If correct = True Then
-                        If Regex.IsMatch(TboxFolderName.Text, "_p_") Then
-                            LblStationValue.Text = "UART"
-                            LblFlowCodeResultInitial.Visible = True
-                            LblFlowCodeResultInitial.ForeColor = Color.Green
-                            LblFlowCodeResultInitial.Text = "✔"
-                            LblFlowCodeFeedback.Visible = False
-                            LblFlowCodeFeedback.Text = Nothing
-                            ErrorProvider1.SetError(LblFlowCodeFeedback, "")
-                        Else
-                            LblFlowCodeResultInitial.Visible = True
-                            LblFlowCodeResultInitial.ForeColor = Color.Red
-                            LblFlowCodeResultInitial.Text = "✘"
-                            LblFlowCodeFeedback.Visible = True
-                            LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
-                            ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for uart station")
-                        End If
+                        LblStationValue.Text = "UART"
+                        LblFlowCodeResultInitial.Visible = True
+                        LblFlowCodeResultInitial.ForeColor = Color.Green
+                        LblFlowCodeResultInitial.Text = "✔"
+                        LblFlowCodeFeedback.Visible = False
+                        LblFlowCodeFeedback.Text = Nothing
+                        ErrorProvider1.SetError(LblFlowCodeFeedback, "")
+                    Else
+                        LblFlowCodeResultInitial.Visible = True
+                        LblFlowCodeResultInitial.ForeColor = Color.Red
+                        LblFlowCodeResultInitial.Text = "✘"
+                        LblFlowCodeFeedback.Visible = True
+                        LblFlowCodeFeedback.Text = fcodec.Value.Substring(1, fcodec.Value.Length - 2)
+                        ErrorProvider1.SetError(LblFlowCodeFeedback, "flow code must be 'p' for uart station")
                     End If
                 End If
             End If
