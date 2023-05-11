@@ -730,7 +730,7 @@ Public Class FrmMain
             Try
                 Dim lot_number As Match
 
-                lot_number = Regex.Match(TboxFolderName.Text, "71[0-9]{5}\.[1-9]{1,2}")
+                lot_number = Regex.Match(TboxFolderName.Text, "71[0-9]{5}\.[0-9]{1,2}")
 
                 conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
                 Dim query = "select * from ppo_records where lot_number='" & lot_number.Value & "'"
@@ -750,7 +750,7 @@ Public Class FrmMain
                                 LblLotNoFeedback.Text = Nothing
                                 'ErrorProvider2.SetError(LblLotNoFeedback, "")
                                 LogLot = reader("lot_number")
-                                lotnotexist = False
+                                lotnotexist = True
                             End If
                         Else
                             LblLotNoResultFinal.Visible = True
@@ -759,7 +759,7 @@ Public Class FrmMain
                             LblLotNoFeedback.Visible = True
                             LblLotNoFeedback.Text = lotc.Value.Substring(1)
                             ErrorProvider1.SetError(LblLotNoFeedback, "OPN do not exist")
-                            lotnotexist = True
+                            lotnotexist = False
                         End If
                     End Using
                 End Using
@@ -773,7 +773,7 @@ Public Class FrmMain
         'start - Checking material if match on PPO Records
         Try
             conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfmissing=True;"
-            Dim q = "select * from ppo_records where lot_number='" & Regex.Match(TboxFolderName.Text, "71[0-9]{5}.[1-9]{1,2}").Value & "'"
+            Dim q = "select * from ppo_records where lot_number='" & Regex.Match(TboxFolderName.Text, "71[0-9]{5}.[0-9]{1,2}").Value & "'"
             Dim material_num As String = ToString()
             Dim exist As Boolean
 
@@ -833,7 +833,7 @@ Public Class FrmMain
 
         'If Not LblLotNoResultInitial.Text = "✘" Then
         If LblCMResultInitial.Text = "✔" And LblMaterialResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblLotNoResultInitial.Text = "✔" And LblStationIDResultInitial.Text = "✔" And LblFlowCodeResultInitial.Text = "✔" And LblTimeStampResultInitial.Text = "✔" Then
-            If lotnotexist = True Then
+            If lotnotexist = False Then
                 Dim DiagResult As DialogResult = MessageBox.Show("PPO do not exist. Do you want to create new PPO entry?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error)
                 If DiagResult = DialogResult.Yes Then
                     FrmAddPPORecords.ShowDialog()
