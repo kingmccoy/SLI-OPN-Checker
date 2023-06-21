@@ -15,8 +15,14 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0054830C8ECB4131ACDC5CAE5E153DD4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_047014680362F7915AB47C3E31809D7C"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -33,12 +39,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_21ED34F9665A46D58526207EB08C5AFB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -46,7 +46,7 @@
         "Entry"
         {
         "MsmKey" = "8:_2C52F74EBB9CFAE8F02D99A286911973"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -58,25 +58,25 @@
         "Entry"
         {
         "MsmKey" = "8:_3EA88FE943B23C5C2858EF9B2F7017BE"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_4B6D86CCC95699BBB529EF721D8430C7"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_7B377B77E023C991346F0E9FF3A05E01"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_82956A2C29481D8B5DB56971F36E308F"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -94,25 +94,19 @@
         "Entry"
         {
         "MsmKey" = "8:_8B5AC16F1A0BE3296CD8797D308FC0AA"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_92BB40F9AA31F7916117F9B18DE34900"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_AF02083DD519D6C098E8FF751A2F02AD"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B186F79776DF4A8C9A84979C2B7C8140"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -123,8 +117,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
+        "OwnerKey" = "8:_AF02083DD519D6C098E8FF751A2F02AD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BEEE9547E5384453A3493E26284D46BD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -179,12 +185,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_BD848E97408C466F69805D4DBFE9573A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AF02083DD519D6C098E8FF751A2F02AD"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -282,6 +282,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0054830C8ECB4131ACDC5CAE5E153DD4"
+            {
+            "SourcePath" = "8:..\\bin\\x64\\Debug\\x64\\SQLite.Interop.dll"
+            "TargetName" = "8:SQLite.Interop.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_F0FDB416A20A4EC496C75C9A8A9BFAB9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_047014680362F7915AB47C3E31809D7C"
             {
             "AssemblyRegister" = "3:1"
@@ -601,26 +621,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B186F79776DF4A8C9A84979C2B7C8140"
-            {
-            "SourcePath" = "8:..\\bin\\Debug\\x64\\SQLite.Interop.dll"
-            "TargetName" = "8:SQLite.Interop.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_F0FDB416A20A4EC496C75C9A8A9BFAB9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BD848E97408C466F69805D4DBFE9573A"
             {
             "AssemblyRegister" = "3:1"
@@ -720,7 +720,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SLI OPN Checker"
         "ProductCode" = "8:{36422FBF-08BD-41F9-A055-83E6E6B87C8F}"
-        "PackageCode" = "8:{C5424D55-207E-4365-944E-89CCD184F678}"
+        "PackageCode" = "8:{D5D3C3B3-EC76-41D3-809B-34ADA90F4B4D}"
         "UpgradeCode" = "8:{FBC84247-9986-42B2-8696-E80D1C811496}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -840,7 +840,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_82DB30241CC24E1EA052DCC9D7180184"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9E11DAC445724C57A27E4A21FBD52C74"
             {
             "Name" = "8:SLI OPN Checker"
             "Arguments" = "8:"
@@ -848,13 +848,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
-            "Folder" = "8:_529D585B7B7F4B40964443A6139440F3"
+            "Target" = "8:_BEEE9547E5384453A3493E26284D46BD"
+            "Folder" = "8:_84449F31C74F499F832441E93D61EDA4"
             "WorkingFolder" = "8:_64BACF820E2147E69CB391BC40D3A7A3"
             "Icon" = "8:_21ED34F9665A46D58526207EB08C5AFB"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_DB98580F2E2D44D1A75965B5281F122D"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BA3ACC750DBB42E683193E1E26F76E5B"
             {
             "Name" = "8:SLI OPN Checker"
             "Arguments" = "8:"
@@ -862,8 +862,8 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_10F5B17F2AFC4985BD0596B18BAFE152"
-            "Folder" = "8:_84449F31C74F499F832441E93D61EDA4"
+            "Target" = "8:_BEEE9547E5384453A3493E26284D46BD"
+            "Folder" = "8:_529D585B7B7F4B40964443A6139440F3"
             "WorkingFolder" = "8:_64BACF820E2147E69CB391BC40D3A7A3"
             "Icon" = "8:_21ED34F9665A46D58526207EB08C5AFB"
             "Feature" = "8:"
@@ -1267,7 +1267,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_10F5B17F2AFC4985BD0596B18BAFE152"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BEEE9547E5384453A3493E26284D46BD"
             {
             "SourcePath" = "8:..\\obj\\x64\\Debug\\SLI OPN Checker.exe"
             "TargetName" = "8:"
