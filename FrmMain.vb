@@ -633,8 +633,8 @@ Public Class FrmMain
                     'Dim g As New FileInfo(path.ToString & "\" & f)
                     Dim m1, m2 As Match
 
-                    m1 = Regex.Match(f, "(RS9113)_[NBZ0]{3}_[SD01NFW]{3}[_DRG]{0,4}_[A-Z0-9]{12,13}" & p.Extension)
-                    m2 = Regex.Match(f, "[A-Za-z]{3}_[A-Za-z]{3}_{1,2}[0-9]{1,2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}" & p.Extension)
+                    m1 = Regex.Match(f, "(RS9113)_[NBZ0]{3}_[SD01NFW]{3}[_DRG]{0,4}_[A-Z0-9]{12,13}_[0-9]{4}BC[A-HJ-NP-Z1-9]{5}" & p.Extension)
+                    m2 = Regex.Match(f, "[A-Za-z]{3}_[A-Za-z]{3}_{1,2}[0-9]{1,2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}_[0-9]{4}BC[A-HJ-NP-Z1-9]{5}" & p.Extension)
                     'm2 = Regex.Match(f, "[A-Z][a-z]{2}_[A-Z][a-z]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{4}" & p.Extension)
 
                     If f = m1.Value Then
