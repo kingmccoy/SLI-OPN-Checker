@@ -1,0 +1,129 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\macky_program\\SLI OPN Checker\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|d:\\macky_program\\sli opn checker\\frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|solutionrelative:frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|D:\\macky_program\\SLI OPN Checker\\frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|solutionrelative:frmmain.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|SLI OPN Checker||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|D:\\macky_program\\SLI OPN Checker\\frmppolist.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|solutionrelative:frmppolist.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|D:\\macky_program\\SLI OPN Checker\\frmppolist.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|solutionrelative:frmppolist.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|D:\\macky_program\\SLI OPN Checker\\frmlogs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|solutionrelative:frmlogs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|D:\\macky_program\\SLI OPN Checker\\frmlogs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{C109EC47-B6FB-466E-A094-BA0D58B5B873}|SLI OPN Checker.vbproj|solutionrelative:frmlogs.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SLI OPN Checker",
+              "DocumentMoniker": "D:\\macky_program\\SLI OPN Checker\\SLI OPN Checker.vbproj",
+              "RelativeDocumentMoniker": "SLI OPN Checker.vbproj",
+              "ToolTip": "D:\\macky_program\\SLI OPN Checker\\SLI OPN Checker.vbproj",
+              "RelativeToolTip": "SLI OPN Checker.vbproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003380|",
+              "WhenOpened": "2023-06-21T09:57:47.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FrmMain.vb [Design]",
+              "DocumentMoniker": "D:\\macky_program\\SLI OPN Checker\\FrmMain.vb",
+              "RelativeDocumentMoniker": "FrmMain.vb",
+              "ToolTip": "D:\\macky_program\\SLI OPN Checker\\FrmMain.vb [Design]",
+              "RelativeToolTip": "FrmMain.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2023-06-22T02:52:06.731Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FrmMain.vb",
+              "DocumentMoniker": "D:\\macky_program\\SLI OPN Checker\\FrmMain.vb",
+              "RelativeDocumentMoniker": "FrmMain.vb",
+              "ToolTip": "D:\\macky_program\\SLI OPN Checker\\FrmMain.vb",
+              "RelativeToolTip": "FrmMain.vb",
+              "ViewState": "AQIAAGgAAAAAAAAAAAArwH8AAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2023-06-22T02:52:07.106Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FrmPPOList.vb",
+              "DocumentMoniker": "D:\\macky_program\\SLI OPN Checker\\FrmPPOList.vb",
+              "RelativeDocumentMoniker": "FrmPPOList.vb",
+              "ToolTip": "D:\\macky_program\\SLI OPN Checker\\FrmPPOList.vb",
+              "RelativeToolTip": "FrmPPOList.vb",
+              "ViewState": "AQIAAEMAAAAAAAAAAAA0wCEAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
+              "WhenOpened": "2023-06-22T02:52:07.107Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FrmPPOList.vb [Design]",
+              "DocumentMoniker": "D:\\macky_program\\SLI OPN Checker\\FrmPPOList.vb",
+              "RelativeDocumentMoniker": "FrmPPOList.vb",
+              "ToolTip": "D:\\Documents\\Visual Basic\\SLI OPN Checker\\FrmPPOList.vb [Design]",
+              "RelativeToolTip": "..\\..\\Documents\\Visual Basic\\SLI OPN Checker\\FrmPPOList.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
+              "WhenOpened": "2023-06-22T02:52:07.108Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FrmLogs.vb",
+              "DocumentMoniker": "D:\\macky_program\\SLI OPN Checker\\FrmLogs.vb",
+              "RelativeDocumentMoniker": "FrmLogs.vb",
+              "ToolTip": "D:\\macky_program\\SLI OPN Checker\\FrmLogs.vb",
+              "RelativeToolTip": "FrmLogs.vb",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
+              "WhenOpened": "2023-06-22T02:52:07.122Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FrmLogs.vb [Design]",
+              "DocumentMoniker": "D:\\macky_program\\SLI OPN Checker\\FrmLogs.vb",
+              "RelativeDocumentMoniker": "FrmLogs.vb",
+              "ToolTip": "D:\\Documents\\Visual Basic\\SLI OPN Checker\\FrmLogs.vb [Design]",
+              "RelativeToolTip": "..\\..\\Documents\\Visual Basic\\SLI OPN Checker\\FrmLogs.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
+              "WhenOpened": "2023-06-22T02:52:07.123Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
