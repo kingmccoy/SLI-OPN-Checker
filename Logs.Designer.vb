@@ -495,7 +495,7 @@ Partial Public Class Logs
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddDataTableLogsRow(ByVal id As String, ByVal filename As String, ByVal material As String, ByVal new_ordering_part_number As String, ByVal firmware As String, ByVal lot_number As String, ByVal full_trace_code As String, ByVal ppo_qty As String, ByVal station As String, ByVal qty As String, ByVal passed As String, ByVal failed As String, ByVal _date As String, ByVal time As String) As DataTableLogsRow
+        Public Overloads Function AddDataTableLogsRow(ByVal id As Long, ByVal filename As String, ByVal material As String, ByVal new_ordering_part_number As String, ByVal firmware As String, ByVal lot_number As String, ByVal full_trace_code As String, ByVal ppo_qty As String, ByVal station As String, ByVal qty As String, ByVal passed As String, ByVal failed As String, ByVal _date As Date, ByVal time As String) As DataTableLogsRow
             Dim rowDataTableLogsRow As DataTableLogsRow = CType(Me.NewRow,DataTableLogsRow)
             Dim columnValuesArray() As Object = New Object() {id, filename, material, new_ordering_part_number, firmware, lot_number, full_trace_code, ppo_qty, station, qty, passed, failed, _date, time}
             rowDataTableLogsRow.ItemArray = columnValuesArray
@@ -505,7 +505,7 @@ Partial Public Class Logs
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function FindByid(ByVal id As String) As DataTableLogsRow
+        Public Function FindByid(ByVal id As Long) As DataTableLogsRow
             Return CType(Me.Rows.Find(New Object() {id}),DataTableLogsRow)
         End Function
         
@@ -545,7 +545,7 @@ Partial Public Class Logs
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
-            Me.columnid = New Global.System.Data.DataColumn("id", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnid = New Global.System.Data.DataColumn("id", GetType(Long), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnid)
             Me.columnfilename = New Global.System.Data.DataColumn("filename", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnfilename)
@@ -569,7 +569,7 @@ Partial Public Class Logs
             MyBase.Columns.Add(Me.columnpassed)
             Me.columnfailed = New Global.System.Data.DataColumn("failed", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnfailed)
-            Me.columndate = New Global.System.Data.DataColumn("date", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columndate = New Global.System.Data.DataColumn("date", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             Me.columndate.ExtendedProperties.Add("Generator_ColumnPropNameInTable", "dateColumn")
             Me.columndate.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "columndate")
             Me.columndate.ExtendedProperties.Add("Generator_UserColumnName", "date")
@@ -725,9 +725,9 @@ Partial Public Class Logs
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property id() As String
+        Public Property id() As Long
             Get
-                Return CType(Me(Me.tableDataTableLogs.idColumn),String)
+                Return CType(Me(Me.tableDataTableLogs.idColumn),Long)
             End Get
             Set
                 Me(Me.tableDataTableLogs.idColumn) = value
@@ -902,10 +902,10 @@ Partial Public Class Logs
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property _date() As String
+        Public Property _date() As Date
             Get
                 Try 
-                    Return CType(Me(Me.tableDataTableLogs.dateColumn),String)
+                    Return CType(Me(Me.tableDataTableLogs.dateColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'date' in table 'DataTableLogs' is DBNull.", e)
                 End Try

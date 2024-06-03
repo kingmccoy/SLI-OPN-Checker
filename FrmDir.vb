@@ -15,6 +15,7 @@ Public Class FrmDir
 
     Sub Load_Path()
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+        'conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\\10.10.15.25\SLI OPN Checker\opn.db;Version=3;FailIfMissing=True;"
 
         Try
             Dim q = "select path from reference"

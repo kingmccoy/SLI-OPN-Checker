@@ -1173,6 +1173,7 @@ Public Class FrmMain
 
     Private Sub BWorkerSave_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerSave.DoWork
         conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
+        'conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\\10.10.15.25\SLI OPN Checker\opn.db;Version=3;FailIfMissing=True;"
 
         Dim origPath As New DirectoryInfo(TboxPath.Text)
 
@@ -1337,7 +1338,7 @@ Public Class FrmMain
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        Dim DateNow As String = Date.Now.ToString("MM-dd-yyyy")
+        Dim DateNow As String = Date.Now.ToString("yyyy-MM-dd")
         Dim TimeNow As String = Date.Now.ToString("HH:mm:ss")
         dirPath = TboxFolderName.Text
 

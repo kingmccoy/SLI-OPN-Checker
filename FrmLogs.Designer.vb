@@ -32,8 +32,8 @@ Partial Class FrmLogs
         Me.LblTo = New System.Windows.Forms.Label()
         Me.DtpTo = New System.Windows.Forms.DateTimePicker()
         Me.BtnFilter = New System.Windows.Forms.Button()
-        Me.Logs = New SLI_OPN_Checker.Logs()
         Me.DataTableLogsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Logs = New SLI_OPN_Checker.Logs()
         Me.IdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FilenameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MaterialDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -49,8 +49,8 @@ Partial Class FrmLogs
         Me.DateDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TimeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.DGVLogs, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Logs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataTableLogsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Logs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DGVLogs
@@ -139,15 +139,15 @@ Partial Class FrmLogs
         Me.BtnFilter.Text = "Filter"
         Me.BtnFilter.UseVisualStyleBackColor = True
         '
-        'Logs
-        '
-        Me.Logs.DataSetName = "Logs"
-        Me.Logs.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
         'DataTableLogsBindingSource
         '
         Me.DataTableLogsBindingSource.DataMember = "DataTableLogs"
         Me.DataTableLogsBindingSource.DataSource = Me.Logs
+        '
+        'Logs
+        '
+        Me.Logs.DataSetName = "Logs"
+        Me.Logs.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'IdDataGridViewTextBoxColumn
         '
@@ -285,8 +285,8 @@ Partial Class FrmLogs
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Logs"
         CType(Me.DGVLogs, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Logs, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataTableLogsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Logs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -300,6 +300,8 @@ Partial Class FrmLogs
     Friend WithEvents LblTo As Label
     Friend WithEvents DtpTo As DateTimePicker
     Friend WithEvents BtnFilter As Button
+    Friend WithEvents DataTableLogsBindingSource As BindingSource
+    Friend WithEvents Logs As Logs
     Friend WithEvents IdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents FilenameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents MaterialDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
@@ -314,6 +316,4 @@ Partial Class FrmLogs
     Friend WithEvents FailedDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents DateDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents TimeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents DataTableLogsBindingSource As BindingSource
-    Friend WithEvents Logs As Logs
 End Class
