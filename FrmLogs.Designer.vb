@@ -23,6 +23,7 @@ Partial Class FrmLogs
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmLogs))
         Me.DGVLogs = New System.Windows.Forms.DataGridView()
         Me.TboxSearch = New System.Windows.Forms.TextBox()
@@ -248,6 +249,8 @@ Partial Class FrmLogs
         'DateDataGridViewTextBoxColumn
         '
         Me.DateDataGridViewTextBoxColumn.DataPropertyName = "date"
+        DataGridViewCellStyle1.Format = "MMM dd, yyyy"
+        Me.DateDataGridViewTextBoxColumn.DefaultCellStyle = DataGridViewCellStyle1
         Me.DateDataGridViewTextBoxColumn.HeaderText = "Date"
         Me.DateDataGridViewTextBoxColumn.Name = "DateDataGridViewTextBoxColumn"
         Me.DateDataGridViewTextBoxColumn.ReadOnly = True

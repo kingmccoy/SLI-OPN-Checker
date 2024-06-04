@@ -87,7 +87,7 @@ Public Class FrmLogs
     Private Sub BtnFilter_Click(sender As Object, e As EventArgs) Handles BtnFilter.Click
         Try
             conn.ConnectionString = "Data Source=" & System.Windows.Forms.Application.StartupPath & "\opn.db;Version=3;FailIfMissing=True;"
-            Dim q = "select * from logs where date between '" & DtpFrom.Value.ToString("MM-dd-yyyy") & "' and '" & DtpTo.Value.ToString("MM-dd-yyyy") & "'"
+            Dim q = "select * from logs where date between '" & DtpFrom.Value.ToString("yyyy-MM-dd") & "' and '" & DtpTo.Value.ToString("yyyy-MM-dd") & "'"
             Dim dt As New Logs
 
             conn.Open()
